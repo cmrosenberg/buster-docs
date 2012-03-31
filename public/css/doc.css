@@ -199,7 +199,8 @@ code .number { font-weight: bold; }
 code .comment { color: grey; }
 
 pre code,
-.side-by-side {
+.side-by-side,
+pre kbd {
     background: #f6f9fc;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -209,7 +210,8 @@ pre code,
     padding: 12px;
 }
 
-pre code {
+pre code,
+pre kbd {
     font-size: 14px;
 }
 

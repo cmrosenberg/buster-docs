@@ -10,25 +10,25 @@
 
 <p>The development environment is managed with a CLI, buster-dev-tools. Install it using the node.js package manager.</p>
 
-<pre>npm install -g buster-dev-tools</pre>
+<pre><kbd>npm install -g buster-dev-tools</kbd></pre>
 
 <p>The tool will install all the buster packages to the folder you choose.</p>
 
-<pre>mkdir buster
+<pre><kbd>mkdir buster
 cd buster
-buster-dev-tools install</pre>
+buster-dev-tools install</kbd></pre>
 
 <p>You also need to set some environment variables. <tt>{path to buster}</tt> is the path to the folder where you ran <tt>buster-dev-tools install</tt>.</p>
 
-<pre>NODE_PATH={path to buster}
-PATH={path to buster}/buster/bin:$PATH</pre>
+<pre><kbd>NODE_PATH={path to buster}
+PATH={path to buster}/buster/bin:$PATH</kbd></pre>
 
 <h3>Refreshing all repositories</h3>
 
 <p>After some time you might want to update all the repos. To do so, use the <tt>update</tt> command.</p>
 
-<pre>cd buster
-buster-dev-tools update</pre>
+<pre><kbd>cd buster
+buster-dev-tools update</kbd></pre>
 
 <p>You need to cd to the directory where the packages are installed in order to use buster-dev-tools.</p>
 
@@ -38,10 +38,10 @@ buster-dev-tools update</pre>
   To contribute docs, you will need to run the very simple docs server. To edit
   docs, you only need to know HTML. Here's how to get started:
 </p>
-<pre><code>git clone https://github.com/busterjs/buster-docs.git
+<pre><kbd>git clone https://github.com/busterjs/buster-docs.git
 cd buster-docs
 npm install
-node bin/server</code></pre>
+node bin/server</kbd></pre>
 <p>
   Now you can visit the docs on <a href="http://localhost:8090/">http://localhost:8090/</a>.
   The docs server simply combines docs pages with the <a href="https://github.com/busterjs/buster-docs/blob/master/layout.html">layout file</a>.
