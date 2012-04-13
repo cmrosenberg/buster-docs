@@ -1,0 +1,60 @@
+<h1>Buster.JS Beta 3</h1>
+
+<h2>Breaking changes</h2>
+
+<p>This is a list of breaking changes in this release. Since we haven't reached 1.0 stable yet, we're changing APIs without making them backwards compatible.</p>
+
+<h3><code>testLibs</code> removed, <code>testHelpers</code> added (<a href="https://github.com/busterjs/buster/issues/95">#95</a>)</h3>
+
+<p>The <code>testLibs</code> property had no pratcical use so it was removed.</p>
+
+<p>The <code>testHelpers</code> property was added. When you run single tests with <tt>buster test -t test/my-test.js</tt>, everything in <code>testHelpers</code> will still be loaded.</p>
+
+<h3>Some expectations changed names (<a href="https://github.com/busterjs/buster/issues/91">#91</a>)</h3>
+
+<p>We're renaming some of our expectations, the intent is basically to match the expectations in Jasmine since that's what people are used to, and since they have good well thought out names. Some expectations have also been added, you can find them in the "Changes" section below.</p>
+
+<p><code>toBeSameAs</code> is now <code>toBe</code>. Example: <code>expect(true).toBeTruthy()</code></p>
+<p><code>toBeInDelta</code> is now <code>toBeCloseTo</code>. Example: <code>expect(thing).toBeCloseTo(num, delta)</code></p>
+<p><code>not()</code> is now <code>not</code>. Example: <code>expect(false).not.toBeTruthy();</code></p>
+
+<h2>Additions</h2>
+
+<ul>
+  <li>Adding support for JsTestDriver style <code>/*:DOC+=&lt;div&gt;test&lt;/div&gt;*/</code> with the new extension buster-html-doc. This extension can be used both in vanilla buster tests and alongside buster-jstestdriver. (<a href="https://github.com/busterjs/buster/issues/47">#47</a>)</li>
+  <li>The body of the testbed HTML in browser tests will now reset between each test run. It will not be cleared out entirely, it will be set to what it was initially. Note: this is not yet fixed in buster-static. (<a href="https://github.com/busterjs/buster/issues/74">#74</a>)</li>
+  <li>Added new expectations <code>toContain</code>, <code>toBeTruthy</code> and <code>toBeFalsy</code>. (<a href="https://github.com/busterjs/buster/issues/91">#91</a>)</li>
+  <li>Added new assertion <code>contains</code> (<a href="https://github.com/busterjs/buster/issues/91">#91</a>)</li>
+  <li>Added new option, <tt>--capture-console</tt>, to <tt>buster test</tt>. This will proxy all <code>console</code> loggings to <code>buster.log</code>. (<a href="https://github.com/busterjs/buster/issues/96">96</a>)</li>
+  <li>Highlighting uncaught exceptions with colors to make them stand out. (<a href="https://github.com/busterjs/buster/issues/105">#105</a>)</li>
+  <li>The reporters now let you know if a timeout happened in <code>setUp</code>, <code>tearDown</code> or in the test itself. (<a href="https://github.com/busterjs/buster/issues/12">#12</a>)</li>
+</ul>
+
+<h2>Bugs</h2>
+
+<ul>
+  <li>Fixed some bugs in server proxying for browser tests (<a href="https://github.com/busterjs/buster/issues/57">#57</a>)</li>
+  <li>Browser tests now fail when a test times out when there are successful tests in the same test run. (<a href="https://github.com/busterjs/buster/issues/77">#77</a>)</li>
+  <li>Browser tests now fail when there's no assertions in a test. (<a href="https://github.com/busterjs/buster/issues/69">#69</a>)</li>
+  <li><code>buster.log(function(){});</code> would log undefined, as it called the function because of internals in buster-evented-logger. It no longer calls the function, and logs what you'd expect it to log. (<a href="https://github.com/busterjs/buster/issues/94">#94</a>)</li>
+  <li>Asserts are now counted properly in the JsTestDriver extension. (<a href="https://github.com/busterjs/buster/issues/49">#49</a>, <a href="https://github.com/busterjs/buster/issues/31">#31</a>)</li>
+  <li>At some point in time, an unknown change fixed a small problem with <code>assert.calledOnce</code>. Nobody knows what, where and why. (<a href="https://github.com/busterjs/buster/issues/70">#70</a>)</li>
+  <li>No longer running setUp/tearDown for deferred tests. (<a href="https://github.com/busterjs/buster/issues/107">#107</a>)</li>
+  <li>Chrome no longer periodically reloads the entire slave frameset when the tab is in the background. (<a href="https://github.com/busterjs/buster/issues/84">#84</a>)</li>
+  <li>Browser tests fail properly when there's no assertions in a test. (<a href="https://github.com/busterjs/buster/issues/69">#69</a>)</li>
+  <li>buster-static now properly made available when installing buster (<a href="https://github.com/busterjs/buster/issues/43">#43</a>)</li>
+  <li>Supporting <code>"// deferred tests"</code> in the BDD syntax as well. (<a href="https://github.com/busterjs/buster/issues/55">#55</a>)</li>
+  <li>Removing the use of <code>Array.some</code> and <code>Object.create</code> in browser code, for old browser compat. (<a href="https://github.com/busterjs/buster/issues/121">#121</a>, <a href="https://github.com/busterjs/buster/issues/120">#120</a>)</li>
+  <li><code>extends</code> on config groups now also copy extensions and other custom configurations. (<a href="https://github.com/busterjs/buster/issues/100">#100</a>)</li>
+  <li>Failing assertions are counted as assertions by the test runner. (<a href="https://github.com/busterjs/buster/issues/87">#87</a>)</li>
+  <li>Only installing one version of Sinon. (<a href="https://github.com/busterjs/buster/issues/14">#14</a>)</li>
+  <li><code>toBeCalledWith</code> expectation now works when the stub/spy is called multiple times. (<a href="https://github.com/busterjs/buster/issues/82">#82</a>)</li>
+  <li>Properly counting assertions in buster-jstestdriver. (<a href="https://github.com/busterjs/buster/issues/49">#49</a>)</li>
+  <li>Making jstestdirver.jQuery available in buster-jstestdriver. (<a href="https://github.com/busterjs/buster/issues/48">#48</a>)</li>
+  <li>Now failing for non-existant files in the config file. (<a href="https://github.com/busterjs/buster/issues/78">#78</a>)</li>
+  <li>Status code is now non-zero when <tt>buster test</tt> fails with test errors etc. (<a href="https://github.com/busterjs/buster/issues/81">#81</a>)</li>
+  <li>Dot reporter wraps lines. (<a href="https://github.com/busterjs/buster/issues/32">#32</a>)</li>
+  <li>No longer warning with syntax error for files where the last line is a comment. (<a href="https://github.com/busterjs/buster/issues/144">#144</a>)</li>
+  <li>Fixing <code>assert.exception</code> failures causing stack overflows. (<a href="https://github.com/busterjs/buster/issues/63">#63</a>)</li>
+  <li>Logging a function no longer logs <code>"undefined"</code>. (<a href="https://github.com/busterjs/buster/issues/94">#94</a>)</li>
+</ul>
