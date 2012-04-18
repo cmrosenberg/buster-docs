@@ -16,6 +16,9 @@
 <p><code>toBeInDelta</code> is now <code>toBeNear</code>, aliased to <code>toBeCloseTo</code>. Example: <code>expect(4.5).toBeCloseTo(4, 0.5)</code></p>
 <p><code>not()</code> is now a property, not a function. Example: <code>expect(false).not.toBeTruthy();</code></p>
 
+<h3>Removed assertion</h3>
+<p><code>assert.typeOf</code> was removed in favor of the more specific ones (e.g. <code>assert.isString</code>)</p>
+
 <h2>Additions</h2>
 
 <ul>
@@ -27,6 +30,7 @@
   <li>Added new CLI option, <tt>--release-console</tt>, to <tt>buster test</tt>. Buster now proxies all <code>console</code> loggings to <code>buster.log</code> by default, and you can use this setting to disable it. (<a href="https://github.com/busterjs/buster/issues/96">96</a>)</li>
   <li>Highlighting uncaught exceptions with colors to make them stand out. (<a href="https://github.com/busterjs/buster/issues/105">#105</a>)</li>
   <li>The reporters now let you know if a timeout happened in <code>setUp</code>, <code>tearDown</code> or in the test itself. (<a href="https://github.com/busterjs/buster/issues/12">#12</a>)</li>
+  <li>Proper exit codes for failing tests and other error situations (<code>buster test</code>)</li>
 </ul>
 
 <h2>Bugs</h2>
