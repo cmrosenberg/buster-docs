@@ -169,27 +169,6 @@ assert.equals({ name: "Professor Chaos" }, { name: "Dr Evil" });         // Fail
       <dd>The expected object</dd>
     </dl>
   </div>
-  <h3 data-title="+typeOf(object, expected[, message])+" id="assert-typeOf"><code>assert.typeOf(object, expected[, message])</code></h3>
-  <p>
-    Fails if <code>typeof object</code> is not <code>expected</code>.
-    The optional message is prepended to the failure message if
-    provided.
-  </p>
-  <pre><code>assert.typeOf({}, "object", "This will pass");
-assert.typeOf({}, "object");     // Passes
-assert.typeOf(null, "function"); // Fails</code></pre>
-  <div class="msg">
-    <h4>Message</h4>
-    <p><code>assert.typeOf.message = "typeof ${0} (${2}) expected to be ${1}";</code></p>
-    <dl>
-      <dt><code>${0}</code></dt>
-      <dd>The actual object</dd>
-      <dt><code>${1}</code></dt>
-      <dd>The expected type, a string</dd>
-      <dt><code>${2}</code></dt>
-      <dd><code>typeof object</code></dd>
-    </dl>
-  </div>
   <h3 data-title="+defined(object[, message])+" id="assert-defined"><code>assert.defined(object[, message])</code></h3>
   <p>
     Fails if <code>object</code> is <code>undefined</code>. The
@@ -770,23 +749,6 @@ refute.equals({ name: "Professor Chaos" }, { name: "Professor Chaos" });// Fails
       <dd>The expected object</dd>
     </dl>
   </div>
-  <h3 data-title="+typeOf(object, expected[, message])+" id="refute-typeOf"><code>refute.typeOf(object, expected[, message])</code></h3>
-  <p>
-    Fails if <code>typeof object</code> is <code>expected</code>. The
-    optional message is prepended to the failure message if provided.
-  </p>
-  <pre><code>refute.typeOf(null, "function"); // Passes
-refute.typeOf({}, "object");     // Fails</code></pre>
-  <div class="msg">
-    <h4>Message</h4>
-    <p><code>refute.typeOf.message = "typeof ${0} expected not to be ${1}";</code></p>
-    <dl>
-      <dt><code>${0}</code></dt>
-      <dd>The actual object</dd>
-      <dt><code>${1}</code></dt>
-      <dd>The expected type, a string</dd>
-    </dl>
-  </div>
   <h3 data-title="+defined(object[, message])+" id="refute-defined"><code>refute.defined(object[, message])</code></h3>
   <p>
     Fails if <code>object</code> is not <code>undefined</code>. The
@@ -1173,8 +1135,6 @@ expect(42).not().toEqual(43); // Passes</code></pre>
   <p>See <a href="#assert-same"><code>assert.same</code></a></p>
   <h3 data-title="+toEqual(expected)+" id="toEqual"><code>expect(actual).toEqual(expected)</code></h3>
   <p>See <a href="#assert-equals"><code>assert.equals</code></a></p>
-  <h3 data-title="+toBeType(type)+" id="toBeType"><code>expect(actual).toBeType(type)</code></h3>
-  <p>See <a href="#assert-typeOf"><code>assert.typeOf</code></a></p>
   <h3 data-title="+toBeDefined(expected)+" id="toBeDefined"><code>expect(actual).toBeDefined(expected)</code></h3>
   <p>See <a href="#assert-defined"><code>assert.defined</code></a></p>
   <h3 data-title="+toBeNull(expected)+" id="toBeNull"><code>expect(actual).toBeNull(expected)</code></h3>
@@ -1377,15 +1337,8 @@ expect("foo").toBeFoo();</code></pre>
       <p>
         A function that maps values to be interpolated into the failure
         messages. This can be used when you need something more/else than
-        the actual arguments in order. For instance, the built-in
-        <a href="#assert-typeOf"><code>assert.typeOf</code></a>
-        assertion needs the actual type. Its <code>assertMessage</code> is
-        <code>"Expected typeof ${0} (${2}) to be ${1}"</code>, and its
-        <code>values</code> option is:
-      </p>
-      <pre><code>values: function (actual, expected) {
-    return [actual, expected, typeof actual];
-}</code></pre>
+        the actual arguments in order.
+	  </p>
     </dd>
     <dt><code>expectation</code></dt>
     <dd>
