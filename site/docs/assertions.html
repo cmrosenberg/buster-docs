@@ -501,7 +501,7 @@ assert.className(el, ["item", "feed"]); // Passes</code></pre>
   <p>
     Fails if the spy has never been called.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 assert.called(spy); // Fails
 
@@ -522,9 +522,9 @@ assert.called(spy); // Passes</code></pre>
   <p>
     Fails if the spies were not called in the specified order.
   </p>
-  <pre><code>var spy1 = sinon.spy();
-var spy2 = sinon.spy();
-var spy3 = sinon.spy();
+  <pre><code>var spy1 = this.spy();
+var spy2 = this.spy();
+var spy3 = this.spy();
 
 spy1();
 spy2();
@@ -547,7 +547,7 @@ assert.callOrder(spy1, spy2, spy3); // Passes</code></pre>
     Fails if the spy has never been called or if it was called more than
     once.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 assert.called(spy); // Fails
 
@@ -575,7 +575,7 @@ assert.called(spy); // Fails</code></pre>
   <p>
     Only passes if the spy was called exactly two times.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 assert.called(spy); // Fails
 
@@ -606,7 +606,7 @@ assert.called(spy); // Fails</code></pre>
   <p>
     Only passes if the spy has been called exactly three times.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 assert.called(spy); // Fails
 
@@ -640,7 +640,7 @@ assert.called(spy); // Fails</code></pre>
     arguments. Other arguments may have been passed after the specified
     ones.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 var arr = [1, 2, 3];
 spy(12);
 spy(42, 13);
@@ -668,7 +668,7 @@ assert.calledWith(spy, "Hey", arr); // Passes</code></pre>
     arguments. Other arguments may have been passed after the specified
     ones.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 var arr = [1, 2, 3];
 spy(12);
 
@@ -934,7 +934,7 @@ refute.className(el, ["item", "feed"]); // Passes</code></pre>
   <p>
     Passes when spy has never been called.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 refute.called(spy); // Passes
 
@@ -970,7 +970,7 @@ refute.called(spy); // Fails</code></pre>
   <p>
     Fails if the spy was called exactly once.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 refute.called(spy); // Passes
 
@@ -998,7 +998,7 @@ refute.called(spy); // Passes</code></pre>
   <p>
     Fails if the spy was called exactly twice.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 
 refute.called(spy); // Passes
 
@@ -1029,7 +1029,7 @@ refute.called(spy); // Passes</code></pre>
   <p>
     Fails if the spy was called exactly three times.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 refute.called(spy); // Passes
 
 spy();
@@ -1063,7 +1063,7 @@ refute.called(spy); // Passes</code></pre>
     Fails if the spy was called at least once with the specified
     arguments.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 var arr = [1, 2, 3];
 spy(12);
 spy(42, 13);
@@ -1091,7 +1091,7 @@ refute.calledWith(spy, "Hey", arr); // Fails</code></pre>
     arguments. Other arguments may have been passed after the specified
     ones.
   </p>
-  <pre><code>var spy = sinon.spy();
+  <pre><code>var spy = this.spy();
 var arr = [1, 2, 3];
 spy(12);
 
@@ -1338,7 +1338,7 @@ expect("foo").toBeFoo();</code></pre>
         A function that maps values to be interpolated into the failure
         messages. This can be used when you need something more/else than
         the actual arguments in order.
-	  </p>
+          </p>
     </dd>
     <dt><code>expectation</code></dt>
     <dd>
