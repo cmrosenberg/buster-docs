@@ -91,13 +91,13 @@ function tryTemplate(res, path, urlPath, callback) {
 var server = http.createServer(function (req, res) {
     var u = url.parse(req.url);
 
-    tryFile(res, path.join(PUBLIC, u.pathname).replace(/\/$/, ".html"), function (err) {
+    tryFile(res, path.join(PUBLIC, u.pathname).replace(/[\/\\]$/, ".html"), function (err) {
         if (!err) { return; }
 
         tryFile(res, path.join(PUBLIC, u.pathname, "index.html"), function (err) {
             if (!err) { return; }
 
-            tryTemplate(res, path.join(SITE, u.pathname).replace(/\/$/, ".html"), u.pathname, function (err) {
+            tryTemplate(res, path.join(SITE, u.pathname).replace(/[\/\\]$/, ".html"), u.pathname, function (err) {
                 if (!err) { return; }
 
                 tryTemplate(res, path.join(SITE, u.pathname, "index.html"), u.pathname, function (err) {

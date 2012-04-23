@@ -200,6 +200,7 @@ code .comment { color: grey; }
 
 pre code,
 .side-by-side,
+.input,
 pre kbd {
     background: #f6f9fc;
     border: 1px solid #ddd;
@@ -211,8 +212,54 @@ pre kbd {
 }
 
 pre code,
+.input,
 pre kbd {
+    text-align:left;
     font-size: 14px;
+}
+
+.input, 
+.input.unix.windows {
+    white-space: pre;
+    font-family: "Droid Sans Mono", "Liberation Mono", Courier, monospace;
+    font-size: 13px;
+    display: block;
+    width:98%;
+    margin: 3px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding-right: 0px;
+    padding-left: 12px;
+    padding-top: 0px;
+    padding-bottom: 16px;
+}
+
+.input.unix,
+.input.windows {
+    float:left;
+    width:48%;
+}
+
+.input:before {
+    font-family: "Arial";
+    font-weight:bold;
+    color:#5f7a92;
+    text-shadow:#8bb1d8 3px 2px 4px;
+    float:right;
+    position:relative;
+    top:5px;
+    right:8px;
+}
+
+.input.unix:before {
+    content: "Linux / MacOS";
+}
+.input.windows:before {
+    content: "Windows";
+}
+.input:before,
+.input.unix.windows:before {
+    content: "Linux / MacOS / Windows";
 }
 
 .long-lines code {
