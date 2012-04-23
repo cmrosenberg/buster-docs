@@ -1,0 +1,77 @@
+<h1>Windows support</h1>
+<p>
+  Currently, Buster does not work fully on Windows. This page contains known
+  issues, the status of various modules, and a todo list. If you're a
+  Windows developer that would like to use Buster, your help is very much
+  appreciated.
+</p>
+<h2>Running tests on Windows</h2>
+<p>
+  To fix most of these problems, you will need to run buster's tests. Because
+  of some these problems, you cannot use the <code>buster test</code> CLI tool
+  at this point. Instead, simply run individual test files with the
+  <code>node</code> binary, i.e., <code>node test/buster-args-test.js</code>.
+</p>
+<h2>Known issues</h2>
+<ul>
+  <li>Binary dependencies</li>
+  <li>Failing tests (on Windows) in certain modules</li>
+  <li>
+    Wide-spread use of string concatenation for paths, rather than the
+    appropriate (and platform-independent) <code>path.join()</code>.
+  </li>
+</ul>
+<h2>Binary dependencies</h2>
+<p>
+  Buster depends on a few modules that have binary extension dependencies. These
+  do not build on Windows (and never will), thus we need to find a way around
+  them. To my knowledge there are two main problems: Faye 0.7 (which depends on
+  redis, which needs to be compiled) and jsdom, which depends on Contextify.
+  Contextify is possible to set up for Windows with pre-built binaries, but not
+  with NPM.
+</p>
+<p>
+  The Faye issue is being solved in
+  August's <a href="https://github.com/busterjs/buster-capture-server/tree/0.5.0">rewrite
+  of buster-capture-server</a>, which depends on Faye 0.8, which does not have the
+  redis dependency.
+</p>
+<p>
+  The jsdom issue is still unsolved. jsdom is an optional dependency for Buster,
+  so we really should be able to install on Windows even if we can't get jsdom.
+  Help is appreciated.
+</p>
+<h2>Failing tests</h2>
+<p>
+  Some modules have failing tests on Windows. You can help by
+  <a href="/docs/developers/">setting up the development environment</a>, and
+  run the tests for either of these projects, and fix the failing ones.
+</p>
+<p>
+  In many cases, tests fail because of inappropriate string concatenation when
+  dealing with paths (see the next section).
+</p>
+<ul>
+  <li><a href="https://github.com/busterjs/buster-args">buster-args</a> 1 failing test, also fails on Linux...</li>
+  <li><a href="https://github.com/busterjs/buster-bayeux-emitter">buster-bayeux-emitter</a> Tests depend on Faye, so will not run.</li>
+  <li><a href="https://github.com/busterjs/buster-capture-server">buster-capture-server</a> August is on the case</li>
+  <li><a href="https://github.com/busterjs/buster-cli">buster-cli</a> 3 errors, hangs</li>
+  <li><a href="https://github.com/busterjs/buster-client">buster-client</a> Multiple failures and timeouts, possibly path related</li>
+  <li><a href="https://github.com/busterjs/buster-configuration">buster-configuration</a> Multiple failures and timeouts, possibly path related</li>
+  <li><a href="https://github.com/busterjs/buster-glob">buster-glob</a> All tests passes, but should be checked for potential path concatenation issues</li>
+  <li><a href="https://github.com/busterjs/buster-jstestdriver">buster-jstestdriver</a> 1 failing test</li>
+  <li><a href="https://github.com/busterjs/buster-resources">buster-resources</a> Multiple failures and timeouts, possibly path related</li>
+  <li><a href="https://github.com/busterjs/buster-static">buster-static</a> Multiple failures and timeouts, unknown why</li>
+  <li><a href="https://github.com/busterjs/buster-stdio-logger">buster-stdio-logger</a> 1 failing test</li>
+  <li><a href="https://github.com/busterjs/buster-syntax">buster-syntax</a> A few failing tests, due to missing jsdom dependency. Actually OK</li>
+  <li><a href="https://github.com/busterjs/buster-test-cli">buster-test-cli</a> Some failing tests, possibly path related</li>
+</ul>
+<h2>Inappropriate path concatenation</h2>
+<p>
+  Buster uses string concatenation to build paths in many places. This causes
+  paths with forward slashes on Windows, which does not work. To find and fix
+  these, running the tests should mostly help. If you find somewhere that uses
+  string concatenation where <code>path.join()</code> should have been used and
+  this is not caught by the tests, please help by adding tests and fixing the
+  problem.
+</p>
