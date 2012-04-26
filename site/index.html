@@ -1,18 +1,24 @@
 <link href="/css/teaser.css" media="screen" rel="stylesheet" type="text/css" />
-<h1>Welcome to the Buster.JS beta!</h1>
-<p>
-  Buster.JS is a new JavaScript testing framework. It does browser testing by
-  automating test runs in actual browsers (think JsTestDriver), as well as
-  Node.js testing. It has a bunch of great features, take a look
-  at <a href="http://busterjs.org/docs/overview/">the overview</a>.
-</p>
-<p>
-  It's very much in beta. A lot of stuff is not working. Follow
-  us <a href="http://twitter.com/buster_js">on twitter</a> to get notified when
-  stuff happens. Or join <a href="http://groups.google.com/group/busterjs">the
-  mailing list</a>. There's also an IRC channel, <a href="">#buster on
-  irc.freenode.net</a>.
-</p>
+<h1>Welcome! Buster.JS is...</h1>
+
+<p><strong>In beta.</strong> Many things are unstable at this point in time. We aim to release a stable 1.0 by end of May 2012.</p>
+
+<p><strong>A browser JavaScript testing toolkit.</strong> It does browser testing with browser automation (think JsTestDriver), qunit style static html page testing, testing in headless browsers (phantomjs, jsdom, ...), and more. Take a look at <a href="http://busterjs.org/docs/overview/">the overview</a>!</p>
+
+<p><strong>A Node.js testing toolkit.</strong> You get the same test case library, assertion library, etc. This is also great for hybrid browser and Node.js code. Write your test case with Buster.JS and run it both in Node.js and in a real browser.</p>
+
+<p><strong>Flexible.</strong> There's a public API for almost everything. You can write reporters for customizing the output of <tt>buster test</tt> (we already have xunit XML, traditional dots, specification, tap, teamcity and more), write extensions that wrap other testing frameworks (we already have buster-jstestdriver), add your own testing syntax (we ship with xunit and BDD), and much more. Again, <a href="http://busterjs.org/docs/overview/">the overview</a> lists many of these things.</p>
+
+<p><strong>Written by you.</strong> We believe in open development, and already have a dozen or so contributors beyound the core authors of Buster, August Lilleaas and Christian Johansen. All development happens in public in the <a href="http://github.com/busterjs/buster/issues">issue tracker</a> and the <a href="http://groups.google.com/group/busterjs-dev">busterjs-dev mailing list</a>. We welcome your opinion.</p>
+
+<p><strong>A set of reusable libraries.</strong> For example, buster-capture-server is our generic browser automation library that lets you successively load webpages into browsers and send data to and from them. It is completely reusable and has no knowledge of Buster tests, or tests at all for that matter.</p>
+
+<p><strong>The future.</strong> We have big plans for buster in the months and years to come. For example, we'll add the ability to run your browser tests directly on <a href="http://www.browserstack.com/">BrowserStack</a>. In development you can still capture a local browser, JsTestDriver style. But instead of setting up your own CI server with a bazillion browsers, pay BrowserStack to do the job for you. Other plans we have is to have a stateful test runner that only runs the previously failed tests, test breakpoints that drops you into a live REPL in all the captured browsers when a test fails, and much much more.</p>
+
+<p><strong><a href="http://localhost:8090/docs/getting-started/">Take Buster.JS for a spin</a> and judge for yourself!</strong> Be warned, it's still in beta, so it has some rough edges.</p>
+
+<hr>
+
 <p>Here's a talk about Buster.JS by Christian Johansen.</p>
 <div id="frontendconf-talk">
   <iframe src="http://www.ustream.tv/embed/recorded/17159711"
