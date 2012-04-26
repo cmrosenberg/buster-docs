@@ -26,9 +26,8 @@ git clone https://github.com/busterjs/buster-dev-tools.git
 <p>Now you need to set some environment variables. <tt>{path to devEnv}</tt> is the absolute path to the folder where you just ran <kbd>git clone</kbd>.</p>
 
 <div class="input unix">
-NODE_PATH=<kbd>{path to devEnv}</kbd>
-PATH=$NODE_PATH/buster-dev-tools/bin:$PATH
-PATH=$NODE_PATH/buster/bin:$PATH
+export NODE_PATH=<kbd>{path to devEnv}</kbd>
+export PATH=$NODE_PATH/buster/bin:$NODE_PATH/buster-dev-tools/bin:$PATH
 </div>
 
 <div class="input windows">
