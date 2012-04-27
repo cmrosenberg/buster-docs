@@ -1,0 +1,403 @@
+#doc-nav {
+    float: right;
+    width: 300px;
+}
+
+#doc-nav ul {
+    margin: 0 0 1em;
+    padding: 0;
+    list-style-type: none;
+}
+
+#doc-nav ul a {
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+}
+
+#doc-nav ul a:hover {
+    text-decoration: underline;
+}
+
+#doc-nav ul ul a {
+    border: none;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#doc-nav a {
+    color: #333;
+    text-decoration: none;
+}
+
+#doc-content {
+    margin-right: 340px;
+}
+
+@media (max-width:950px) {
+    #doc-nav {
+        float: none;
+        width: auto;
+        margin-bottom: 50px;
+    }
+
+    #doc-content {
+        margin-right: 0;
+    }
+}
+
+h2 .pilcrow_anchor,
+h3 .pilcrow_anchor {
+    display: none;
+    color: #666;
+    text-decoration: none;
+    padding-left: .2em;
+}
+
+h2:hover .pilcrow_anchor,
+h3:hover .pilcrow_anchor {
+    display: inline;
+}
+
+dl {
+    margin: 0 0 1.5em;
+    overflow: auto;
+}
+
+dt,
+dd {
+    float: left;
+    line-height: 1.5;
+}
+
+dt {
+    clear: left;
+    font-weight: bold;
+    width: 20%;
+}
+
+dd {
+    width: 80%;
+}
+
+h1 {
+    border-bottom: 1px solid #ddd;
+    font-size: 3em;
+    margin: 0 0 .25em;
+}
+
+h2 {
+    border-bottom: 2px solid #aaa;
+    font-size: 2em;
+    margin: 1.5em 0 0.75em;
+}
+
+h3 {
+    border-bottom: 1px solid #ccc;
+    /*display: inline-block;*/
+    font-size: 1.25em;
+    line-height: 1.5;
+    margin: 0 0 0.5em;
+}
+
+h4 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 0.25em;
+}
+
+
+a img {
+    border: none;
+    outline: none;
+}
+
+img {
+    border: 2px solid #bbb;
+}
+
+.button {
+    background: #ddd;
+
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#fff),
+        to(#ddd)
+    );
+
+    background: -moz-linear-gradient(
+        top center,
+        #fff,
+        #ddd
+    );
+
+    border: 1px solid #aaa;
+    border-radius: 12px;
+    -moz-border-radius: 24px;
+    -webkit-border-radius: 24px;
+    box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    display: inline-block;
+    margin: 0 0 2em;
+}
+
+.button:hover {
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#cdcdcd),
+        to(#ececec)
+    );
+
+    background: -moz-linear-gradient(
+        top center,
+        #cdcdcd,
+        #ececec
+    );
+
+    border-color: #999;
+}
+
+.button a,
+.button input {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2em;
+    font-weight: normal;
+    outline: none;
+    padding: 2px 24px;
+    text-decoration: none;
+}
+
+code {
+    font-family: "Droid Sans Mono", "Liberation Mono", Courier, monospace;
+    font-size: 0.9em;
+}
+
+p code,
+li code {
+    border-radius: 6px;
+    padding: 2px;
+    white-space: nowrap;
+}
+
+.msg p code,
+.msg li code {
+    background: #f6f9fc;
+}
+
+code .keyword { font-weight: bold; }
+code .string, code .regexp { color: red; }
+code .class, code .special { font-weight: bold; }
+code .number { font-weight: bold; }
+code .comment { color: grey; }
+
+pre code,
+.side-by-side,
+.input,
+pre kbd {
+    background: #f6f9fc;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    display: block;
+    padding: 12px;
+}
+
+pre code,
+.input,
+pre kbd {
+    text-align:left;
+    font-size: 14px;
+}
+
+.input, 
+.input.unix.windows {
+    white-space: pre;
+    font-family: "Droid Sans Mono", "Liberation Mono", Courier, monospace;
+    font-size: 13px;
+    display: block;
+    width:98%;
+    margin: 3px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding-right: 0px;
+    padding-left: 12px;
+    padding-top: 0px;
+    padding-bottom: 16px;
+}
+
+.input.unix,
+.input.windows {
+    float:left;
+    width:48%;
+}
+
+.input:before {
+    font-family: "Arial";
+    font-weight:bold;
+    color:#5f7a92;
+    text-shadow:#8bb1d8 3px 2px 4px;
+    float:right;
+    position:relative;
+    top:5px;
+    right:8px;
+}
+
+.input.unix:before {
+    content: "Linux / MacOS";
+}
+.input.windows:before {
+    content: "Windows";
+}
+.input:before,
+.input.unix.windows:before {
+    content: "Linux / MacOS / Windows";
+}
+
+.long-lines code {
+    font-size: 11px;
+}
+
+/* Side-by-side code views */
+.side-by-side {
+    overflow: hidden;
+}
+
+.side-by-side code {
+    border: none;
+    padding: 0;
+}
+
+.side-by-side .sample code {
+    margin: 0;
+}
+
+.side-by-side .sample {
+    border-right: 1px solid #ddd;
+    float: left;
+    padding: 0 24px 0 0;
+}
+
+.side-by-side .sample + .sample {
+    border-left: 1px solid #ddd;
+    border-right: none;
+    margin-left: -1px;
+    padding: 0 0 0 24px;
+}
+
+.side-by-side h4,
+.side-by-side pre,
+.section .side-by-side h4,
+.section .side-by-side pre {
+    margin-left: 0;
+}
+
+.highlight {
+    background: #ffc;
+}
+
+.content p {
+    margin: 0 0 1.5em;
+}
+
+.section div + h3,
+.section pre + h3,
+.section dl + h3,
+.section ol + h3,
+.section p + h3 {
+    margin-top: 2em;
+}
+
+.section pre,
+.section dl,
+.section p,
+.section h4,
+.section h5,
+.section h6,
+.section .side-by-side,
+.section table {
+    margin-left: 2em;
+}
+
+.section h5 {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: .25em;
+}
+
+.section dl pre,
+.section dl p {
+    margin-left: 0;
+}
+
+.section ul,
+.section ol {
+    margin-left: 4em;
+}
+
+.intro pre,
+.intro dl,
+.intro ol,
+.intro p,
+.intro h4 {
+    margin-left: 0;
+}
+
+.msg p {
+    margin-bottom: .5em;
+}
+
+.msg dt {
+    width: 3em;
+}
+
+.properties dt,
+.properties dd {
+    float: none;
+    width: auto;
+}
+
+.properties dt {
+    border-bottom: 1px solid #eee;
+    display: inline-block;
+    margin: 0 0 0.25em;
+}
+
+.properties dd {
+    margin: 0 0 0.75em 2em;
+}
+
+p + .properties {
+    margin-top: -0.5em;
+}
+
+table td {
+    padding: 2px;
+}
+
+table.first-column-nowrap tr td:first-child {
+    white-space: nowrap;
+}
+
+table.zebra-striped tr:nth-child(2n+1) {
+    background-color: #efefef;
+}
+
+
+p.warning {
+    border: 1px solid #fa0;
+    background-color: #ffa;
+    padding: 10px;
+}
+
+tt, kbd {
+    background-color: #f0f0f0;
+}

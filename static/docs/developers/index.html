@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Developers</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Developers</h1>
+
+<p>This page contains useful information for Buster.JS developers/contributors.</p>
+
+<h2>Setting up a development environment</h2>
+
+<h3>First time setup</h3>
+
+<p>
+  If you don't already have <a href="http://nodejs.org/">node.js</a> installed, install it on your system.
+  The same goes for <a href="http://git-scm.com/">git</a>.
+  For Windows we recommend <a href="http://code.google.com/p/msysgit/downloads/detail?name=Git-1.7.6-preview20110708.exe&can=2&q=%22Full+installer+for+official+Git+for+Windows%22">mysysgit</a>
+  and <a href="http://code.google.com/p/tortoisegit">TortoiseGit</a>.
+</p>
+
+<p>The development environment is managed with a CLI, buster-dev-tools. To bootstrap, you create a folder of your choice - e.g. <kbd>myBusterDevEnv</kbd> - to hold
+all the packages, and inside get a clone of buster-dev-tools from github:</p>
+
+<div class="input">
+mkdir <kbd>myBusterDevEnv</kbd>
+cd myBusterDevEnv
+git clone https://github.com/busterjs/buster-dev-tools.git
+</div>
+
+
+<p>Now you need to set some environment variables. <tt>{path to devEnv}</tt> is the absolute path to the folder where you just ran <kbd>git clone</kbd>.</p>
+
+<div class="input unix">
+export NODE_PATH=<kbd>{path to devEnv}</kbd>
+export PATH=$NODE_PATH/buster-dev-tools/bin:$PATH
+</div>
+
+<div class="input windows">
+SET NODE_PATH=<kbd>{path to devEnv}</kbd>
+SET PATH=%NODE_PATH%\buster-dev-tools\bin;%PATH%
+</div>
+
+<p class="clear">Now you run the tool to get all the buster packages plus external dependencies:</p>
+
+<div class="input">
+buster-dev-tools pull
+</div>
+
+
+<h3>Refreshing all repositories</h3>
+
+<p>After some time you might want to update all the repos, including buster-dev-tools itself. To do so, simply repeat the <kbd>pull</kbd> command above.</p>
+
+
+<h3>Migrating from an older dev-env</h3>
+<p>
+Previously, buster-dev-tools was also available as an npm package. This is not any longer supported.
+If you've been using this, make sure to first uninstall it:
+</p>
+
+<div class="input">
+npm uninstall -g buster-dev-tools
+</div>
+
+<p>Then do a first time setup as above.</p>
+
+
+
+<h2 id="docs">Running the documentation server</h2>
+
+<p>
+  To contribute docs, you will need to run the very simple docs server from module buster-docs.
+  To edit docs, you only need to know HTML.
+</p>
+
+<p>You can do this either in a complete development environment as above or you can get buster-docs alone:</p>
+
+<div class="input">
+git clone https://github.com/busterjs/buster-docs.git
+cd buster-docs
+npm install
+</div>
+
+<p>Run the server:</p>
+
+<div class="input">
+cd buster-docs
+node bin/server
+</div>
+
+<p>
+  Now you can visit the docs on <a href="../../">http://localhost:8090/</a>.
+  The docs server simply combines docs pages with the <a href="https://github.com/busterjs/buster-docs/blob/master/layout.html">layout file</a>.
+</p>
+<p>
+  URL mapping is very simple. Anything in <code>site/*.html</code> is available
+  over the server as http://localhost:8090/*/. For instance, this page, whose
+  (relative) URL is <a href="/">/docs/developers/</a> is
+  generated from the file <a href="https://github.com/busterjs/buster-docs/blob/master/site/docs/developers.html">site/docs/developers.html</a>.
+</p>
+<p>
+  You can make a static version of the site by running
+  <code>node bin/build</code> (requires a running docs server).
+</p>
+
+<h2>Contribution guidelines</h2>
+
+<p class="warning">Note: this section is work-in-progress</p>
+
+<h3>Post questions to the busterjs-dev mailing list</h3>
+
+<p>The <a href="http://groups.google.com/group/busterjs-dev">busterjs-dev mailing list</a> is a place for general discussion regarding development of Buster.JS. In many cases you can just post an issue to <a href="https://github.com/busterjs/buster/issues">the issue tracker</a> and the discussion can happen there. But you can also discuss on the mailing list if you're more comfortable with that. For example, you might prefer to use e-mail for discussion, or you want to discuss your contribution before posting it to the issue tracker.</p>
+
+<h3>Coding style</h3>
+
+<p>We don't have one yet :)</p>
+
+<p>For now, look at some existing code to get an idea of what our code looks like.</p>
+
+<h3>Understanding Buster.JS</h3>
+
+<p>
+  <a href="../architecture/">Architecture overview</a>.
+</p>
+
+<h3>Want to help?</h3>
+<p>
+  We currently need help ironing out our <a href="../windows/">Windows
+  support</a>.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

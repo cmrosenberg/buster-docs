@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Browser testing</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Browser testing</h1>
+<p>
+  Buster.JS offers multiple ways of running your tests in browsers. This
+  document describes three ways, ranging from simple setup to most useful (if
+  that's a scale).
+</p>
+<h2 id="html-file">Using an HTML scaffold</h2>
+<p>
+  The simplest way to try Buster is to copy the following code, save it to a
+  file and run it in a browser:
+</p>
+<pre><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+           "http://www.w3.org/TR/html4/strict.dtd">
+&lt;html>
+  &lt;head>
+    &lt;meta http-equiv="content-type" content="text/html; charset=utf-8">
+    &lt;title>strftime&lt;/title>
+  &lt;/head>
+  &lt;body>
+    &lt;script type="text/javascript" src="http://busterjs.org/releases/latest/buster-test.js">&lt;/script>
+    &lt;script type="text/javascript" src="http://busterjs.org/examples/strftime/strftime.js">&lt;/script>
+    &lt;script type="text/javascript" src="http://busterjs.org/examples/strftime/strftime-test.js">&lt;/script>
+  &lt;/body>
+&lt;/html></code></pre>
+<p>Go ahead, <a href="../../examples/strftime/">try it</a>.</p>
+<p>
+  If you use Git, you can clone <a href="https://gist.github.com/1904218">this
+  example</a> to your machine:<br>
+  <code>git clone git://gist.github.com/1904218.git gist-1904218</code>
+</p>
+<p>
+  <strong>Note:</strong> If you opt for downloading the script locally, remember
+  to get <a href="http://localhost:8090/releases/latest/buster-test.css">CSS-file</a> too.
+<p>
+  When using the pre-built library, there's no installation, but you also miss
+  out on much of the automation sweetness.
+</p>
+<h2 id="buster-server">Running with <kbd>buster server</kbd></h2>
+<p>
+  Inspired by JsTestDriver, Buster.JS can automate browsers seamlessly and
+  provide feedback anywhere you want, making running your tests in actual
+  browsers easy and painless. Hell, it even makes it fun.
+</p>
+<p>
+  <img src="../../images/docs/overview/buster-server-start.png" width="633" height="382">
+</p>
+<p>
+  <img src="../../images/docs/overview/buster-server-capture-firefox.png" width="827" height="339">
+</p>
+<p>
+  <img src="../../images/docs/overview/buster-test-run-browsers.png" width="633" height="382">
+</p>
+<h2 id="buster-static">Running with <kbd>buster static</kbd></h2>
+<p>
+  In the cases where you need a simpler method for running tests, but don't care
+  for the manual HTML scaffold, Buster.JS can serve the scaffold for your based on
+  your configuration.
+</p>
+<p><img src="../../images/docs/overview/buster-static-start.png" width="529" height="348"></p>
+<p><img src="../../images/docs/overview/buster-static-success.png", width="514" height="470"></p>
+<h2 id="phantomjs">Running headless with PhantomJS</h2>
+<p class="warning">
+  This feature has not yet landed in the beta.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

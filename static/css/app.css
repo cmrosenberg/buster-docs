@@ -1,0 +1,277 @@
+* {
+    margin: 0;
+    outline: none;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica, arial, sans-serif;
+    font-size: 16px;
+    background-color: #fefffe;
+}
+
+p,
+li {
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-weight: normal;
+    margin: 0 0 1em;
+}
+
+h1, h2 {
+    font-weight: bold;
+}
+
+ul {
+    margin: 0 0 1em 15px;
+}
+
+img {
+    display: block;
+}
+
+ol {
+    margin: 0 0 1.5em 25px;
+}
+
+ol li {
+    margin: 0 0 0.5em;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 0 1.5em;
+}
+
+td,
+th {
+    border: none;
+}
+
+th {
+    padding: 0 12px 0 0;
+}
+
+pre {
+    margin: 0 0 1.5em;
+    overflow-x: auto;
+}
+
+.centered_content {
+    min-width: 600px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.clear {
+    clear: both;
+}
+
+#header {
+    border-bottom: 5px solid #999;
+    height: 90px;
+    background-color: #262626;
+    margin-bottom: 20px;
+}
+
+#beta_banner {
+    width: 68px;
+    height: 68px;
+    background: url(../images/beta-banner.png);
+    position: absolute;
+    right: 0px;
+    top: 0px;
+
+    pointer-events:none;    
+}
+
+#logo_image {
+    width: 200px;
+    height: 71px;
+    display: block;
+    background-image: url(../images/buster-logo.png);
+    margin-top: 10px;
+    float: left;
+}
+
+#main_menu {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float: right;
+    margin-top: 55px;
+}
+
+#main_menu li {
+    float: left;
+}
+
+#main_menu a {
+    margin-left: 30px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #999;
+}
+
+#main_menu a.active,
+#main_menu a:hover {
+    color: #e6e6e6;
+}
+
+#footer {
+    margin-bottom: 12px;
+    margin-top: 75px;
+    font-size: 11px;
+}
+
+#footer, #footer a {
+    color: #999;;
+}
+
+#footer p {
+    margin: 0;
+}
+
+#issue_tracker nav {
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+#issue_tracker nav ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    float: left;
+    display: block;
+}
+
+#issue_tracker nav ul:nth-child(2) {
+    margin-left: 40px;
+}
+
+#issue_tracker nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#issue_tracker nav li a {
+    display: block;
+    padding: 0px 10px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-right: 5px;
+    text-decoration: none;
+    color: #000;
+}
+
+#issue_tracker nav li a.active {
+    background: #eee;
+}
+
+#issue_tracker nav #post_issue {
+    float: right;
+}
+
+#issue_comments_separator {
+    border-bottom: 5px solid #ccc;
+    margin: 40px 0;
+}
+
+#issue_tracker table {
+    width: 100%;
+}
+
+#issue_tracker table th {
+    text-align: left;
+}
+
+#issue_form #issue_title {
+    width: 100%;
+    font-size: 18px;
+}
+
+#issue_form #issue_body {
+    width: 100%;
+    height: 120px;
+}
+
+#issue_body pre,
+.issue_comment_body pre {
+    background: #e6e6e6;
+    padding: 5px;
+    max-width: 100%;
+}
+
+#issue_main {
+    float: left;
+    width: 580px;
+    margin-right: 20px;
+}
+
+#issue_metadata {
+    float: left;
+    width: 200px;
+}
+
+#issue_comment_form textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.issue_comment {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.issue_comment_byline {
+    text-align: right;
+    color: #999;
+    font-size: .8em;
+}
+
+#issue_metadata dt {
+    font-weight: bold;
+}
+
+#issue_metadata dd {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+form p.full label {
+    display: block;
+}
+
+form p .info {
+    color: #999;
+    font-size: 10px;
+}
+
+form p.meta {
+    color: #999;
+    font-size: .85em;
+}
+
+.field_with_errors input,
+.field_with_errors textarea {
+    border: 2px solid #900;
+    background-color: #fff6f6;
+}

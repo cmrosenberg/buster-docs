@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manually starting test run (AMD)</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Manually starting test run (AMD)</h1>
+<p>
+  When you use AMD (Asynchronous Module Loading) systems, or otherwise need to
+  manually specify when your system is ready to run tests, you can easily
+  disable auto running of tests and manually start the test run. Normally,
+  Buster.JS starts running tests when the browser has finished loading the
+  page. Since AMD is a manual module loader that Buster.JS can't automatically
+  be aware of, you are required to manually tell Buster.JS when your good to go.
+</p>
+<h2>Manually start the test run</h2>
+<p>Add <code>autoRun: false</code> to your config file.</p>
+<pre><code>var config = module.exports;
+
+config["My tests"] = {
+    autoRun: false,
+    sources: ["../lib/**/*.js"],
+    tests: ["**/*-test.js", "run.js"]
+}</code></pre>
+<p>
+  We added the file <tt>run.js</tt> to the <code>tests</code> group. In this
+  file, call <code>buster.run()</code> to start the test run.
+</p>
+<pre><code>// App specific notification of when your app is ready to be tested
+myApp.onReady = function () {
+    buster.run();
+};</code></pre>
+<p>
+  You're of course free to call <code>buster.run()</code> anywhere you want, the
+  only important thing is that it gets called when you load your tests, and when
+  it gets called your application is ready to ge ttested.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

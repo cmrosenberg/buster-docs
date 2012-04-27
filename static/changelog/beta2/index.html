@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buster.JS Beta 2</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../../docs/" class="">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Buster.JS Beta 2</h1>
+<p>
+  This is a brief (i.e. not exhaustive) overview of changes from Beta 1. Beta 2
+  introduces quite a few fundamental refactorings and rewrites, and is
+  significantly closer to a stable 1.0 release than its predecessor.
+</p>
+<p>
+  With Beta 2, we've entered a more rapid iterative development and release
+  cycle. In the four days since the initial release, three patch updates have
+  already been shipped. "Beta 2" refers to Buster.JS version 0.4.1 or newer,
+  until we decide to do a release candidate (or another major beta, if
+  necessary).
+</p>
+<h2>Problems?</h2>
+<p>
+  Please <a href="https://github.com/busterjs/buster/issues">report as many
+  issues</a> as you can, and
+  consider <a href="https://github.com/busterjs/buster-docs">contributing
+  docs</a> or file feature requests so we can improve documentation. Docs are
+  behind on some things, but we're working on it.
+</p>
+
+<h2>Breaking changes</h2>
+
+<p>This is a list of breaking changes in this release. Since we haven't reached 1.0 stable yet, we're changing APIs without making them backwards compatible.</p>
+
+<h3>Config files can no longer read files outside of <code>rootPath</code></h3>
+
+<p>Configuration file loading is revamped (most importantly, <a href="../../docs/resources/">buster-resources</a> was completely rewritten).</p>
+
+<p><code>sources</code>, <code>tests</code> etc can no longer contain paths outside the root path. The root path defaults to the path the configuration file is in. You can also provide the <code>rootPath</code> property in the configuration file to base the project outside the directory where the configuration file is located.</p>
+
+<pre><code>config["My tests"] = {
+    sources: ["../src/**/*.js"], // Will not work!
+    tests: ["**/*-test.js"]
+};
+
+config["My tests"] = {
+    rootPath: "../", // Will work (or just move the config file up one folder)
+    sources: ["src/**/*.js"],
+    tests: ["tests/**/*-test.js"]
+};</code></pre>
+
+<h2>Changes</h2>
+<ul>
+  <li>Stronger Node.JS inferences across the board.</li>
+  <li>
+    <a href="../../docs/capture-server/">Capture server</a>: significant
+    refactor. "Clients" are now "slaves" and several URLs have changed.
+  </li>
+  <li>
+    Configuration file can now load <a href="../../docs/extensions/">extensions</a>.
+    A few are already availble, and others, like <a href="https://github.com/busterjs/buster/issues/15">buster-amd</a>
+    and coverage is right around the corner.
+  </li>
+  <li>
+    buster-promise is now deprecated and will not receive further updates. We
+    recommend the wonderful <a href="https://github.com/cujojs/when">when.js</a>
+    instead&mdash;it's what we use.
+  </li>
+  <li>
+    Buster now syntax checks files before attempting to run tests in browsers. This
+    ensures a stable environment with good feedback, regardless of target browser.
+  </li>
+  <li>
+    The test runner was rewritten. It now supports per-test timeouts, the done
+    callback can be used to wrap functions ("we're done when this function is
+    called"), asynchronous <code>testCase</code> and <code>describe</code>,
+    TeamCity reporter.
+  </li>
+  <li>
+    The test runner now has a system for including other measures in a test run,
+    issuing warnings, or even preventing tests from running at all. The first
+    external tool included in this system
+    is <a href="../../docs/extensions/#lint">buster-lint</a>. Expect more thorough
+    documentation of this system as it evolves.
+  </li>
+</ul>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>buster.captureServer</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <div id="doc-nav"></div>
+<div id="doc-content">
+  <h1><code>buster.captureServer</code></h1>
+  <dl>
+    <dt>Version</dt>
+    <dd>0.2 <span class="date">(2011-10-04)</span></dd>
+    <dt>Module</dt>
+    <dd><code>require("buster-capture-server");</code></dd>
+  </dl>
+
+  <p>Automates loading of a web pages (sessions) into multiple captured browsers (slaves). The session creator gets access to messaging so data can be transmitted to and from the browsers.</p>
+
+  <div class="section">
+    <h2>Creating the server</h2>
+
+    <h3 id="create"><code>var server = bCaptureServer.create()</code></h3>
+    <p>Creates a new server instance.</p>
+
+    <h3 id="attach"><code>server.attach(<a href="http://nodejs.org/docs/latest/api/http.html">httpServer</a>)</code></h3>
+    <p>Attaches the buster-capture-server to a Node.js HTTP server.</p>
+    <p>Hooks into the request event of the http server so that the <code>"request"</code> handlers only run for requests that buster-server doesn't handle. Other than that, buster-server leaves the HTTP server untouched.</p>
+  </div>
+
+  <div class="section">
+    <h2>Listening to events</h2>
+    <p>The server has a global event hub, as well as one event hub per session. The global path is <tt>/messaging</tt>. The paths for the individual sessions is available as <a href="/#serialized-session-bayeux"><code>.bayeuxClientPath</code></a> on the individual sessions.</p>
+    <p>Bayeux is a standardized protocol for messaging, but <a href="http://faye.jcoglan.com/node.html">Faye</a> specific features is used so you're expected to use Faye for creating messaging clients.</p>
+  </div>
+
+  <div class="section">
+    <h2>Capturing slaves</h2>
+    <p>
+      A captured slave is (typically) a browser that is "captured" by loading an
+      HTML page with a communication channel (event emitter) between the
+      buster-capture-server and the browser. When the browser receives the event
+      for loading a session, a frame gets its <code>src</code> attribute set to
+      the URL that corresponds to the root HTML page for that session.
+    </p>
+    <p>
+      For Buster.JS testing, the root document contains the specified testbed or
+      the default plain testbed, and <code>&lt;script&gt;</code> tags for all the
+      loadable scripts from the config file.
+    </p>
+    <p>
+      Framesets are used so that the session root HTML page spans the full
+      viewport of the captured slave (browser).
+    </p>
+
+    <h3 id="capture-path"><code>server.capturePath = path</code></h3>
+    <p>The default value of this property is <code>"/capture"</code>. See <a href="/#perform-capture">performing capture</a>.</p>
+
+    <h3 id="slave-header"><code>server.header(height, resourceSet)</code></h3>
+    <p>All slaves will have a header of <code>height</code> pixels with the provided resource set loaded into it.</p>
+
+    <h3 id="perform-capture">Performing capture</h3>
+    <p>To capture a browser, perform a HTTP GET request to the <a href="/#capturePath"><code>capturePath</code></a> of the server. This will load the slave page and notify when the browser is ready to accept new sessions.</p>
+
+    <h3 id="event-capture">Event: /capture</h3>
+    <p>Emitted when new slaves are created (a browser has been captured) and the slave is ready to accept sessions.</p>
+  </div>
+
+  <div class="section">
+    <h2>Sessions</h2>
+    <p>Sessions are the units of work in a buster-capture-server</p>
+    <p>
+      When a session is created, it is added to the bottom of the session
+      queue. As soon as there are no other sessions above it in the queue, it is
+      loaded into the captured slaves. When there are no other sessions in the
+      queue, the session loads immediately upon creation.
+    </p>
+    <p>
+      Loading a session into a captured slave basically means setting
+      the <code>src</code> attribute of the session frame in the captured slave to
+      the path to the root HTML document of the session's resource set.
+    </p>
+
+    <h3 id="create-session"><code>var <a href="/#serialized-session">session</a> = server.createSession(<a href="#session-payload">payload</a>)</code></h3>
+    <p>Creates a new session.</p>
+
+    <h3 id="create-session-http">POST /sessions</h3>
+    <p>Creates a new session over HTTP. Responds with <tt>201 Created</tt> if the session will start immediately, or <tt>202 Accepted</tt> if it is queued.</p>
+
+    <h3 id="destroy-session"><code>server.destroySession(<a href="/#serialized-session-id">id</a>)</code></h3>
+    <p>Unqueues a queued session or ends the current session.</p>
+
+    <h3 id="destroy-session-http">DELETE <code>session.<a href="/#serialized-session-path">path</a></code></h3>
+    <p>Unqueues a queued session or ends the current session.</p>
+
+    <h3 id="event-session-created">Event: /session/create (<a href="/#serialized-session">session</a>)</h3>
+    <p>Emitted with a session object when a session is created. </p>
+
+    <h3 id="event-session-loaded">Event: /session/start (<a href="/#serialized-session">session</a>)</h3>
+    <p>Emitted with a session object when a session has started (became current) in all slaves.</p>
+  </div>
+
+  <div class="section">
+    <h2 id="session-payload">Session payload</h2>
+    <p>The payload passed to <a href="/#create-session">createSession</a> or <a href="#create-session-http">POST /sessions</a>.</p>
+
+    <h3 id="session-payload-resource-set"><code>resourceSet</code></h3>
+    <p>A serialized resource set.</p>
+
+    <h3 id="session-payload-joinable"><code>joinable</code></h3>
+    <p>Set to true or false. Defaults to true. When false, a slave that is created while the session is in progress will <em>not</em> get the session loaded into it.</p>
+  </div>
+
+  <div class="section">
+    <h2 id="serialized-session">Session objects</h2>
+    <p>The session object emitted from events and returned from <a href="/#create-session"><code>createSession</code></a>.</p>
+
+    <h3 id="serialized-session-id"><code>id</code></h3>
+    <p>The id of the session. Used in the APIs to delete the session, and more.</p>
+
+    <h3 id="serialized-session-path"><code>path</code></h3>
+    <p>The path to the session. Used in the HTTP APis to delete the session, and more.</p>
+
+    <h3 id="serialized-session-bayeux"><code>bayeuxClientPath</code></h3>
+    <p>The path to the bayeux messaging for the session.</p>
+
+    <h3 id="serialized-session-resources-path"><code>resourcesPath</code></h3>
+    <p>The path where the resource set is mounted.</p>
+  </div>
+
+  <div class="section">
+    <h2 id="browser-env">Browser environment</h2>
+    <p>In addition to the resource set itself, some additional internal JavaScript is loaded into the session's web page.</p>
+
+    <h3 id="buster-publish"><code>buster.publish(event, data)</code></h3>
+    <p>Publishes an event on the session event scope.</p>
+
+    <h3 id="buster-subscribe"><code>buster.subscribe(event, handler)</code></h3>
+    <p>Subscribes to an event on the session event scope.</p>
+  </div>
+</div>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

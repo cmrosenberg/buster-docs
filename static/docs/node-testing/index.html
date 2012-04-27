@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node testing</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Node testing</h1>
+<p class="warning">
+  Note: this document is work in progress
+</p>
+<h2>Getting started</h2>
+<p>
+  To set up Node testing, specify <code>"node"</code> as the environment in your
+  config file.
+</p>
+<pre><code>var config = module.exports;
+
+config["My tests"] = {
+    env: "node",
+    tests: [
+        "**/*-test.js"
+    ]
+}</code></pre>
+<p>
+  This config file will load all <em>something</em>-test.js in the same folder
+  as the config file and all sub folders. Unlike browser tests, you don't need
+  to specify your source files with <code>"sources"</code>. In fact, doing so
+  will only make the tests slower, as the config file takes longer time to
+  load. Instead, you do what you always do in Node: require the modules you use
+  in the files where you need to use them.
+</p>
+<pre><code>var buster = require("buster");
+var myLib = require("../lib/my-lib");
+
+buster.testCase("A test case", {
+    "test it": function () {
+        assert(true);
+    }
+})</code></pre>
+<p>
+  As we can see, we also need to require Buster.JS
+  itself. The <code>"buster"</code> module provides all the core functionality
+  such as test cases, assertions, and more.
+</p>
+<h2>Running tests</h2>
+<p>To run the tests, simply type:</p>
+<p><kbd>buster test</kbd></p>
+<p>
+  Here's the test output for the <a href="../args/">buster-args</a> module.
+</p>
+<p><img src="../../images/node-testing/buster-test-node.png" width="633" height="382"></p>
+<p>
+  See <strong>TODO: link to documentation</strong> for more information about
+  the options you can pass to <kbd>buster test</kbd>.
+</p>
+<h2>Tips and tricks</h2>
+<h3>Testing the HTTP module</h3>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

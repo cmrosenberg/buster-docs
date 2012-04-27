@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome! Buster.JS is...</title>
+    <link href="css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="/" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="/" class="active">Home</a></li>
+          
+            <li><a href="docs/" class="">Documentation</a></li>
+          
+            <li><a href="download/" class="">Download</a></li>
+          
+            <li><a href="community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <link href="css/teaser.css" media="screen" rel="stylesheet" type="text/css" />
+<h1>Welcome! Buster.JS is...</h1>
+
+<p><strong>In beta.</strong> Many things are unstable at this point in time. We aim to release a stable 1.0 by end of May 2012.</p>
+
+<p><strong>A browser JavaScript testing toolkit.</strong> It does browser testing with browser automation (think JsTestDriver), qunit style static html page testing, testing in headless browsers (phantomjs, jsdom, ...), and more. Take a look at <a href="http://busterjs.org/docs/overview/">the overview</a>!</p>
+
+<p><strong>A Node.js testing toolkit.</strong> You get the same test case library, assertion library, etc. This is also great for hybrid browser and Node.js code. Write your test case with Buster.JS and run it both in Node.js and in a real browser.</p>
+
+<p><strong>Flexible.</strong> There's a public API for almost everything. You can write reporters for customizing the output of <tt>buster test</tt> (we already have xunit XML, traditional dots, specification, tap, teamcity and more), write extensions that wrap other testing frameworks (we already have buster-jstestdriver), add your own testing syntax (we ship with xunit and BDD), and much more. Again, <a href="http://busterjs.org/docs/overview/">the overview</a> lists many of these things.</p>
+
+<p><strong>Written by you.</strong> We believe in open development, and already have a dozen or so contributors beyound the core authors of Buster, August Lilleaas and Christian Johansen. All development happens in public in the <a href="http://github.com/busterjs/buster/issues">issue tracker</a> and the <a href="http://groups.google.com/group/busterjs-dev">busterjs-dev mailing list</a>. We welcome your opinion.</p>
+
+<p><strong>A set of reusable libraries.</strong> For example, buster-capture-server is our generic browser automation library that lets you successively load webpages into browsers and send data to and from them. It is completely reusable and has no knowledge of Buster tests, or tests at all for that matter.</p>
+
+<p><strong>The future.</strong> We have big plans for buster in the months and years to come. For example, we'll add the ability to run your browser tests directly on <a href="http://www.browserstack.com/">BrowserStack</a>. In development you can still capture a local browser, JsTestDriver style. But instead of setting up your own CI server with a bazillion browsers, pay BrowserStack to do the job for you. Other plans we have is to have a stateful test runner that only runs the previously failed tests, test breakpoints that drops you into a live REPL in all the captured browsers when a test fails, and much much more.</p>
+
+<p><strong><a href="docs/getting-started/">Take Buster.JS for a spin</a> and judge for yourself!</strong> Be warned, it's still in beta, so it has some rough edges.</p>
+
+<hr>
+
+<p>Here's a talk about Buster.JS by Christian Johansen.</p>
+<div id="frontendconf-talk">
+  <iframe src="http://www.ustream.tv/embed/recorded/17159711"
+          width="864" height="486" scrolling="no" frameborder="0"></iframe>
+</div>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="hijs.js"></script>
+  <script src="js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

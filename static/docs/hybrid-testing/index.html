@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hybrid testing</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Hybrid testing</h1>
+<p class="warning">
+  Note: this document is work in progress
+</p>
+<p>
+  Running tests in both browsers and Node requires a small feature test to
+  determine whether or not to load Buster in your tests. The code under test
+  obviously also needs to check for <code>module</code>, <code>require</code>
+  etc. The following example shows a typical test that runs both in browsers
+  and on node:
+</p>
+<pre><code>if (typeof module == "object" && typeof require == "function") {
+    var buster = require("buster");
+}
+
+buster.testCase("Multi-environment", {
+    "runs in all environments": function () {
+        assert(true);
+    },
+
+    "sub context": {
+        requiresSupportFor: { "DOM": typeof document != "undefined" },
+
+        "only runs in browser-like environments": function () {
+            // ...
+        }
+    }
+});</code></pre>
+<h2>Running tests</h2>
+<p>
+  The simplest way to run multi-environment tests is to use a configuration file
+  and the <code>buster test</code> binary:
+</p>
+<pre><code>var config = module.exports;
+
+config["Tests"] = {
+    tests: ["test/**/*.js"]
+};
+
+config["Browser tests"] = {
+    extends: "Tests",
+    environment: "browser",
+    sources: ["lib**/*.js"]
+};
+
+config["Node tests"] = {
+    extends: "Tests",
+    environment: "node"
+};</code></pre>
+<p>
+  Given this config, you can run for Node using <code>buster test --node</code>
+  and for browsers <code>buster test --browser</code>.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

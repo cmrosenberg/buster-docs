@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buster extensions</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Buster extensions</h1>
+<p class="warning">
+  Note: Extension hooks are still in their infancy. If you find it impossible to
+  add some desired behavior through an extension,
+  <a href="http://github.com/busterjs/buster/issues">file an issue</a>.
+</p>
+<p>
+  Extensions adds to or enhances the capabilities of Buster.JS at runtime. An
+  extension will typically use regular Buster APIs to do their bidding. However,
+  in order to hook you into the right places, Buster provides a series of
+  extension points where you can add custom functionality. This page describes
+  available extensions, as well as <a href="/#building">building extensions</a>.
+</p>
+<h2 id="available">Available extensions</h2>
+<h3 id="syntax">buster-syntax</h3>
+<p>
+  This extension is unique in that it is bundled by default when you run tests
+  in browsers. It verifies that all files are syntactically correct before
+  sending them to the server for execution. This ensures good error messages and
+  reduces browser hangs (especially in older less stable browsers).
+</p>
+<h3 id="jstestdriver">buster-jstestdriver</h3>
+<p>
+  Run test cases written for JsTestDriver with the Buster runner. The extension
+  does not currently support <code>:DOC</code> style comments or async test
+  cases.
+</p>
+<h4>Install</h4>
+<p><code>npm install buster-jstestdriver</code></p>
+<h4>Usage</h4>
+<p>Load in your configuration file:</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-jstestdriver")]
+};</code></pre>
+<h3 id="amd">buster-amd</h3>
+<p>
+  Use an AMD loader to test asynchronous modules. You must provide your own
+  loader. By default, a loader that provides <code>require(deps, callback)</code>
+  is assumed. This will eventually be pluggable.
+</p>
+<h4>Install</h4>
+<p><code>npm install buster-amd</code></p>
+<h4>Usage</h4>
+<p>Load in your configuration file:</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-amd")]
+};</code></pre>
+<p>
+  Note that you list your tests and sources as normal. Your sources must be
+  specified in the configuration even if you will <code>require</code> them from
+  your tests, otherwise, Buster will not make them available on the test server.
+</p>
+<p>
+  Your tests will drive the show. To run tests with the AMD extension, your
+  tests should be wrapped in a call to <code>define</code>, which pulls in
+  dependencies (i.e. your modules) and in the callback defines specs/test cases
+  as usual.
+</p>
+<h4>Configure</h4>
+<p>
+  The AMD extension has one configuration option: a path mapper. The path mapper
+  is an optional function that translate Buster.JS paths (which are absolute,
+  e.g. <code>/test/my-test.js</code>) to AMD friendly module IDs. The default
+  mapper converts <code>/test/my-test.js</code> to <code>test/my-test</code>,
+  i.e. strips leading slash and file suffix. Use this option to e.g. use AMD
+  loader plugins.
+</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-amd")],
+    "buster-amd": {
+        pathMapper: function (path) {
+            return "plugin!" + path.replace(/^\//, "").replace(/\.js$/, "");
+        }
+    }
+};</code></pre>
+<h3 id="lint"><a href="https://github.com/magnars/buster-lint">buster-lint</a></h3>
+<p>
+  Incorporate linting (JsLint or JsHint) in your test runs. Optionally fail test
+  runs if lint is found.
+</p>
+<h4>Install</h4>
+<p><code>npm install buster-lint</code></p>
+<h4>Usage</h4>
+<p>Load in your configuration file:</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-lint")]
+};</code></pre>
+<h4>Configure</h4>
+<p>
+  Configuration options are those supported by the wonderful
+  <a href="https://github.com/magnars/autolint">autolint</a> tool by Magnar
+  Sveen. In fact, if you're already using autolint, you can integrate it with
+  Buster by simply requiring your existing configuration (assuming you're not
+  still using pre-1.0 json config files):
+</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-lint")],
+    "buster-lint": require("./autolint")
+};</code></pre>
+<p>
+  If you don't already have an autolint configuration, here's to get you
+  started. All options are documented <a href="https://github.com/magnars/buster-lint">here</a>.
+</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.js"]
+    tests: ["test/**/*.js"],
+    extensions: [require("buster-lint")],
+    "buster-lint": {
+        linterOptions: {
+            node: true
+        },
+
+        excludes: [
+            "jquery",
+            "underscore",
+            "raphael"
+       ]
+    }
+};</code></pre>
+<p><a href="https://github.com/magnars/buster-lint">buster-lint on GitHub</a></p>
+<h2 id="building">Building extensions</h2>
+<p>
+  A Buster.JS extension is an object that optionally exposes
+  a <code>create</code> method, that will receive custom configuration, and one
+  or more methods that implement an extension hook. The number of hooks is
+  expected to increase in the near future.
+</p>
+<h3 id="create"><code>var instance = ext.create([options]);</code></h3>
+<p>
+  If provided, the <code>create</code> method is called with any custom
+  configuration for the extension. Custom configuration is any value assigned to
+  the property named after the extension in the configuration file, e.g.:
+</p>
+<pre><code>module.exports["Some tests"] = {
+    extensions: [require("my-extension")],
+    "my-extension": whatever
+};</code></pre>
+<p>
+  In order for this to work, the extension must export a <code>name</code>
+  property, i.e. <code>module.exports = { name: "my-extension", ... }</code>
+  in the case above. Although you don't explicitly have to, it's good practice
+  to name the extension after its package name.
+</p>
+<p>
+  The <code>create</code> method is not required. If it's not provided, the
+  extension will not receive its custom configuration.
+</p>
+<h3 id="configure">Hook: <code>configure</code></h3>
+<p>
+  The <code>configure</code> hook allows extensions to manipulate
+  <a href="../resources/#resource-set">resource sets</a> assigned to a test
+  run. Resource sets contain all files and other resources required for a test
+  run. You can use this hook to modify only sources, only tests, framework
+  resources, everything or any other combination. Read the documentation for
+  <a href="../configuration/">buster-configuration</a> to understand how
+  files are loaded and how you can hook into that process.
+</p>
+<p>
+  To implement this hook, simply provide a <code>configure</code> method on your
+  extension object. The following example adds a resource to the framework
+  group:
+</p>
+<pre><code>module.exports = {
+    create: function (options) {
+        var instance = Object.create(this);
+        instance.options = options;
+        return instance;
+    },
+
+    configure: function (<a href="../configuration/#group">group</a>) {
+        group.on("load:framework", function (<a href="../resources/#resource-set">resourceSet</a>) {
+            resourceSet.addResource({
+                path: "/oh-yeah.js",
+                content: "buster.log('Extension calling!');"
+            });
+        });
+    }
+};</code></pre>
+<h3 id="before-run">Hook: <code>beforeRun</code></h3>
+<p>
+  The <code>beforeRun</code> hook is run, after the test run configuration is
+  fully loaded, but before the test runner has been initialized. The arguments
+  passed to this hook is <code>config</code>
+  (a <a href="../configuration/#group">buster-configuration group</a>)
+  and <code>analyzer</code>. The analyzer can be used to flag issues about the
+  code base, and is what <code>buster-lint</code> and <code>buster-syntax</code>
+  uses to warn about lint and syntax errors, respectively.
+</p>
+<p>
+  Proper documentation for the analyzer is pending. For now, refer to
+  <a href="https://github.com/magnars/buster-lint">buster-lint</a> for a usage
+  example.
+</p>
+<h3 id="test-run">Hook: <code>testRun</code></h3>
+<p>
+  The <code>testRun</code> hook is executed right before tests are run. It
+  receives one or two arguments, depending on the environment.
+</p>
+<h4>Browser environment: <code>testRunner</code>, <code>messagingClient</code></h4>
+<p>
+  Both arguments are event emitters. The <code>testRunn</code> is a
+  "remoteRunner" (not yet documented). It behaves like a
+  <a href="../test/runner/">test runner</a>, i.e. it emits all the same
+  events. However, because the run potentially includes more than one browser,
+  the remote runner wraps all test cases in an additional top-level context
+  which is named after the browser that ran it.
+</p>
+<p>
+  The <code>messagingClient</code> contains all raw messages emitted in the
+  browsers. The messages are wrapped in an envelop that also contains
+  information about the browser that sent it:
+</p>
+<pre><code>{
+    data: { name: 'My context' },
+    topic: 'context:start',
+    clientId: 'eaebee40-ff08-4fcd-bc97-2da569e837c3',
+    client: { emit: [Function] } } }</code></pre>
+<h4>Node environment: <code>testRunner</code></h4>
+<p>
+  Node tests only receives a single runner argument. It is a plain
+  <a href="../test/runner/">test runner</a>.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>

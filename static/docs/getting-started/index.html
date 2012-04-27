@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Getting Started</title>
+    <link href="../../css/app.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="../../css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="header">
+      <div id="beta_banner"></div>
+      <div class="centered_content">
+        <a href="../../" id="logo_image"></a>
+        <ul id="main_menu">
+          
+            <li><a href="../../" class="">Home</a></li>
+          
+            <li><a href="../" class="active">Documentation</a></li>
+          
+            <li><a href="../../download/" class="">Download</a></li>
+          
+            <li><a href="../../community/" class="">Community</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class="centered_content">
+        <h1>Getting Started</h1>
+<p>
+  This guide walks you through installation and very basic setup of tests in a
+  project. If you're only interested in simple browser tests embedded in a web page,
+  see the <a href="../browser-testing/">browser testing page</a>.
+</p>
+<h2>Installing</h2>
+<p>
+  Buster.JS on the command-line requires Node 0.6.3 or newer and NPM. Node 0.6.3
+  and newer comes with NPM bundled on most platforms.
+</p>
+<h3>OS X</h3>
+<ol>
+  <li>
+    Get the latest Node installer
+    from <a href="http://nodejs.org/">nodejs.org</a>. You need Node 0.6.3 or
+    newer.
+  </li>
+  <li><kbd>npm install -g buster</kbd></li>
+</ol>
+<p>
+  <strong>Note:</strong> installing <code>npm</code> pacakges with
+  <kbd>sudo</kbd> causes multiple problems, and is not recommended. If you
+  cannot use npm without sudo after using the installer, try changing ownership
+  of the node installation to your user.
+</p>
+<h3>Linux</h3>
+<ol>
+  <li>
+    Install Node 0.6.3 or later with your favorite package manager. If you don't
+    have one, follow <a href="https://github.com/joyent/node/wiki/Installation">these
+    simple build instructions</a>.
+  </li>
+  <li><kbd>npm install -g buster</kbd></li>
+</ol>
+<h3>Windows</h3>
+<p>
+  Windows support is right around the corner. Hang in there.
+</p>
+<h2>Create config file</h2>
+<p>
+  Add a config file to your project. Call it <tt>test/buster.js</tt>
+  or <tt>spec/buster.js</tt>. This way you don't have to tell Buster about it
+  with <kbd>--config</kbd> every time you run tests. <tt>./buster.js</tt> will
+  also be recognized.
+</p>
+<pre><code>var config = module.exports;
+
+config["My tests"] = {
+    rootPath: "../",
+    environment: "browser", // or "node"
+    sources: [
+        "lib/mylib.js",
+        "lib/**/*.js"
+    ],
+    tests: [
+        "test/*-test.js"
+    ]
+}
+
+// Add more configuration groups as needed</code></pre>
+<p>
+  For browser tests, list all your source files in <code>"sources"</code> and
+  test files in <code>"tests"</code>. For Node tests, you don't need to
+  specify <code>"sources"</code> as you typically <code>require</code> your
+  source files directly in the test files.
+</p>
+<p>
+  Read the full <a href="../configuration/">buster-configuration</a>
+  documentation for details.
+</p>
+<p>
+  Note that you may not "dot out" in <code>sources</code>, <code>tests</code>
+  etc. Paths are resolved relative to the directory where the configuration file
+  lives. If your sources live outside this directory, adjust the root directory
+  using the <code>rootPath</code> property (which is also resolved against the
+  config file location, unless absolute).
+</p>
+<h2>Write tests</h2>
+<p>
+  Given the config file above, all files named <em>something</em>-test.js in the
+  same folder as the config file itself will be loaded. You can of course change
+  the glob pattern to better suit your needs. <code>"**/*-test.js"</code> would
+  for example recursively load all <em>something</em>-test.js in the same folder
+  the config file is in, and all its sub folders.
+</p>
+<p>A test case looks like this:</p>
+<pre><code>// Browser tests
+
+buster.testCase("A module", {
+    "states the obvious": function () {
+        assert(true);
+    }
+});</code></pre>
+<p>The BDD inclined might prefer this alternate syntax:</p>
+<pre><code>buster.spec.expose(); // Make some functions global
+
+describe("A module", function () {
+    it("states the obvious", function () {
+        expect(true).toEqual(true);
+    });
+});</code></pre>
+<p>If your test is a Node test, you also need to require Buster.JS.</p>
+<pre><code>// Node tests
+var buster = require("buster");
+var myLib = require("../lib/my-lib");
+
+buster.testCase("A module", {
+    "states the obvious": function () {
+        assert(true);
+    }
+});</code></pre>
+<p>
+  See the full <a href="../test/test-case/">buster.testCase</a> docs
+  and <a href="../assertions/">buster-assertions</a> docs for
+  details. There are also mocks and stubs and more, via
+  the <a href="../sinon/">sinon-buster</a> module.
+</p>
+<h2>Run tests</h2>
+<h3>Node tests</h3>
+<p>
+  Node tests can be run by simply typing <kbd>node test/some-test.js</kbd>.
+  Doing this requires nothing more than a file with tests (i.e. you don't need
+  the above configuration).
+</p>
+<p>
+  While <kbd>node test/my-test.js</kbd> is nice and convenient, you want to use
+  the <code>buster-test</code> binary to get at the full power of Buster. Open a
+  terminal, <kbd>cd</kbd> to your project, and type in <kbd>buster test</kbd>.
+  Here's the output from the test run of <a href="../args/">buster-args</a>:
+</p>
+<p><img src="../../images/node-testing/buster-test-node.png" width="633" height="382"></p>
+<p>See the <a href="../node-testing/">Node testing</a> documentation for more.</p>
+<h3>Browser tests</h3>
+<p>First, start a server. Open a terminal and type in <kbd>buster server</kbd>.</p>
+<p><img src="../../images/overview/buster-server-start.png" width="633" height="382"></p>
+<p>
+  Capture some browsers to run the tests in by visiting the URL. Click the grey
+  capture button to actually perform the capture.
+</p>
+<p><img src="../../images/overview/buster-server-capture-firefox.png" width="827" height="339"></p>
+<p>Then you're ready to run the tests with <kbd>buster test</kbd>.</p>
+<p><img src="../../images/overview/buster-test-run-browsers.png" width="633" height="382"></p>
+<p>See the <a href="../browser-testing/">browser testing</a> documentation for more.</p>
+<h3>Hybrid tests</h3>
+<p>
+  If your project has both Node and browser tests, and your config file
+  specifies multiple groups for the different environments, running <kbd>buster
+  test</kbd> will automatically run all the groups, both Node and browser. This
+  requires that you already have a <kbd>buster server</kbd> up and running.
+</p>
+<p>
+  If you only want to run tests for one environment, use
+  <kbd>buster test --environment browser</kbd> or
+  <kbd>buster test -e node</kbd>.
+</p>
+<p>
+  You have to manually make sure your test cases and source files are able to
+  run in both browsers and Node. Here's an example:
+</p>
+<pre><code>if (typeof require != "undefined") {
+    var buster = require("buster");
+    var myLib = require("../lib/my-lib");
+}
+
+buster.testCase("A test case", {
+    "test it": function () {
+        assert(true);
+    }
+});</code></pre>
+<p>
+  See the <a href="../hybrid-testing/">hybrid testing</a> documentation for more.
+</p>
+
+      </div>
+    </div>
+    <div id="footer">
+      <div class="centered_content">
+        <p>
+          Copyright &copy; 2010 - 2012, Christian Johansen and August
+          Lilleaas. Buster.JS uses <a href="http://semver.org/">semantic
+          versioning</a>. Code released under the
+          <a href="http://www.opensource.org/licenses/bsd-license.php">BSD
+          license</a>. Documentation released under
+          <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+          Attribution-Share Alike</a>.
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="../../hijs.js"></script>
+  <script src="../../js/toc.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-27522206-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+</html>
