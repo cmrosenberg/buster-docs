@@ -4,6 +4,16 @@ rm -fr static
 echo "Indexing docs site at http://localhost:8090"
 mkdir static
 cp -r public/* static/.
-wget -e robots=off --directory-prefix=static --no-verbose --convert-links --page-requisites --html-extension --no-host-directories --recursive --level=inf http://localhost:8090 2>&1 | grep -E "^http|ERROR|FINISHED|Total wall|Downloaded"
+wget -e robots=off -P static -nv -k -p -E -nH -r -l 0 http://localhost:8090 2>&1 | grep -E "^http|ERROR|FINISHED|Total wall|Downloaded"
+# abbreviated wget options are:
+#   -P  --directory-prefix
+#   -nv --no-verbose
+#   -k  --convert-links
+#   -p  --page-requisites
+#   -E  --adjust-extension (fka --html-extension)
+#   -nH --no-host-directories
+#   -r  --recursive
+#   -l  --level (0 for infinity)
+
 find static -name "*.html" | xargs sed -i s/\"index.html/"\"\/"/
 find static -name "*.html" | xargs sed -i s/index.html//
