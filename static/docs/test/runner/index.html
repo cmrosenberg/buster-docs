@@ -46,11 +46,11 @@
   <pre><code>var testRunner = require("buster-test").testRunner;
 var xUnitConsoleReporter = require("buster-test").xUnitConsoleReporter;
 
-var runner = testRunner.<a href="/#create">create</a>();
+var runner = testRunner.<a href="./#create">create</a>();
 var reporter = xUnitConsoleReporter.create({ color: true });
 reporter.listen(runner);
 
-runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, context2, ...]);</code></pre>
+runner.<a href="./#runSuite">runSuite</a>([<a href="../context/">context</a>, context2, ...]);</code></pre>
   <div class="section">
     <h2 id="events">Events</h2>
     <h3 id="event-suite-start" data-title="+suite:start+">
@@ -58,14 +58,14 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
     </h3>
     <p>
       Emitted once, as the runner starts running a test suite (typically
-      when <a href="/#runSuite"><code>runSuite</code></a> is called).
+      when <a href="./#runSuite"><code>runSuite</code></a> is called).
     </p>
     <h3 id="event-suite-end" data-title="+suite:end+">
-      Event: <code>"suite:end", function (<a href="/#results"><code>results</code></a>) {}</code>
+      Event: <code>"suite:end", function (<a href="./#results"><code>results</code></a>) {}</code>
     </h3>
     <p>
       Emitted once, when all contexts are run (typically when
-      <a href="/#runSuite"><code>runSuite</code></a> completes).
+      <a href="./#runSuite"><code>runSuite</code></a> completes).
     </p>
     <h3 id="event-context-start" data-title="+context:start+">
       Event: <code>"context:start", function (<a href="../context/"><code>context</code></a>) {}</code>
@@ -81,7 +81,7 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
       Emitted every time a context is completed.
     </p>
     <h3 id="event-context-unsupported" data-title="+context:unsupported+">
-      Event: <code>"context:unsupported", function (<a href="/#unsupported"><code>ctx</code></a>) {}</code>
+      Event: <code>"context:unsupported", function (<a href="./#unsupported"><code>ctx</code></a>) {}</code>
     </h3>
     <p>
       Emitted every time a context fails its requirements (when that
@@ -115,14 +115,14 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
       Emitted once per test before the tear down method(s) for a test is called.
     </p>
     <h3 id="event-test-failure" data-title="+test:failure+">
-      Event: <code>"test:failure", function (<a href="/#error"><code>error</code></a>) {}</code>
+      Event: <code>"test:failure", function (<a href="./#error"><code>error</code></a>) {}</code>
     </h3>
     <p>
-      Emitted when the test throws (or <a href="/#assertion-failure">otherwise
+      Emitted when the test throws (or <a href="./#assertion-failure">otherwise
       flags</a>) an <code>AssertionFailure</code>. Only emitted once per test.
     </p>
     <h3 id="event-test-error" data-title="+test:error+">
-      Event: <code>"test:error", function (<a href="/#error"><code>error</code></a>) {}</code>
+      Event: <code>"test:error", function (<a href="./#error"><code>error</code></a>) {}</code>
     </h3>
     <p>
       Emitted when the test throws any error that is not an
@@ -140,7 +140,7 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
     <p>
       Emitted if the test runner forcefully aborts the test. This happens
       when the test is asynchronous and does not resolve within the
-      <a href="/#timeout">configured timeout</a>.
+      <a href="./#timeout">configured timeout</a>.
     </p>
     <h3 id="event-test-deferred" data-title="+test:deferred+">
       Event: <code>"test:deferred", function (<a href="../context/#test"><code>test</code></a>) {}</code>
@@ -149,7 +149,7 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
       Emitted when a test is marked as deferred. The test is not run.
     </p>
     <h3 id="event-uncaughtException" data-title="+uncaughtException+">
-      Event: <code>"uncaughtException", function (<a href="/#exception"><code>err</code></a>) {}</code>
+      Event: <code>"uncaughtException", function (<a href="./#exception"><code>err</code></a>) {}</code>
     </h3>
     <p>
       Uncaught errors are errors that the test runner is unable to associate
@@ -168,7 +168,7 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
     </ol>
     <p>
       The <code>"uncaughtException"</code> event will only be emitted when
-      the environment supports it and the <a href="/#handleUncaughtExceptions"><code>handleUncaughtExceptions</code></a>
+      the environment supports it and the <a href="./#handleUncaughtExceptions"><code>handleUncaughtExceptions</code></a>
       property is set to <code>true</code>. Browsers that do not support
       <a href="https://developer.mozilla.org/en/DOM/window.onerror"><code>window.onerror</code></a>
       are unable to support this feature.
@@ -176,29 +176,29 @@ runner.<a href="/#runSuite">runSuite</a>([<a href="../context/">context</a>, con
   </div>
   <div class="section">
     <h2 id="methods">Methods</h2>
-    <h3 id="create" data-title="+create([opts])+"><code>var runner = buster.testRunner.create([<a href="/#properties">opts</a>]);</code></h3>
+    <h3 id="create" data-title="+create([opts])+"><code>var runner = buster.testRunner.create([<a href="./#properties">opts</a>]);</code></h3>
     <p>
       Creates a new test runner instance.
     </p>
-    <h3 id="onCreate" data-title="+onCreate(callback)+"><code>buster.testRunner.onCreate(function (<a href="/#create">runner</a>) {});</code></h3>
+    <h3 id="onCreate" data-title="+onCreate(callback)+"><code>buster.testRunner.onCreate(function (<a href="./#create">runner</a>) {});</code></h3>
     <p>
       Register a callback which is called everytime a runner is created with
-      <a href="/#create"><code>create</code></a>.
+      <a href="./#create"><code>create</code></a>.
     </p>
-    <h3 id="runSuite" data-title="+runSuite(contexts)+"><code><a href="/#create">runner</a>.runSuite([<a href="../context/">context</a>, context2, ...]);</code></h3>
+    <h3 id="runSuite" data-title="+runSuite(contexts)+"><code><a href="./#create">runner</a>.runSuite([<a href="../context/">context</a>, context2, ...]);</code></h3>
     <p>
       Run an array of <a href="../context/">context</a> objects as
       a test suite.
     </p>
-    <h3 id="run" data-title="+run(context)+"><code><a href="/#create">runner</a>.run(<a href="../context/">context</a>);</code></h3>
+    <h3 id="run" data-title="+run(context)+"><code><a href="./#create">runner</a>.run(<a href="../context/">context</a>);</code></h3>
     <p>
       Run a single <a href="../context/">context</a>. Note that this
       method does not trigger
-      the <a href="/#event-suite-start"><code>suite:start</code></a> event, and
+      the <a href="./#event-suite-start"><code>suite:start</code></a> event, and
       using it instead of <code>runSuite</code> may cause unintended behavior in
       <a href="../reporters/">reporters</a>.
     </p>
-    <h3 id="assertionCount" data-title="+assertionCount()+"><code>var count = <a href="/#create">runner</a>.assertionCount();</code></h3>
+    <h3 id="assertionCount" data-title="+assertionCount()+"><code>var count = <a href="./#create">runner</a>.assertionCount();</code></h3>
     <p>
       The default implementation of this method is a no-op function. This
       method is called by the runner after each test to determine the number
@@ -226,7 +226,7 @@ buster.testRunner.onCreate(function (runner) {
 buster.testRunner.assertionCount = function () {
     return assertions;
 };</code></pre>
-    <h3 id="assertionFailure" data-title="+assertionFailure()+"><code><a href="/#create">runner</a>.assertionFailure(<a href="#exception">exception</a>);</code></h3>
+    <h3 id="assertionFailure" data-title="+assertionFailure()+"><code><a href="./#create">runner</a>.assertionFailure(<a href="#exception">exception</a>);</code></h3>
     <p>
       Can be called from assertion libraries that do not throw an exception
       on assertion failure. For assertion failures to be picked up no matter
@@ -254,7 +254,7 @@ runner.timeout = 500;</code></pre>
     <p>
       When <code>true</code>, a test with no assertions is considered a
       failure. The number of assertions are measured with
-      <a href="/#assertionCount">assertionCount</a>.
+      <a href="./#assertionCount">assertionCount</a>.
     </p>
     <h3 id="timeout" data-title="+timeout+">
       <code>timeout</code> (<code>250</code>)
@@ -262,14 +262,14 @@ runner.timeout = 500;</code></pre>
     <p>
       When an asynchronous test runs for more than <code>timeout</code> ms, the
       runner will abort it and emit
-      a <a href="/#event-test-timeout"><code>test:timeout</code></a> event.
+      a <a href="./#event-test-timeout"><code>test:timeout</code></a> event.
     </p>
     <h3 id="handleUncaughtExceptions" data-title="+handleUncaughtExceptions+">
       <code>handleUncaughtExceptions</code> (<code>true</code>)
     </h3>
     <p>
       When <code>true</code>, the runner will attempt to
-      handle <a href="/#uncaughtException">uncaught exceptions</a>, by
+      handle <a href="./#uncaughtException">uncaught exceptions</a>, by
       registering a listener on <code>process</code> for
       <a href="http://nodejs.org/docs/v0.4.0/api/process.html#event_uncaughtException_"><code>"uncaughtException"</code></a>
       (node.js) and assigning a callback to
@@ -281,7 +281,7 @@ runner.timeout = 500;</code></pre>
     <h3 id="results"><code>results</code></h3>
     <p>
       A high-level numeric report. Emitted
-      with <a href="/#event-suite-end"><code>suite:end</code></a>.
+      with <a href="./#event-suite-end"><code>suite:end</code></a>.
     </p>
     <pre><code>{
     contexts: 0,
@@ -295,8 +295,8 @@ runner.timeout = 500;</code></pre>
     <h3 id="error"><code>error</code></h3>
     <p>
       An object representing a test failure (or error), emitted with
-      <a href="/#event-test-failure"><code>test:failure</code></a> and
-      <a href="/#event-test-error"><code>test:error</code></a>.
+      <a href="./#event-test-failure"><code>test:failure</code></a> and
+      <a href="./#event-test-error"><code>test:error</code></a>.
     </p>
     <pre><code>{
     name: "Name of test",
@@ -309,7 +309,7 @@ runner.timeout = 500;</code></pre>
     <h3 id="exception"><code>exception</code></h3>
     <p>
       An exception-like object, emitted with
-      <a href="/#event-uncaughtException"><code>uncaughtException</code></a>.
+      <a href="./#event-uncaughtException"><code>uncaughtException</code></a>.
       In browsers, this object does not have a stack trace.
     </p>
     <pre><code>{
@@ -320,7 +320,7 @@ runner.timeout = 500;</code></pre>
     <h3 id="unsupported"><code>unsupported</code></h3>
     <p>
       Information about an unsupported context. Emitted with
-      <a href="/#event-context-unsupported"><code>context:unsupported</code></a>.
+      <a href="./#event-context-unsupported"><code>context:unsupported</code></a>.
       Contains an array of names of failed
       requirements and a context object.
     </p>

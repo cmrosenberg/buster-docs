@@ -74,7 +74,7 @@ refute.equals(42, 43);</code></pre>
   intent in tests. They also facilitate much better feedback when they
   fail. You can add custom assertions that behave exactly like the
   built-in ones (i.e. with counting, message formatting, expectations
-  and more) by using the <a href="/#add">add</a>
+  and more) by using the <a href="./#add">add</a>
   method.
 </p>
 <h3>Overriding assertion messages</h3>
@@ -82,7 +82,7 @@ refute.equals(42, 43);</code></pre>
   The default assertion messages can be overridden. The properties to
   overwrite are listed with each assertion along with the arguments the
   string is fed. Here's an example of providing a new assertion failure
-  message for <a href="/#assert-equals"><code>assert.equals</code></a>:
+  message for <a href="./#assert-equals"><code>assert.equals</code></a>:
 </p>
 <pre><code>var assert = buster.assertions.assert;
 assert.equals.message = "I wanted ${0} == ${1}!"
@@ -115,11 +115,11 @@ try {
     event is also emitted when refutations pass.
   </p>
   <h3 id="event-failure" data-title="+failure+">
-    Event: <code>"failure", function (<a href="/#AssertionError"><code>error</code></a>) {}</code>
+    Event: <code>"failure", function (<a href="./#AssertionError"><code>error</code></a>) {}</code>
   </h3>
   <p>
     Assertion failed. The callback is invoked with an
-    <a href="/#AssertionError"><code>AssertionError</code></a> object.
+    <a href="./#AssertionError"><code>AssertionError</code></a> object.
   </p>
 </div>
 <div class="section">
@@ -148,7 +148,7 @@ assert(34);   // Passes
     (<code>===</code>) as <code>expected</code>. To compare similar
     objects, such as <code>{ name: "Chris", id: 42 }</code> and <code>{
       id: 42, name: "Chris" }</code> (not the same instance), see
-    <a href="/#assert-equals"><code>assert.equals</code></a>. The optional message is prepended
+    <a href="./#assert-equals"><code>assert.equals</code></a>. The optional message is prepended
     to the failure message if provided.
   </p>
   <pre><code>var obj = { id: 42, name: "Chris" };
@@ -743,7 +743,7 @@ refute(34);   // Fails
     (<code>===</code>) as <code>expected</code>. To compare similar
     objects, such as <code>{ name: "Chris", id: 42 }</code> and <code>{
       id: 42, name: "Chris" }</code> (not the same instance), see
-    <a href="/#refute-equals"><code>refute.equals</code></a>. The optional message is prepended to the
+    <a href="./#refute-equals"><code>refute.equals</code></a>. The optional message is prepended to the
     failure message if provided.
   </p>
   <pre><code>var obj = { id: 42, name: "Chris" };
@@ -761,7 +761,7 @@ refute.same(obj, obj);                       // Fails</code></pre>
   </div>
   <h3 id="refute-equals" data-title="+equals(actual, expected[, message])+"><code>refute.equals(actual, expected[, message])</code></h3>
   <p>
-    Passes in any case where <a href="/#assert-equals"><code>assert.equals</code></a> fails.
+    Passes in any case where <a href="./#assert-equals"><code>assert.equals</code></a> fails.
     The optional message is prepended to the failure message if provided.
   </p>
   <pre><code>var assert = assert;
@@ -811,7 +811,7 @@ refute.isNull(null); // Fails</code></pre>
   </div>
   <h3 data-title="+match(actual, pattern[, message])+" id="refute-match"><code>refute.match(actual, pattern[, message])</code></h3>
   <p>
-    Fails in cases where <a href="/#assert-match">assert.match</a>
+    Fails in cases where <a href="./#assert-match">assert.match</a>
     passes.
   </p>
   <div class="msg">
@@ -955,7 +955,7 @@ refute.className(el, ["item", "feed"]); // Passes</code></pre>
 <div class="section">
   <h2 id="refute-stubs">Stubs and spies</h2>
   <p>
-    See <a href="/#stubs">Stubs and spies</a> for explanation. The
+    See <a href="./#stubs">Stubs and spies</a> for explanation. The
     following are spy/stub related refutations.
   </p>
   <h3 data-title="+called(spy)+" id="refute-called"><code>refute.called(spy)</code></h3>
@@ -983,7 +983,7 @@ refute.called(spy); // Fails</code></pre>
   <h3 data-title="+callOrder(spy, spy2, ...)+" id="refute-called"><code>refute.callOrder(spy, spy2, ...)</code></h3>
   <p>
     Passes where
-    <a href="/#assert-callOrder"><code>assert.callOrder</code></a>
+    <a href="./#assert-callOrder"><code>assert.callOrder</code></a>
     fails.
   </p>
   <div class="msg">
@@ -1160,37 +1160,37 @@ expect({ id: 42 }).toBeObject(); // Passes
 expect("Somewhere in here").toMatch("in"); // Passes
 expect(42).not().toEqual(43); // Passes</code></pre>
   <h3 data-title="+toBeSameAs(expected)+" id="toBeSameAs"><code>expect(actual).toBeSameAs(expected)</code></h3>
-  <p>See <a href="/#assert-same"><code>assert.same</code></a></p>
+  <p>See <a href="./#assert-same"><code>assert.same</code></a></p>
   <h3 data-title="+toEqual(expected)+" id="toEqual"><code>expect(actual).toEqual(expected)</code></h3>
-  <p>See <a href="/#assert-equals"><code>assert.equals</code></a></p>
+  <p>See <a href="./#assert-equals"><code>assert.equals</code></a></p>
   <h3 data-title="+toBeDefined(expected)+" id="toBeDefined"><code>expect(actual).toBeDefined(expected)</code></h3>
-  <p>See <a href="/#assert-defined"><code>assert.defined</code></a></p>
+  <p>See <a href="./#assert-defined"><code>assert.defined</code></a></p>
   <h3 data-title="+toBeNull(expected)+" id="toBeNull"><code>expect(actual).toBeNull(expected)</code></h3>
-  <p>See <a href="/#assert-isNull"><code>assert.isNull</code></a></p>
+  <p>See <a href="./#assert-isNull"><code>assert.isNull</code></a></p>
   <h3 data-title="+toMatch(expected)+" id="toMatch"><code>expect(actual).toMatch(expected)</code></h3>
-  <p>See <a href="/#assert-match"><code>assert.match</code></a></p>
+  <p>See <a href="./#assert-match"><code>assert.match</code></a></p>
   <h3 data-title="+toBeObject(expected)+" id="toBeObject"><code>expect(actual).toBeObject(expected)</code></h3>
-  <p>See <a href="/#assert-isObject"><code>assert.isObject</code></a></p>
+  <p>See <a href="./#assert-isObject"><code>assert.isObject</code></a></p>
   <h3 data-title="+toBeFunction(expected)+" id="toBeFunction"><code>expect(actual).toBeFunction(expected)</code></h3>
-  <p>See <a href="/#assert-isFunction"><code>assert.isFunction</code></a></p>
+  <p>See <a href="./#assert-isFunction"><code>assert.isFunction</code></a></p>
   <h3 data-title="+toThrow(expected)+" id="toThrow"><code>expect(actual).toThrow(expected)</code></h3>
-  <p>See <a href="/#assert-exception"><code>assert.exception</code></a></p>
+  <p>See <a href="./#assert-exception"><code>assert.exception</code></a></p>
   <h3 data-title="+toHaveTagName(expected)+" id="toHaveTagName"><code>expect(actual).toHaveTagName(expected)</code></h3>
-  <p>See <a href="/#assert-tagName"><code>assert.tagName</code></a></p>
+  <p>See <a href="./#assert-tagName"><code>assert.tagName</code></a></p>
   <h3 data-title="+toHaveClassName(expected)+" id="toHaveClassName"><code>expect(actual).toHaveClassName(expected)</code></h3>
-  <p>See <a href="/#assert-className"><code>assert.className</code></a></p>
+  <p>See <a href="./#assert-className"><code>assert.className</code></a></p>
   <h3 data-title="+toHaveBeenCalled()+" id="toHaveBeenCalled"><code>expect(spy).toHaveBeenCalled()</code></h3>
-  <p>See <a href="/#assert-called"><code>assert.called</code></a></p>
+  <p>See <a href="./#assert-called"><code>assert.called</code></a></p>
   <h3 data-title="+toHaveBeenCalledOnce()+" id="toHaveBeenCalledOnce"><code>expect(spy).toHaveBeenCalledOnce(expected)</code></h3>
-  <p>See <a href="/#assert-calledOnce"><code>assert.calledOnce</code></a></p>
+  <p>See <a href="./#assert-calledOnce"><code>assert.calledOnce</code></a></p>
   <h3 data-title="+toHaveBeenCalledTwice()+" id="toHaveBeenCalledTwice"><code>expect(spy).toHaveBeenCalledTwice(expected)</code></h3>
-  <p>See <a href="/#assert-calledTwice"><code>assert.calledTwice</code></a></p>
+  <p>See <a href="./#assert-calledTwice"><code>assert.calledTwice</code></a></p>
   <h3 data-title="+toHaveBeenCalledThrice()+" id="toHaveBeenCalledThrice"><code>expect(spy).toHaveBeenCalledThrice(expected)</code></h3>
-  <p>See <a href="/#assert-calledThrice"><code>assert.calledThrice</code></a></p>
+  <p>See <a href="./#assert-calledThrice"><code>assert.calledThrice</code></a></p>
   <h3 data-title="+toHaveBeenCalledWith(arg1, arg2, ...)+" id="toHaveBeenCalledWith"><code>expect(spy).toHaveBeenCalledWith(arg1, arg2, ...)</code></h3>
-  <p>See <a href="/#assert-calledWith"><code>assert.calledWith</code></a></p>
+  <p>See <a href="./#assert-calledWith"><code>assert.calledWith</code></a></p>
   <h3 data-title="+toHaveBeenCalledOnceWith(arg1, arg2, ...)+" id="toHaveBeenCalledOnceWith"><code>expect(spy).toHaveBeenCalledOnceWith(arg1, arg2, ...)</code></h3>
-  <p>See <a href="/#assert-calledOnceWith"><code>assert.calledOnceWith</code></a></p>
+  <p>See <a href="./#assert-calledOnceWith"><code>assert.calledOnceWith</code></a></p>
 </div>
 <div class="section">
   <h2 id="methods">Methods</h2>
@@ -1198,8 +1198,8 @@ expect(42).not().toEqual(43); // Passes</code></pre>
   <p>
     When an assertion fails, it calls <code>buster.assertions.fail</code> with
     the failure message as the only argument. The built-in
-    <code>fail</code> function both throws an <a href="/#AssertionError"><code>AssertionError</code></a> and
-    emits it to the <a href="/#event-failure"><code>"failure"</code></a> event. The error can be caught and
+    <code>fail</code> function both throws an <a href="./#AssertionError"><code>AssertionError</code></a> and
+    emits it to the <a href="./#event-failure"><code>"failure"</code></a> event. The error can be caught and
     handled by the test runner. If this behavior is not suitable for your
     testing framework of choice, you can override
     <code>buster.assertions.fail</code> to make it do the right thing.
@@ -1219,7 +1219,7 @@ expect(42).not().toEqual(43); // Passes</code></pre>
     It is possible to make the default <code>assert.fail</code> method
     only emit an event and not throw an error. This may be suitable in
     asynchronous test runners, where you might not be able to catch
-    exceptions. To silence exceptions, see the <a href="/#throwOnFailure"><code>throwOnFailure</code></a>
+    exceptions. To silence exceptions, see the <a href="./#throwOnFailure"><code>throwOnFailure</code></a>
     property.
   </p>
   <h3 id="format"><code>format(object)</code></h3>
@@ -1243,7 +1243,7 @@ expect(42).not().toEqual(43); // Passes</code></pre>
     <li>Assertions will be counted.</li>
     <li>
       Failure messages will have interpolated arguments formatted by
-      <a href="/#format"><code>buster.assertions.format</code></a>.
+      <a href="./#format"><code>buster.assertions.format</code></a>.
     </li>
     <li>
       A single function generates both an assertion and a refutation.
@@ -1253,7 +1253,7 @@ expect(42).not().toEqual(43); // Passes</code></pre>
       well.
     </li>
     <li>
-      When <a href="/#failOnNoAssertions"><code>failOnNoAssertions</code></a> is set to <code>true</code>, the
+      When <a href="./#failOnNoAssertions"><code>failOnNoAssertions</code></a> is set to <code>true</code>, the
       assertion will behave correctly (may be important for asynchronous
       tests).
     </li>
@@ -1383,7 +1383,7 @@ expect("foo").toBeFoo();</code></pre>
   <h3 id="isElement"><code>isElement(object)</code></h3>
   <p>
     Returns <code>true</code> if the object is a DOM element. The check is made
-    by calling <a href="/#isNode">buster.isNode</a> and asserting that the
+    by calling <a href="./#isNode">buster.isNode</a> and asserting that the
     element's <code>nodeType</code> is 1 (i.e. element).
   </p>
   <h3 id="isArguments"><code>isArguments(object)</code></h3>
@@ -1421,7 +1421,7 @@ buster.isArguments([]); // false</code></pre>
     <code>throwOnFailure</code> (<code>true</code>)
   </h3>
   <p>
-    When using the <a href="/#fail">default <code>fail</code></a>
+    When using the <a href="./#fail">default <code>fail</code></a>
     implementation, this property can be set to <code>false</code> to make
     assertion failures <strong>not</strong> throw exceptions (i.e. only
     emit events). This may be suitable in asynchronous test runners, where

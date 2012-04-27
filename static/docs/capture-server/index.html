@@ -51,7 +51,7 @@
 
   <div class="section">
     <h2>Listening to events</h2>
-    <p>The server has a global event hub, as well as one event hub per session. The global path is <tt>/messaging</tt>. The paths for the individual sessions is available as <a href="/#serialized-session-bayeux"><code>.bayeuxClientPath</code></a> on the individual sessions.</p>
+    <p>The server has a global event hub, as well as one event hub per session. The global path is <tt>/messaging</tt>. The paths for the individual sessions is available as <a href="./#serialized-session-bayeux"><code>.bayeuxClientPath</code></a> on the individual sessions.</p>
     <p>Bayeux is a standardized protocol for messaging, but <a href="http://faye.jcoglan.com/node.html">Faye</a> specific features is used so you're expected to use Faye for creating messaging clients.</p>
   </div>
 
@@ -75,13 +75,13 @@
     </p>
 
     <h3 id="capture-path"><code>server.capturePath = path</code></h3>
-    <p>The default value of this property is <code>"/capture"</code>. See <a href="/#perform-capture">performing capture</a>.</p>
+    <p>The default value of this property is <code>"/capture"</code>. See <a href="./#perform-capture">performing capture</a>.</p>
 
     <h3 id="slave-header"><code>server.header(height, resourceSet)</code></h3>
     <p>All slaves will have a header of <code>height</code> pixels with the provided resource set loaded into it.</p>
 
     <h3 id="perform-capture">Performing capture</h3>
-    <p>To capture a browser, perform a HTTP GET request to the <a href="/#capturePath"><code>capturePath</code></a> of the server. This will load the slave page and notify when the browser is ready to accept new sessions.</p>
+    <p>To capture a browser, perform a HTTP GET request to the <a href="./#capturePath"><code>capturePath</code></a> of the server. This will load the slave page and notify when the browser is ready to accept new sessions.</p>
 
     <h3 id="event-capture">Event: /capture</h3>
     <p>Emitted when new slaves are created (a browser has been captured) and the slave is ready to accept sessions.</p>
@@ -102,28 +102,28 @@
       the path to the root HTML document of the session's resource set.
     </p>
 
-    <h3 id="create-session"><code>var <a href="/#serialized-session">session</a> = server.createSession(<a href="#session-payload">payload</a>)</code></h3>
+    <h3 id="create-session"><code>var <a href="./#serialized-session">session</a> = server.createSession(<a href="#session-payload">payload</a>)</code></h3>
     <p>Creates a new session.</p>
 
     <h3 id="create-session-http">POST /sessions</h3>
     <p>Creates a new session over HTTP. Responds with <tt>201 Created</tt> if the session will start immediately, or <tt>202 Accepted</tt> if it is queued.</p>
 
-    <h3 id="destroy-session"><code>server.destroySession(<a href="/#serialized-session-id">id</a>)</code></h3>
+    <h3 id="destroy-session"><code>server.destroySession(<a href="./#serialized-session-id">id</a>)</code></h3>
     <p>Unqueues a queued session or ends the current session.</p>
 
-    <h3 id="destroy-session-http">DELETE <code>session.<a href="/#serialized-session-path">path</a></code></h3>
+    <h3 id="destroy-session-http">DELETE <code>session.<a href="./#serialized-session-path">path</a></code></h3>
     <p>Unqueues a queued session or ends the current session.</p>
 
-    <h3 id="event-session-created">Event: /session/create (<a href="/#serialized-session">session</a>)</h3>
+    <h3 id="event-session-created">Event: /session/create (<a href="./#serialized-session">session</a>)</h3>
     <p>Emitted with a session object when a session is created. </p>
 
-    <h3 id="event-session-loaded">Event: /session/start (<a href="/#serialized-session">session</a>)</h3>
+    <h3 id="event-session-loaded">Event: /session/start (<a href="./#serialized-session">session</a>)</h3>
     <p>Emitted with a session object when a session has started (became current) in all slaves.</p>
   </div>
 
   <div class="section">
     <h2 id="session-payload">Session payload</h2>
-    <p>The payload passed to <a href="/#create-session">createSession</a> or <a href="#create-session-http">POST /sessions</a>.</p>
+    <p>The payload passed to <a href="./#create-session">createSession</a> or <a href="#create-session-http">POST /sessions</a>.</p>
 
     <h3 id="session-payload-resource-set"><code>resourceSet</code></h3>
     <p>A serialized resource set.</p>
@@ -134,7 +134,7 @@
 
   <div class="section">
     <h2 id="serialized-session">Session objects</h2>
-    <p>The session object emitted from events and returned from <a href="/#create-session"><code>createSession</code></a>.</p>
+    <p>The session object emitted from events and returned from <a href="./#create-session"><code>createSession</code></a>.</p>
 
     <h3 id="serialized-session-id"><code>id</code></h3>
     <p>The id of the session. Used in the APIs to delete the session, and more.</p>

@@ -189,7 +189,7 @@ when.all([cache.inflate(set1), cache.inflate(set2)], function () {
     <h3 id="resource-set-deserialize"><code>var promise = resourceSet.deserialize(data)</code></h3>
     <p>
       Deserialize a resource set. The <code>data</code> should be a JavaScript
-      object, the kind that <a href="/#resource-set-serialize"><code>serialize</code></a>
+      object, the kind that <a href="./#resource-set-serialize"><code>serialize</code></a>
       produces. The method returns a promise that resolves with the fully inflated
       resource set.
     </p>
@@ -219,17 +219,17 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
     <h3 id="resource-set-add-resources"><code>var promise = rs.addResources(resources)</code></h3>
     <p>
       Adds multiple resources. Argument is an array of resources as accepted by
-      <a href="/#resource-set-add-resource"><code>addResource</code></a>.
+      <a href="./#resource-set-add-resource"><code>addResource</code></a>.
       The method returns a promise that resolves with an array of resources.
     </p>
-    <h3 id="resource-set-add-resource"><code>var promise = rs.addResource(<a href="/#extended-resource-spec">resource</a>)</code></h3>
+    <h3 id="resource-set-add-resource"><code>var promise = rs.addResource(<a href="./#extended-resource-spec">resource</a>)</code></h3>
     <p>
       Adds a resource. The argument can be either a proper
-      <a href="/#resource"><code>resource</code></a> instance, a string (either
+      <a href="./#resource"><code>resource</code></a> instance, a string (either
       a file path or a glob, see
-      <a href="/#resource-set-add-glob-resource"><code>addGlobResource</code></a>)
+      <a href="./#resource-set-add-glob-resource"><code>addGlobResource</code></a>)
       or an object with properties describing a resource
-      (<a href="/#extended-resource-spec">extended resource 'spec'</a>).
+      (<a href="./#extended-resource-spec">extended resource 'spec'</a>).
       The method returns a promise that resolves with a single resource.
     </p>
     <h3 id="resource-set-add-glob-resource"><code>var promise = rs.addGlobResource(path)</code></h3>
@@ -242,14 +242,14 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
     <p>
       Add multiple files as resources with common meta data <code>rs</code>. Each
       path will be passed along with <code>rs</code> to
-      <a href="/#resource-set-add-file-resource">addFileResource</a>.
+      <a href="./#resource-set-add-file-resource">addFileResource</a>.
       Returns a promise that resolves with an array of resources.
     </p>
     <h3 id="resource-set-add-file-resource"><code>var promise = rs.addFileResource(path, rs)</code></h3>
     <p>
       Adds a file as resource. The path is resolved against the resource
       set <code>rootPath</code>. You can provide the path to serve the resource
-      through as part of the <a href="/#resource-spec"><code>rs</code></a>
+      through as part of the <a href="./#resource-spec"><code>rs</code></a>
       object. Returns a promise that resolves with a single resource.
     </p>
     <h3 id="resource-set-add-combined-resource"><code>var promise = rs.addCombinedResource(sources, rs)</code></h3>
@@ -334,8 +334,8 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
     </p>
     <pre><code>resources.createResourceSet({
     resources: {
-        "/path": {<a href="/#resource-payload">resource-payload</a>},
-        "/other-path": {<a href="/#resource-payload">resource-payload</a>},
+        "/path": {<a href="./#resource-payload">resource-payload</a>},
+        "/other-path": {<a href="./#resource-payload">resource-payload</a>},
             ...
     },
     load: [resourcePath, ...]
@@ -343,8 +343,8 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
     <h3 id="resource-set-payload-resources"><code>resources</code></h3>
     <p>
       An object where the key is the path and the value is
-      the <a href="/#resource-payload">resource payload</a>. The equivalent of
-      calling <a href="/#resource-set-add-resource">addResource()</a>.
+      the <a href="./#resource-payload">resource payload</a>. The equivalent of
+      calling <a href="./#resource-set-add-resource">addResource()</a>.
     </p>
     <h3 id="resource-set-payload-load"><code>load</code></h3>
     <p>List of paths to "load". The path must exist as a resource.</p>
@@ -370,7 +370,7 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
     <p>
       Function will be called when needed and allows for asynchronous fetching
       of content via a promise. This is
-      what <a href="/#resource-set-add-file">addFile</a> uses under the hood.
+      what <a href="./#resource-set-add-file">addFile</a> uses under the hood.
     </p>
     <p>
       It is imperative that you either resolve or reject the promise. There's no
@@ -444,11 +444,11 @@ resourceSet.deserialize(JSON.parse(data)).then(function (set) {
       cb);</code> will perform a request to <em>http://foo.com/test</em>.
     </p>
     <p>
-      When <a href="/#resource-set-get-resource">getResource</a> is used, a plain
+      When <a href="./#resource-set-get-resource">getResource</a> is used, a plain
       HTTP request with no special request headers are performed.
     </p>
     <p>
-      When <a href="/#resource-set-get-resource-http">getResourceViaHttp</a> is
+      When <a href="./#resource-set-get-resource-http">getResourceViaHttp</a> is
       used, a mini proxy server will perform a HTTP request matching the
       incoming request.
     </p>

@@ -55,7 +55,7 @@
     If you are looking to run tests written for another testing library with
     Buster, you have come to the right place. Supporting other test frameworks
     front-ends is a simple matter of converting the objects/functions created by
-    the library to a <a href="/#testContext">test context object</a>. For
+    the library to a <a href="./#testContext">test context object</a>. For
     inspiration, see the implementation of the aforementioned
     <a href="../test-case/"><code>buster.testCase</code></a>, <a href="../spec/index.html"><code>buster.spec</code></a> and <a href="../../extensions/index.html#jstestdriver">buster-jstestdriver</a>.
   </p>
@@ -69,12 +69,12 @@
     Represents a test case (xUnit terminology) or a specification (BDD
     terminology). Contains a set of tests to run, optional setup and teardown
     methods as well as optional nested contexts. Refer to
-    <a href="/#example">the example</a> for more information on how this can be
+    <a href="./#example">the example</a> for more information on how this can be
     used in practice.
   </p>
   <p>
     Setup and teardown methods can be asynchronous, see
-    <a href="/#async">the section on asynchronous tests</a>.
+    <a href="./#async">the section on asynchronous tests</a>.
   </p>
   <dl class="properties">
     <dt><code>name</code></dt>
@@ -93,17 +93,17 @@
     </dd>
     <dt><code>tests</code></dt>
     <dd>
-      An array of <a href="/#test"><code>test</code></a> objects.
+      An array of <a href="./#test"><code>test</code></a> objects.
     </dd>
     <dt><code>contexts</code></dt>
     <dd>
-      An array of <a href="/#testContext"><code>testContext</code></a> objects. In other words, the test
+      An array of <a href="./#testContext"><code>testContext</code></a> objects. In other words, the test
       context data format (and thus, the <a href="../runner/">test runner</a>)
       supports arbitrarily nested contexts.
     </dd>
     <dt><code>parent</code></dt>
     <dd>
-      The parent <a href="/#testContext"><code>testContext</code></a>, if any.
+      The parent <a href="./#testContext"><code>testContext</code></a>, if any.
     </dd>
     <dt><code>testCase</code></dt>
     <dd>
@@ -126,7 +126,7 @@
     <dd>The test function name, as a string.</dd>
     <dt><code>func</code></dt>
     <dd>
-      The test function. See <a href="/#async">the section on asynchronous tests</a> for how to mark it as - well, asynchronous.
+      The test function. See <a href="./#async">the section on asynchronous tests</a> for how to mark it as - well, asynchronous.
     </dd>
     <dt><code>context</code></dt>
     <dd>

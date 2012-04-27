@@ -116,7 +116,7 @@ console.log(format.ascii(developer));
     <p>
       If the object to format is not a generic <code>Object</code>
       object, <strong>buster-format</strong> displays the type of object
-      (i.e. name of constructor). Set the <a href="/#excludeConstructors"><code>excludeConstructors</code></a>
+      (i.e. name of constructor). Set the <a href="./#excludeConstructors"><code>excludeConstructors</code></a>
       property to control what constructors to include in formatted
       output.
     </p>
@@ -161,18 +161,18 @@ console.log(buster.format.ascii(p));
     <h3 id="func"><code>func(func)</code></h3>
     <p>
       Formats a function like <code>"function [name]() {}"</code>. The
-      name is retrieved from <a href="/#functionName"><code>functionName</code></a>.
+      name is retrieved from <a href="./#functionName"><code>functionName</code></a>.
     </p>
     <h3 id="array"><code>array(array)</code></h3>
     <p>
       Formats an array as <code>"[item1, item2, item3]"</code> where each
-      item is formatted with <a href="/#buster-format-ascii"><code>buster.format.ascii</code></a>. Circular
+      item is formatted with <a href="./#buster-format-ascii"><code>buster.format.ascii</code></a>. Circular
       references are represented in the resulting string as
       <code>"[Circular]"</code>.
     </p>
     <h3 id="object"><code>object(object)</code></h3>
     <p>
-      Formats all properties of the object with <a href="/#buster-format-ascii"><code>buster.format.ascii</code></a>.
+      Formats all properties of the object with <a href="./#buster-format-ascii"><code>buster.format.ascii</code></a>.
       If the object can be fully represented in 80 characters, it's
       formatted in one line. Otherwise, it's nicely indented over as many
       lines as necessary. Circular references are represented by
@@ -181,7 +181,7 @@ console.log(buster.format.ascii(p));
     <p>
       Objects created with custom constructors will be formatted as
       <code>"[ConstructorName] { ... }"</code>. Set the
-      <a href="/#excludeConstructors"><code>excludeConstructors</code></a> property to control what constructors
+      <a href="./#excludeConstructors"><code>excludeConstructors</code></a> property to control what constructors
       are included in the output like this.
     </p>
     <h3 id="element"><code>element(element)</code></h3>
@@ -195,8 +195,8 @@ console.log(buster.format.ascii(p));
     <p>
       Attempts to guess the name of the constructor that created the
       object. It does so by getting the name of
-      <code>object.constructor</code> using <a href="/#functionName"><code>functionName</code></a>. If a
-      name is found, <a href="/#excludeConstructors"><code>excludeConstructors</code></a> is consulted. If the
+      <code>object.constructor</code> using <a href="./#functionName"><code>functionName</code></a>. If a
+      name is found, <a href="./#excludeConstructors"><code>excludeConstructors</code></a> is consulted. If the
       constructor name matches any of these elements, an empty string is
       returned, otherwise the name is returned.
     </p>
