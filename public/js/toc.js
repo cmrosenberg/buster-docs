@@ -49,7 +49,7 @@
             }
 
             if (element.nodeName == "H3") {
-                result.subs.push({                    
+                result.subs.push({
                     name: strippedHtml(element),
                     element: element
                 });
@@ -62,6 +62,10 @@
     function createListItemForSectionItem(sectionItem, element) {
         var link = document.createElement("a");
         link.innerHTML = sectionItem.name;
+        if (sectionItem.element.id == "") {
+            console.warn("missing id for " + sectionItem.element.outerHTML + " on page " + document.URL + " " + element.baseURI);
+            link.className = sectionItem.element.className = "brokenLinkWarning";
+        }
         link.href = "#" + sectionItem.element.id;
 
         var item = document.createElement("li");
