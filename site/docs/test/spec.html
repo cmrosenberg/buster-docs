@@ -15,7 +15,7 @@
     <a href="/docs/test/test-case/"><code>buster.testCase</code></a> but with a syntax
     closer to BDD-style frameworks such as <a href="http://rspec.info/">RSpec</a>,
     <a href="http://pivotal.github.com/jasmine/">Jasmine</a> and others.
-    <a href="/docs/test/spec/#describe"><code>describe</code></a> produces <a href="/docs/test/context/"><code>buster.testContext</code></a> objects that can be run using
+    <a href="#describe"><code>describe</code></a> produces <a href="/docs/test/context/"><code>buster.testContext</code></a> objects that can be run using
     <a href="/docs/test/runner/"><code>buster.testRunner</code></a>.
   </p>
   <h3>Unboxing the namespace</h3>
@@ -24,8 +24,8 @@
     this reason we only add one single global object
     - <code>buster</code>. However, in some cases, like this one, the namespaces
     seriously desugars your code. For this reason, <strong>buster-spec</strong>
-    has a <a href="/docs/test/spec/#expose"><code>expose</code></a> method that allows you to use <a href="/docs/test/spec/#describe"><code>describe</code></a>,
-    <a href="/docs/test/spec/#it"><code>it</code></a> and the others with the "buster" prefix:
+    has a <a href="#expose"><code>expose</code></a> method that allows you to use <a href="#describe"><code>describe</code></a>,
+    <a href="#it"><code>it</code></a> and the others with the "buster" prefix:
   </p>
   <pre><code>buster.spec.expose();
 
@@ -326,14 +326,14 @@ var spec = describe("Bowling kata", function () {
     <p>
       Before and after callbacks are treated as asynchronous by the test runner if
       they either return a thenable promise or if they explicitly accept an
-      argument. See <a href="/docs/test/spec/#async-specs"><code>async-specs</code></a>.
+      argument. See <a href="#async-specs"><code>async-specs</code></a>.
     </p>
   </div>
   <div>
     <h2 id="nested-describes">Nested describes</h2>
     <p>
       Calls to <code>describe</code> can be arbitrarily nested. See the
-      explanation of <a href="/docs/test/spec/#nested-setup-teardown">nested setup and teardown</a> for an example of using nested describes.
+      explanation of <a href="#nested-setup-teardown">nested setup and teardown</a> for an example of using nested describes.
     </p>
   </div>
   <div>
