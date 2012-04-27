@@ -49,7 +49,7 @@
 var port = args.<a href="./#createOption">createOption</a>("-p", "--port");
 port.<a href="./#hasValue">hasValue</a> = true; // So that the parser can read -p2345 as -p=2345
 port.<a href="./#defaultValue">defaultValue</a> = 8282;
-port.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
+port.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="./#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
 
 var verbose = args.<a href="./#createOption">createOption</a>("-v");
 verbose.<a href="./#addValidator">addValidator</a>(function () {
@@ -62,8 +62,8 @@ verbose.<a href="./#addValidator">addValidator</a>(function () {
 // Operands are statements without options. I.e. mything --port=1234 path/to/stuff
 var rootPath = args.<a href="./#createOperand">createOperand</a>();
 rootPath.<a href="./#signature">signature</a> = "Presentation root directory"; // Used in error msgs for this option
-rootPath.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="#validator-file">file</a>()); // Will use default error msg
-rootPath.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="#required-validator">required</a>());
+rootPath.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="./#validator-file">file</a>()); // Will use default error msg
+rootPath.<a href="./#addValidator">addValidator</a>(busterArgs.validators.<a href="./#required-validator">required</a>());
 
 args.<a href="./#handle">handle</a>(process.argv.slice(2), function (errors) {
     if (errors) {
@@ -151,7 +151,7 @@ args.handle(process.argv.slice(2), function (errors) {
       used for arguments that always have to be passed. Examples of this
       are <kbd>nano path/to/file.txt</kbd>, <kbd>git-checkout
       master</kbd>, <kbd>rmdir my_dir</kbd>, etc. The
-      validators <a href="./#validator-file">file</a>, <a href="#validator-directory">directory</a>,
+      validators <a href="./#validator-file">file</a>, <a href="./#validator-directory">directory</a>,
       and <a href="./#validator-file-or-directory">fileOrDirectory</a> are very
       useful for operands.
     </p>
