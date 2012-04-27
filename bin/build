@@ -15,5 +15,5 @@ wget -e robots=off -P static -nv -k -p -E -nH -r -l 0 http://localhost:8090 2>&1
 #   -r  --recursive
 #   -l  --level (0 for infinity)
 
-find static -name "*.html" | xargs sed -i 's/"index.html/".\//'
-find static -name "*.html" | xargs sed -i 's/index.html//'
+find static -name "*.html" | xargs sed -i 's/"index.html/".\//g'
+find static -name "*.html" | xargs sed -i 's/index.html//g'
