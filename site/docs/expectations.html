@@ -14,15 +14,11 @@
     The verification and error messages are the same, but the syntax is
     different:
   </p>
-  <pre><code>var assert = buster.assertions.assert;
-var refute = buster.assertions.refute;
-var expect = buster.assertions.expect;
-
-assert.equals({ id: 42 }, { id: 42 });
+  <pre><code>assert.equals({ id: 42 }, { id: 42 });
 expect({ id: 42 }).toEqual({ id: 42 });
 
 refute.equals({ id: 42 }, { id: 10 });
-expect({ id: 42 }).not().toEqual({ id: 10 });</code></pre>
+expect({ id: 42 }).not.toEqual({ id: 10 });</code></pre>
   <div class="section">
     <h2 id="expectations">Expectations</h2>
     <p>
@@ -38,12 +34,18 @@ expect({ id: 42 }).not().toEqual({ id: 10 });</code></pre>
     <p><a href="/docs/assertions/#isTrue">buster-assertions#isTrue</a></p>
     <h3 id="toBeFalse" data-title="+toBeFalse()+"><code>expect(actual).toBeFalse()</code></h3>
     <p><a href="/docs/assertions/#isFalse">buster-assertions#isFalse</a></p>
-    <h3 id="toBeSameAs" data-title="+toBeSameAs()+"><code>expect(actual).toBeSameAs()</code></h3>
+    <h3 id="toBeTruthy" data-title="+toBeTruthy()+"><code>expect(actual).toBeTruthy();</code></h3>
+    <p><a href="/docs/assertions/#isTruthy">buster-assertions#isTruthy</a></p>
+    <h3 id="toBeFalsy" data-title="+toBeFalsy()+"><code>expect(actual).toBeFalsy()</code></h3>
+    <p><a href="/docs/assertions/#isFalsy">buster-assertions#isFalsy</a></p>
+    <h3 id="toBe" data-title="+toBe()+"><code>expect(actual).toBe()</code></h3>
     <p><a href="/docs/assertions/#same">buster-assertions#same</a></p>
     <h3 id="toEqual" data-title="+toEqual()+"><code>expect(actual).toEqual()</code></h3>
     <p><a href="/docs/assertions/#equals">buster-assertions#equals</a></p>
-    <h3 id="toBeType" data-title="+toBeType()+"><code>expect(actual).toBeType()</code></h3>
-    <p><a href="/docs/assertions/#typeOf">buster-assertions#typeOf</a></p>
+    <h3 id="toBeGreaterThan" data-title="+toBeGreaterThan()+"><code>expect(actual).toBeGreaterThan()</code></h3>
+    <p><a href="/docs/assertions/#greater-than">buster-assertions#greaterThan</a></p>
+    <h3 id="toBeLessThan" data-title="+toBeLessThan()+"><code>expect(actual).toBeLessThan()</code></h3>
+    <p><a href="/docs/assertions/#less-than">buster-assertions#lessThan</a></p>
     <h3 id="toBeString" data-title="+toBeString()+"><code>expect(actual).toBeString()</code></h3>
     <p><a href="/docs/assertions/#isString">buster-assertions#isString</a></p>
     <h3 id="toBeObject" data-title="+toBeObject()+"><code>expect(actual).toBeObject()</code></h3>
@@ -54,8 +56,8 @@ expect({ id: 42 }).not().toEqual({ id: 10 });</code></pre>
     <p><a href="/docs/assertions/#isBoolean">buster-assertions#isBoolean</a></p>
     <h3 id="toBeNumber" data-title="+toBeNumber()+"><code>expect(actual).toBeNumber()</code></h3>
     <p><a href="/docs/assertions/#isNumber">buster-assertions#isNumber</a></p>
-    <h3 id="toBeUndefined" data-title="+toBeUndefined()+"><code>expect(actual).toBeUndefined()</code></h3>
-    <p><a href="/docs/assertions/#isUndefined">buster-assertions#isUndefined</a></p>
+    <h3 id="toBeDefined" data-title="+toBeDefined()+"><code>expect(actual).toBeDefined()</code></h3>
+    <p><a href="/docs/assertions/#defined">buster-assertions#defined</a></p>
     <h3 id="toBeNull" data-title="+toBeNull()+"><code>expect(actual).toBeNull()</code></h3>
     <p><a href="/docs/assertions/#isNull">buster-assertions#isNull</a></p>
     <h3 id="toBeNaN" data-title="+toBeNaN()+"><code>expect(actual).toBeNaN()</code></h3>
@@ -72,9 +74,11 @@ expect({ id: 42 }).not().toEqual({ id: 10 });</code></pre>
     <p><a href="/docs/assertions/#tagName">buster-assertions#tagName</a></p>
     <h3 id="toHaveClassName" data-title="+toHaveClassName()+"><code>expect(actual).toHaveClassName()</code></h3>
     <p><a href="/docs/assertions/#className">buster-assertions#className</a></p>
-    <h3 id="toBeInDelta" data-title="+toBeInDelta()+"><code>expect(actual).toBeInDelta()</code></h3>
-    <p><a href="/docs/assertions/#inDelta">buster-assertions#inDelta</a></p>
+    <h3 id="toBeNear" data-title="+toBeNear()+"><code>expect(actual).toBeNear()</code></h3>
+    <p>Also aliased as <code>expect(actual).toBeCloseTo()</code>. <a href="/docs/assertions/#near">buster-assertions#near</a></p>
     <h3 id="toHavePrototype" data-title="+toHavePrototype()+"><code>expect(actual).toHavePrototype()</code></h3>
     <p><a href="/docs/assertions/#hasPrototype">buster-assertions#hasPrototype</a></p>
+    <h3 id="toContain" data-title="+toContain()+"><code>expect(actual).toContain()</code></h3>
+    <p><a href="/docs/assertions/#contains">buster-assertions#contains</a></p>
   </div>
 </div>
