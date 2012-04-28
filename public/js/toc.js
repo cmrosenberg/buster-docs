@@ -64,7 +64,9 @@
         link.innerHTML = sectionItem.name;
         if (sectionItem.element.id == "") {
             console.warn("missing id for " + sectionItem.element.outerHTML + " on page " + document.URL + " " + element.baseURI);
-            link.className = sectionItem.element.className = "brokenLinkWarning";
+            link.onclick = function() { return false; }; // for IE and Opera, as they don't support pointer-events: none
+            link.className = "disabledLink brokenLinkWarning";
+            sectionItem.element.className = "brokenLinkWarning";
         }
         link.href = "#" + sectionItem.element.id;
 

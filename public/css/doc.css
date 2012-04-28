@@ -30,6 +30,15 @@
     text-decoration: none;
 }
 
+#doc-nav a.disabledLink,        /* to fully override #doc-nav a */
+#doc-nav a.disabledLink:hover,  /* so we may e.g. set text-decoration: line-through */
+a.disabledLink,
+a.disabledLink:hover {
+    cursor: default;
+    text-decoration: line-through;
+    pointer-events: none; /* not supported by IE and Opera, additional JS needed for these (see toc.js) */
+}
+
 #doc-content {
     margin-right: 340px;
 }
