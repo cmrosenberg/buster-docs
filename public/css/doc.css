@@ -107,7 +107,12 @@ h4 {
 }
 
 .brokenLinkWarning {
-    background: url("/images/blink1x1.gif");
+    background: url("/images/blink1x1red.gif");
+}
+
+h2:not([id]),
+h3:not([id]) {
+    background: url("/images/blink1x1yellow.gif");
 }
 
 a img {
