@@ -1,0 +1,45 @@
+<div id="doc-nav"></div>
+<div id="doc-content">
+  <h1>Test options</h1>
+  <dl>
+    <dt>Version</dt>
+    <dd>See <a href="/docs/test/">buster-test</a></dd>
+  </dl>
+  <div class="section">
+  	<h2 id="options">Options</h2>
+  	<dl>
+  	<dt><code>-h/--help</code></code></code></dt>             
+  		<dd>Show this message. See also --help reporters.</dd>
+    <dt><code>-l/--log-level</code></code></dt>         
+    	<dd>Set logging level. One of error, warn, log, info, debug.</dd>
+    <dt><code>-v/--verbose</code></code></dt>
+    	<dd>Increase verbosity level. Include one (log level info) or two time (e.g. -vv, log level debug).</dd>
+    <dt><code>-c/--config</code></code></dt>
+    	<dd>Test configuration file</dd>
+    <dt><code>-g/--config-group</code></dt>
+    	<dd>Test configuration group(s) to load</dd>
+    <dt><code>-t/--tests</code></dt>
+    	<dd>Test files (within active configuration) to run</dd>
+    <dt><code>-e/--environment</code></dt>
+    	<dd>Test configuration environment to load</dd>
+    <dt><code>-r/--reporter</code></dt>
+    	<dd>Test output reporter Default is dots.</dd>
+    <dt><code>-C/--color</code></dt>
+    	<dd>Output color scheme One of dim, bright, none. Default is bright.</dd>
+    <dt><code>-s/--server</code></dt>
+    	<dd>Hostname and port to a running buster-server instance (for browser tests) Default is http://localhost:1111.</dd>
+    <dt><code>-R/--reset</code></dt>
+    	<dd>Don't use cached resources on the server.</dd>
+    <dt><code>-W/--warnings</code></dt>
+    	<dd>Warnings to print One of fatal, error, warning, all, none. Default is all.</dd>
+    <dt><code>-F/--fail-on</code></dt>
+    	<dd>Fail on warnings at this level One of fatal, error, warning. Default is fatal.</dd>
+    <dt><code>-L/--log-all</code></dt>
+    	<dd>Log all messages, including for passed tests</dd>
+    <dt><code>-o/--release-console</code></dt>
+    <dd>By default, Buster captures log messages from console.log and friends. It does so by replacing the global console object with the buster.console object. This option skips this hijacking.</dd>
+    <dt><code>-p/--static-paths</code></dt>
+    <dd>Serve files over a static URL on the server. Reusing paths across test runs makes it possible to use breakpoints, but increases the risk of stale resources due to over-eaher browser caching</dd>
+</dl>
+  </div>
+</div>
