@@ -23,6 +23,7 @@
     <h3 id="server_attach"><code>server.attach(<a href="http://nodejs.org/docs/latest/api/http.html">httpServer</a>)</code></h3>
     <p>Attaches the buster-capture-server to a Node.js HTTP server.</p>
     <p>All HTTP requests that buster-capture-server handles is "consumed", and won't trigger any "request" event listeners on the Node.js HTTP server.</p>
+
   </div>
 
   <div class="section">
@@ -61,6 +62,12 @@
       <dt>staticResourcesPath</dt>
       <dd>Boolean specifying whether the same path should be used for all sessions. When false, each session will get a new path. The actual value is unspecified, but it might be something like <code>"/sessions/123-long-id-here/resources"</code>. This is useful to force browsers to reload all the resources as the path will be different for each session. When true, each session will be loaded with the same path. This is useful for debugging, buster test uses this so that breakpoints can be set in browser debuggers and apply across test runs. Defaults to <code>false</code></dd>
     </dl>
+
+    <h3 id="server_client_connect"><code>serverClient.connect()</code></h3>
+    <p>Connects the server client to the server. Needs to be called manually, typically immediately after the server client is created.</p>
+
+    <h3 id="server_client_disconnect"><code>serverClient.disconnect()</code></h3>
+    <p>Disconnecting is not mandatory, it's only provided as a convenience if you want to clean up the connections. You can also just kill the process without disconnecting first, the server will be fine.</p>
   </div>
 
   <div class="section">
@@ -88,7 +95,7 @@
     <p>Connects the session client. Needs to be called manually for every session client create, typically immediately after the session client is created.</p>
 
     <h3 id="session_client_disconnect"><code>sessionClient.disconnect()</code></h3>
-    <p>You don't have to call this one, simply killing the process is enough if that's all you need. Disconnecting the session client is however useful if you want to create many session clients in the same process and need to clean up the connections for an old session client.</p>
+    <p>Disconnecting is not mandatory, it's only provided as a convenience if you want to clean up the connections. You can also just kill the process without disconnecting first, the server will be fine.</p>
 
     <h3 id="session_client_emit"><code>sessionClient.emit(event[, data])</code></h3>
     <p>Emit an event to all slaves.</p>
