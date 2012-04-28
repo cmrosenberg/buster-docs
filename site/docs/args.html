@@ -18,70 +18,70 @@
   </p>
   <pre><code>var args = Object.create(require("buster-args"));
 
-var port = args.<a href="/docs/args/#createOption">createOption</a>("-p", "--port");
-port.<a href="/docs/args/#hasValue">hasValue</a> = true; // So that the parser can read -p2345 as -p=2345
-port.<a href="/docs/args/#defaultValue">defaultValue</a> = 8282;
-port.<a href="/docs/args/#addValidator">addValidator</a>(busterArgs.validators.<a href="/docs/args/#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
+var port = args.<a href="#createOption">createOption</a>("-p", "--port");
+port.<a href="#hasValue">hasValue</a> = true; // So that the parser can read -p2345 as -p=2345
+port.<a href="#defaultValue">defaultValue</a> = 8282;
+port.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
 
-var verbose = args.<a href="/docs/args/#createOption">createOption</a>("-v");
-verbose.<a href="/docs/args/#addValidator">addValidator</a>(function () {
-    if (this.<a href="/docs/args/#timesSet">timesSet</a> > 3) {
-        // See also <a href="/docs/args/#async-validators">asynchronous validators</a>.
+var verbose = args.<a href="#createOption">createOption</a>("-v");
+verbose.<a href="#addValidator">addValidator</a>(function () {
+    if (this.<a href="#timesSet">timesSet</a> > 3) {
+        // See also <a href="#async-validators">asynchronous validators</a>.
         return "-v can only be 3 levels.";
     }
 });
 
 // Operands are statements without options. I.e. mything --port=1234 path/to/stuff
-var rootPath = args.<a href="/docs/args/#createOperand">createOperand</a>();
-rootPath.<a href="/docs/args/#signature">signature</a> = "Presentation root directory"; // Used in error msgs for this option
-rootPath.<a href="/docs/args/#addValidator">addValidator</a>(busterArgs.validators.<a href="/docs/args/#validator-file">file</a>()); // Will use default error msg
-rootPath.<a href="/docs/args/#addValidator">addValidator</a>(busterArgs.validators.<a href="/docs/args/#required-validator">required</a>());
+var rootPath = args.<a href="#createOperand">createOperand</a>();
+rootPath.<a href="#signature">signature</a> = "Presentation root directory"; // Used in error msgs for this option
+rootPath.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#validator-file">file</a>()); // Will use default error msg
+rootPath.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#required-validator">required</a>());
 
-args.<a href="/docs/args/#handle">handle</a>(process.argv.slice(2), function (errors) {
+args.<a href="#handle">handle</a>(process.argv.slice(2), function (errors) {
     if (errors) {
         console.log(errors[0]);
         return;
     }
 
     // Various useful ways to get the  values from the options.
-    verbose.<a href="/docs/args/#timesSet">timesSet</a>; // Will be between 0 and 3.
-    port.<a href="/docs/args/#isSet">isSet</a>;
-    port.<a href="/docs/args/#value">value</a>;
-    rootPath.<a href="/docs/args/#value">value</a>;
+    verbose.<a href="#timesSet">timesSet</a>; // Will be between 0 and 3.
+    port.<a href="#isSet">isSet</a>;
+    port.<a href="#value">value</a>;
+    rootPath.<a href="#value">value</a>;
 });
 </code></pre>
   <div class="section">
-    <h2>Methods</h2>
+    <h2 id="methods">Methods</h2>
     <h3 id="args"><code>var args = Object.create(require("buster-args"))</code></h3>
     <p>Creates a new instance of buster.args.</p>
-    <h3 id="createOption"><code>var opt = <a href="/docs/args/#args">args</a>.createOption("opt1", ["opt2", ...])</code></h3>
+    <h3 id="createOption"><code>var opt = <a href="#args">args</a>.createOption("opt1", ["opt2", ...])</code></h3>
     <p>
-      Creates a new <a href="/docs/args/#option">option</a>. An option has all the
-      properties of a <a href="/docs/args/#argument">argument</a>, as well
-      as <a href="/docs/args/#option-has-value">hasValue</a>
-      and <a href="/docs/args/#option-times-set">timesSet</a>
+      Creates a new <a href="#option">option</a>. An option has all the
+      properties of a <a href="#argument">argument</a>, as well
+      as <a href="#option-has-value">hasValue</a>
+      and <a href="#option-times-set">timesSet</a>
     </p>
-    <h3 id="addShorthand"><code><a href="/docs/args/#args">args</a>.addShorthand("opt", ["argv1", ...])</code></h3>
+    <h3 id="addShorthand"><code><a href="#args">args</a>.addShorthand("opt", ["argv1", ...])</code></h3>
     <p>
       A shorthand is a convenience method for adding options to your CLI that
       actually sets other options.
     </p>
-    <pre><code>var opt = <a href="/docs/args/#args">args</a>.createOption("--environment");
+    <pre><code>var opt = <a href="#args">args</a>.createOption("--environment");
 opt.hasValue = true;
 
-    <a href="/docs/args/#args">args</a>.addShorthand("--development", ["--environment", "development"]);
-    <a href="/docs/args/#args">args</a>.addShorthand("--production", ["--environment", "production"]);
+    <a href="#args">args</a>.addShorthand("--development", ["--environment", "development"]);
+    <a href="#args">args</a>.addShorthand("--production", ["--environment", "production"]);
 </code></pre>
     <p>
       This makes passing <kbd>--development</kbd> an equlvalent to
       passing <kbd>--environment development</kbd>.
     </p>
-    <h3 id="createOperand"><code>var opd = <a href="/docs/args/#args">args</a>.createOperand()</code></h3>
+    <h3 id="createOperand"><code>var opd = <a href="#args">args</a>.createOperand()</code></h3>
     <p>
       Creates a new operand. An operand has all the properties of
-      a <a href="/docs/args/#argument">argument</a>.
+      a <a href="#argument">argument</a>.
     </p>
-    <h3 id="handle"><code><a href="/docs/args/#args">args</a>.handle(args, callback)</code></h3>
+    <h3 id="handle"><code><a href="#args">args</a>.handle(args, callback)</code></h3>
     <p>
       Performs parsing and validation of argv. In node.JS, make sure to discard
       the firs two items
@@ -105,8 +105,8 @@ args.handle(process.argv.slice(2), function (errors) {
   <div class="section">
     <h2 id="argument">Arguments (options and operands)</h2>
     <p>
-      <a href="/docs/args/#createOption">Options</a>
-      and <a href="/docs/args/#createOperand">operands</a> are the two types of arguments
+      <a href="#createOption">Options</a>
+      and <a href="#createOperand">operands</a> are the two types of arguments
       handled by buster.args, and they share common functionality, listed below
       this introduction.
     </p>
@@ -116,15 +116,15 @@ args.handle(process.argv.slice(2), function (errors) {
       abc</kbd>, <kbd>-pabc</kbd>, <kbd>-p=abc</kbd>, <kbd>--port abc</kbd>
       and <kbd>--port=abc</kbd> are all supported by buster.args.
     </p>
-    <p><kbd>-pabc</kbd> can mean  both <kbd>-p -a -b -c</kbd> and <kbd>-p=abc</kbd>. buster.args uses the <a href="/docs/args/#hasValue">hasValue</a> to separate the two. With <code>hasValue</code> set to true, <kbd>-pabc</kbd> will be handled as <kbd>-p=abc</kbd>. When false (default), it will be handled as <kbd>-p -a -b -c</kbd>. In that case you also need to have option handlers for <kbd>-a</kbd>, <kbd>-b</kbd> and <kbd>-c</kbd>, or you'll get a validation error such as <code>"unknown option -a"</code> (depending on which option buster.args first encountered that didn't exist).</p>
+    <p><kbd>-pabc</kbd> can mean  both <kbd>-p -a -b -c</kbd> and <kbd>-p=abc</kbd>. buster.args uses the <a href="#hasValue">hasValue</a> to separate the two. With <code>hasValue</code> set to true, <kbd>-pabc</kbd> will be handled as <kbd>-p=abc</kbd>. When false (default), it will be handled as <kbd>-p -a -b -c</kbd>. In that case you also need to have option handlers for <kbd>-a</kbd>, <kbd>-b</kbd> and <kbd>-c</kbd>, or you'll get a validation error such as <code>"unknown option -a"</code> (depending on which option buster.args first encountered that didn't exist).</p>
     <p>
       An <strong>operand</strong> is an option-less value, i.e. <kbd>foo</kbd>
       (with no <kbd>-b</kbd> or <kbd>--myopt</kbd> prefixing it). It's commonly
       used for arguments that always have to be passed. Examples of this
       are <kbd>nano path/to/file.txt</kbd>, <kbd>git-checkout
       master</kbd>, <kbd>rmdir my_dir</kbd>, etc. The
-      validators <a href="/docs/args/#validator-file">file</a>, <a href="/docs/args/#validator-directory">directory</a>,
-      and <a href="/docs/args/#validator-file-or-directory">fileOrDirectory</a> are very
+      validators <a href="#validator-file">file</a>, <a href="#validator-directory">directory</a>,
+      and <a href="#validator-file-or-directory">fileOrDirectory</a> are very
       useful for operands.
     </p>
     <p>
@@ -141,7 +141,7 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       See example usage at the beginning of this document for more information.
     </p>
-    <h3 id="addValidator"><code>opt.addValidator(<a href="/docs/args/#validator">validator</a>)</code></h3>
+    <h3 id="addValidator"><code>opt.addValidator(<a href="#validator">validator</a>)</code></h3>
     <p>Adds a validator to an argument.</p>
     <h3 id="isSet"><code>var bool = opt.isSet</code></h3>
     <p>True or false depending on whether or not the option was present in argv.</p>
@@ -149,12 +149,12 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       The value of the argument. Is normally a string, but may be any object
       since validators can change argument values as they see
-      fit. See <a href="/docs/args/#actualValue">actualValue</a>.
+      fit. See <a href="#actualValue">actualValue</a>.
     </p>
     <h3 id="actualValue"><code>opt.actualValue = newValue</code></h3>
     <p>
       Override the value an argument gets from argv. This is probably only
-      useful in validations. The <a href="/docs/args/#validator-integer">integer</a> built
+      useful in validations. The <a href="#validator-integer">integer</a> built
       in validator uses this to set the value to a number object instead of a
       string object, for example.
     </p>
@@ -162,9 +162,9 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       Arguments can have an optional operation associated with it. When the
       argument is present in argv, the handler will be executed
-      before <a href="/docs/args/#handle">handle</a> resolves. The operation is handed a
-      promise. Resolving the promise will set the <a href="/docs/args/#value">value</a> of
-      the option. Rejecting it will make <a href="/docs/args/#handle">handle</a> return an
+      before <a href="#handle">handle</a> resolves. The operation is handed a
+      promise. Resolving the promise will set the <a href="#value">value</a> of
+      the option. Rejecting it will make <a href="#handle">handle</a> return an
       error. This is useful because it guarantees that at the time you handle,
       you know you either have the correct operation value or an error.
     </p>
@@ -201,7 +201,7 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       Tells the parser that it should look for a value for this option. An error
       will be generated if the option is passed without a
-      value. See <a href="/docs/args/#acceptsValueAbsence">acceptsValueAbsence</a> to
+      value. See <a href="#acceptsValueAbsence">acceptsValueAbsence</a> to
       change this behaviour.
     </p>
     <p>The default value is <code>false</code>.</p>
@@ -213,7 +213,7 @@ args.handle(process.argv.slice(2), function (errors) {
     <h3 id="acceptsValueAbsence"><code>opt.acceptsValueAbsence = [true|false]</code></h3>
     <p>
       Allows for passing the option both with and without a value,
-      when <a href="/docs/args/#hasValue">hasValue</a> is true.
+      when <a href="#hasValue">hasValue</a> is true.
     </p>
     <p>
       Useful for cases where you have options that work with and without a value
@@ -226,7 +226,7 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       Validators lets you add requirements with associated error messages to
       options and operands. Validators can also mutate the values of
-      options. The <a href="/docs/args/#validator-integer">integer</a> validator will for
+      options. The <a href="#validator-integer">integer</a> validator will for
       example set the value to
       a <a href="http://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number">Number</a>
       object upon successful validation.
@@ -235,7 +235,7 @@ args.handle(process.argv.slice(2), function (errors) {
       buster.args has a number of built-in validators, and an API for adding
       custom validators.
     </p>
-    <h2>Built-in validators</h2>
+    <h2 id="built-in-validators">Built-in validators</h2>
     <p>
       The built in validators provides a selection of generic validators. You
       can customize the error messages by passing strings with tokens
@@ -251,7 +251,7 @@ buster.args.validators.required("${1} has to be set");</code></pre>
     <h4>Custom error message</h4>
     <dl>
       <dt><code>${1}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
     <h3 id="validator-integer"><code>validators.integer("err")</code></h3>
     <p>
@@ -265,7 +265,7 @@ buster.args.validators.required("${1} has to be set");</code></pre>
       <dt><code>${1}</code></dt>
       <dd>The specified number</dd>
       <dt><code>${2}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
     <h3 id="validator-number"><code>validators.number("err")</code></h3>
     <p>
@@ -279,7 +279,7 @@ buster.args.validators.required("${1} has to be set");</code></pre>
       <dt><code>${1}</code></dt>
       <dd>The specified number</dd>
       <dt><code>${2}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
     <h3 id="validator-file"><code>validators.file("err")</code></h3>
     <p>
@@ -291,7 +291,7 @@ buster.args.validators.required("${1} has to be set");</code></pre>
       <dt><code>${1}</code></dt>
       <dd>The specified file</dd>
       <dt><code>${2}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
     <h3 id="validator-directory"><code>validators.directory("err")</code></h3>
     <p>
@@ -303,7 +303,7 @@ buster.args.validators.required("${1} has to be set");</code></pre>
       <dt><code>${1}</code></dt>
       <dd>The specified directory</dd>
       <dt><code>${2}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
     <h3 id="validator-file-or-directory"><code>validators.fileOrDirectory("err")</code></h3>
     <p>
@@ -316,13 +316,13 @@ buster.args.validators.required("${1} has to be set");</code></pre>
       <dt><code>${1}</code></dt>
       <dd>The specified file or directory</dd>
       <dt><code>${2}</code></dt>
-      <dd>The option <a href="/docs/args/#signature">signature</a></dd>
+      <dd>The option <a href="#signature">signature</a></dd>
     </dl>
   </div>
   <h2>Custom validators</h2>
   <p>
     A validator is a function that returns a string or undefined (or promises,
-    see <a href="/docs/args/#async-validators">async-validators</a>). The <code>this</code>
+    see <a href="#async-validators">async-validators</a>). The <code>this</code>
     scope in the function is the option for which the validator is being
     performed.
   </p>
@@ -407,9 +407,9 @@ args.handle(process.argv.slice(2), function (errors) {
         console.log(errors[0]); return;
     }
 
-    if (help.<a href="/docs/args/#isSet">isSet</a>) {
+    if (help.<a href="#isSet">isSet</a>) {
         for (var i = 0; i < options.length; i++) {
-            console.log(options[i].<a href="/docs/args/#signature">signature</a> + ": " + options[i].helpText);
+            console.log(options[i].<a href="#signature">signature</a> + ": " + options[i].helpText);
         }
     } else {
         // Proceed with normal program operation

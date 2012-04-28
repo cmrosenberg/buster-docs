@@ -62,6 +62,10 @@
     function createListItemForSectionItem(sectionItem, element) {
         var link = document.createElement("a");
         link.innerHTML = sectionItem.name;
+        if (sectionItem.element.id == "") {
+            link.className = "disabledLink";
+            link.onclick = function() { return false; }; // for IE and Opera, as they don't support pointer-events: none
+        }
         link.href = "#" + sectionItem.element.id;
 
         var item = document.createElement("li");

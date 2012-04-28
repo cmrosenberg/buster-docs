@@ -160,7 +160,7 @@ config["Browser tests"] = {
           A resource can be a string, i.e. a glob pattern/file name, or an object.
           Objects may specify resources that are inlined content to be served
           as a file, a combination of other resources (optionally minified) or a
-          proxy to another web server. See <a href="#&lt;code&gt;resource&lt;/code&gt;">resource</a>.
+          proxy to another web server. See <a href="#resource">resource</a>.
         </p>
       </dd>
       <dt><code>server</code></dt>
@@ -247,7 +247,7 @@ config["Browser integration tests"] = {
       The following is only relevant if you plan on working with the Buster.JS
       configuration file programatically.
     </p>
-    <h2>The Configuration API</h2>
+    <h2 id="configuration-api">The Configuration API</h2>
     <p>
       The <code>configuration</code> object allows you to work with a collection
       of groups, possibly read from a file.
@@ -278,21 +278,21 @@ config.resolveGroups(function (err, groups) {
     // ["/client/src/todo-list.js", "/client/test/todo-list-test.js"]
 });
 </code></pre>
-    <h3><code>conf.groups</code></h3>
+    <h3 id="groups"><code>conf.groups</code></h3>
     <p>
       An array consisting of all the <a href="#group">groups</a>.
     </p>
-    <h3><code>conf.resolveGroups(function (err, groups) {})</code></h3>
+    <h3 id="resolve-groups"><code>conf.resolveGroups(function (err, groups) {})</code></h3>
     <p>Resolves all of the groups. See <a href="#group-resolve">group-resolve</a>.</p>
-    <h3><code>conf.addGroup(name, groupData)</code></h3>
+    <h3 id="resolve-add-group"><code>conf.addGroup(name, groupData)</code></h3>
     <p>Adds a new group.</p>
-    <h3><code>conf.filterEnv(envName)</code></h3>
+    <h3 id="filter-env"><code>conf.filterEnv(envName)</code></h3>
     <p>
       Permanently removes all groups that aren't of <code>envName</code>'s
       environment. The available environments are <code>"browser"</code>
       and <code>"node"</code>.
     </p>
-    <h3><code>conf.filterGroup(regex)</code></h3>
+    <h3 id="filter-group"><code>conf.filterGroup(regex)</code></h3>
     <p>
       Permanently filters out groups which name doesn't match the regex. If the
       name provided is a string, it will be converted to a regular expression
