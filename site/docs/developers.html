@@ -28,11 +28,13 @@ git clone https://github.com/busterjs/buster-dev-tools.git
 <div class="input unix">
 export NODE_PATH=<kbd>{path to devEnv}</kbd>
 export PATH=$NODE_PATH/buster-dev-tools/bin:$PATH
+export PATH=$NODE_PATH/buster/bin:$PATH
 </div>
 
 <div class="input windows">
 SET NODE_PATH=<kbd>{path to devEnv}</kbd>
 SET PATH=%NODE_PATH%\buster-dev-tools\bin;%PATH%
+SET PATH=%NODE_PATH%\buster\bin;%PATH%
 </div>
 
 <p class="clear">Now you run the tool to get all the buster packages plus external dependencies:</p>
