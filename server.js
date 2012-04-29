@@ -97,7 +97,7 @@ var server = http.createServer(function (req, res) {
         tryFile(res, path.join(PUBLIC, u.pathname, "index.html"), function (err) {
             if (!err) { return; }
 
-            tryTemplate(res, path.join(SITE, u.pathname).replace(/[\/\\]$/, ".html"), u.pathname, function (err) {
+            tryTemplate(res, path.join(SITE, u.pathname).replace(/[\/\\]$/, "") + ".html", u.pathname, function (err) {
                 if (!err) { return; }
 
                 tryTemplate(res, path.join(SITE, u.pathname, "index.html"), u.pathname, function (err) {
