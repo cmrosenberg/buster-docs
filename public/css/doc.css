@@ -124,6 +124,8 @@ h3:not([id]), h3[id=""] {
     background: url("/images/blink1x1yellow.gif");
 }
 
+h2:not([id]):after, h2[id=""]:after,
+h3:not([id]):after, h3[id=""]:after,
 h2:not([id]):hover:after, h2[id=""]:hover:after,
 h3:not([id]):hover:after, h3[id=""]:hover:after,
 *.brokenLinkWarning:after {
@@ -139,6 +141,8 @@ h3:not([id]):hover:after, h3[id=""]:hover:after,
     text-decoration: none;
 }
 
+h2:not([id]):after, h2[id=""]:after,
+h3:not([id]):after, h3[id=""]:after,
 *.brokenLinkWarning:after {
     content: url(/images/flash-sign-small.png) attr(href);
     text-decoration: underline;
