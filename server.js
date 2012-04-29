@@ -9,7 +9,7 @@ var PUBLIC = path.join(__dirname, "public");
 var SITE = path.join(__dirname, "site");
 var LAYOUT = fs.readFileSync(path.join(__dirname, "layout.html"), "utf8");
 
-function serveFile(path, res) {
+function serveFile(req, res, path) {
     fs.readFile(path, function (err, data) {
         res.writeHead(200, {"Content-Type": mime.lookup(path)});
         res.write(data);
@@ -17,7 +17,8 @@ function serveFile(path, res) {
     });
 }
 
-function serveTemplate(path, pathname, res) {
+function serveTemplate(req, res, path, pathname) {
+    var newLocation;
     if (pathname.slice(pathname.length - 1) == "/") {
         res.writeHead(200, {"Content-Type": "text/html"});
         fs.readFile(path, function (err, data) {
@@ -25,7 +26,9 @@ function serveTemplate(path, pathname, res) {
         res.end();
         });
     } else {
-        res.writeHead(301, {"Location": pathname + "/"});
+        newLocation = pathname + "/";
+        res.writeHead(301, {"Location": newLocation});
+        console.log("301: " + pathname + " -> " + newLocation + " | Referer: " + req.headers.referer);
         res.end();
     }
 }
@@ -60,16 +63,17 @@ function renderTemplate(pathname, content) {
                       {content: content, menu: menu});
 }
 
-function notFound(res) {
+function notFound(req, res) {
     res.writeHead(404);
     res.write("404 Page Not Found");
+    console.log("404: " + req.url + " | Referer: " + req.headers.referer);
     res.end();
 }
 
-function tryFile(res, path, callback) {
+function tryFile(req, res, path, callback) {
     fs.stat(path, function (err, stat) {
         if (!err && stat.isFile()) {
-            serveFile(path, res);
+            serveFile(req, res, path);
             callback();
         } else {
             callback(err || { message: path + " is not a file" });
@@ -77,10 +81,10 @@ function tryFile(res, path, callback) {
     });
 }
 
-function tryTemplate(res, path, urlPath, callback) {
+function tryTemplate(req, res, path, urlPath, callback) {
     fs.stat(path, function (err, stat) {
         if (!err && stat.isFile()) {
-            serveTemplate(path, urlPath, res);
+            serveTemplate(req, res, path, urlPath);
             callback();
         } else {
             callback(err || { message: path + " is not a file" });
@@ -91,18 +95,18 @@ function tryTemplate(res, path, urlPath, callback) {
 var server = http.createServer(function (req, res) {
     var u = url.parse(req.url);
 
-    tryFile(res, path.join(PUBLIC, u.pathname).replace(/[\/\\]$/, ".html"), function (err) {
+    tryFile(req, res, path.join(PUBLIC, u.pathname).replace(/[\/\\]$/, ".html"), function (err) {
         if (!err) { return; }
 
-        tryFile(res, path.join(PUBLIC, u.pathname, "index.html"), function (err) {
+        tryFile(req, res, path.join(PUBLIC, u.pathname, "index.html"), function (err) {
             if (!err) { return; }
 
-            tryTemplate(res, path.join(SITE, u.pathname).replace(/[\/\\]$/, "") + ".html", u.pathname, function (err) {
+            tryTemplate(req, res, path.join(SITE, u.pathname).replace(/[\/\\]$/, "") + ".html", u.pathname, function (err) {
                 if (!err) { return; }
 
-                tryTemplate(res, path.join(SITE, u.pathname, "index.html"), u.pathname, function (err) {
+                tryTemplate(req, res, path.join(SITE, u.pathname, "index.html"), u.pathname, function (err) {
                     if (!err) { return; }
-                    notFound(res);
+                    notFound(req, res);
                 });
             });
         });
