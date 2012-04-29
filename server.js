@@ -7,7 +7,6 @@ var ejs = require("ejs");
 
 var PUBLIC = path.join(__dirname, "public");
 var SITE = path.join(__dirname, "site");
-var LAYOUT = fs.readFileSync(path.join(__dirname, "layout.html"), "utf8");
 
 function serveFile(req, res, path) {
     fs.readFile(path, function (err, data) {
@@ -46,6 +45,7 @@ function title(content) {
 }
 
 function renderTemplate(pathname, content) {
+    var layout = fs.readFileSync(path.join(__dirname, "layout.html"), "utf8");
     var menu = [
         {href: "/", text: "Home"},
         {href: "/docs/", text: "Documentation", matcher: /^\/docs/},
@@ -58,7 +58,7 @@ function renderTemplate(pathname, content) {
         if (current) item.className = "active";
     });
 
-    return ejs.render(LAYOUT.replace(/<title>Buster<\/title>/,
+    return ejs.render(layout.replace(/<title>Buster<\/title>/,
                                      "<title>" + title(content) + "</title>"),
                       {content: content, menu: menu});
 }
