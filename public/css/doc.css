@@ -73,6 +73,8 @@ dl {
     overflow: auto;
 }
 
+
+
 dt,
 dd {
     float: left;
@@ -85,8 +87,16 @@ dt {
     width: 20%;
 }
 
+.non-property dt {
+    width: 30%;
+}
+
 dd {
     width: 80%;
+}
+
+.non-property dd {
+    width: 65%;
 }
 
 h1 {
