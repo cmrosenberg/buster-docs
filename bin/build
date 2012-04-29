@@ -4,9 +4,10 @@ rm -fr static
 echo "Indexing docs site at http://localhost:8090"
 mkdir static
 cp -r public/* static/.
-wget -e robots=off -P static -nv -k -p -E -nH -r -l 0 http://localhost:8090 2>&1 | grep -E "^http|ERROR|FINISHED|Total wall|Downloaded"
+wget -e robots=off -P static -U BUILD -nv -k -p -E -nH -r -l 0 http://localhost:8090 2>&1 | grep -E "^http|ERROR|FINISHED|Total wall|Downloaded"
 # abbreviated wget options are:
 #   -P  --directory-prefix
+#   -U  --user-agent  <<< this MUST be "BUILD" in order to keep debugging stuff out
 #   -nv --no-verbose
 #   -k  --convert-links
 #   -p  --page-requisites

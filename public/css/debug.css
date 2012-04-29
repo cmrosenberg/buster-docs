@@ -1,0 +1,56 @@
+#doc-nav a.disabledLink,        /* to fully override #doc-nav a */
+#doc-nav a.disabledLink:hover,  /* so we may e.g. set text-decoration: line-through */
+a.disabledLink,
+a.disabledLink:hover {
+    /*text-decoration: line-through;*/
+}
+
+.brokenLinkWarning {
+    background: url("/images/blink1x1red.gif");
+}
+
+h2:not([id]), h2[id=""],
+h3:not([id]), h3[id=""] {
+    background: url("/images/blink1x1yellow.gif");
+}
+
+h2:not([id]):after, h2[id=""]:after,
+h3:not([id]):after, h3[id=""]:after,
+h2:not([id]):hover:after, h2[id=""]:hover:after,
+h3:not([id]):hover:after, h3[id=""]:hover:after,
+*.brokenLinkWarning:after {
+    font-size: 0.75em;
+    font-weight: bold;
+    font-style: italic;
+    background-color: #ffff99;
+    padding: 0.2em 0.4em 0.2em 0.4em;
+    border: 1px solid gray;
+    position:relative;
+    top:-0.8em;
+    right:-2px;
+    text-decoration: none;
+}
+
+h2:not([id]):after, h2[id=""]:after,
+h3:not([id]):after, h3[id=""]:after,
+*.brokenLinkWarning:after {
+    content: url(/images/flash-sign-small.png);
+}
+
+*.brokenLinkWarning[href]:after {
+    content: url(/images/flash-sign-small.png) "no such anchor: " attr(href);
+    text-decoration: underline;
+}
+
+h2:not([id]):hover:after {
+    content: url(/images/flash-sign-small.png) "h2 tag without id attribute!";
+}
+h2[id=""]:hover:after {
+    content: url(/images/flash-sign-small.png) "h2 tag with empty id attribute!";
+}
+h3:not([id]):hover:after {
+    content: url(/images/flash-sign-small.png) "h3 tag without id attribute!";
+}
+h3[id=""]:hover:after {
+    content: url(/images/flash-sign-small.png) "h3 tag with empty id attribute!";
+}

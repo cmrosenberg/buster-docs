@@ -21,7 +21,8 @@ function serveTemplate(req, res, path, pathname) {
     if (pathname.slice(pathname.length - 1) == "/") {
         res.writeHead(200, {"Content-Type": "text/html"});
         fs.readFile(path, function (err, data) {
-            res.write(renderTemplate(pathname, data.toString("utf8")));
+            var pageData = renderTemplate(req, pathname, data.toString("utf8"))
+            res.write(pageData);
         res.end();
         });
     } else {
@@ -44,7 +45,7 @@ function title(content) {
     return title.replace("<code>", "").replace("</code>", "");
 }
 
-function renderTemplate(pathname, content) {
+function renderTemplate(req, pathname, content) {
     var layout = fs.readFileSync(path.join(__dirname, "layout.html"), "utf8");
     var menu = [
         {href: "/", text: "Home"},
@@ -60,7 +61,7 @@ function renderTemplate(pathname, content) {
 
     return ejs.render(layout.replace(/<title>Buster<\/title>/,
                                      "<title>" + title(content) + "</title>"),
-                      {content: content, menu: menu});
+                      {content: content, menu: menu, req: req});
 }
 
 function notFound(req, res) {
