@@ -450,3 +450,8 @@ p.warning {
 tt, kbd {
     background-color: #f0f0f0;
 }
+
+.required {
+    color: red;
+    font-weight: bold;
+}

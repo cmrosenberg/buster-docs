@@ -74,7 +74,7 @@ config["Browser tests"] = {
         <code>libs</code> and <code>sources</code> properties, it may include
         duplicates. However, it is highly recommended that your tests are not
         order dependent. Test helpers and similar utilities should be loaded with
-        the <code>testLibs</code> property (or just <code>require</code> them on
+        the <code>testHelpers</code> property (or just <code>require</code> them on
         Node).
       </dd>
       <dt><code>specs</code></dt>
@@ -105,19 +105,19 @@ config["Browser tests"] = {
       The following properties only apply to the browser environment.
     </p>
     <dl>
-      <dt><code>testLibs</code></dt>
+      <dt><code>testHelpers</code></dt>
       <dd>
         Library files to load in <code>script</code> tags in the browser. This
         setting should normally not be used for node runs. If it is, files will be
         <code>require</code>'d. Value is an array of file names and/or glob
         patterns. Files are loaded in the order provided. It may include
         duplicates, e.g. <code>["test/lib/core.js", "test/lib/**/*.js"]</code>,
-        files will only be loaded once. <code>testLibs</code> are loaded after
+        files will only be loaded once. <code>testHelpers</code> are loaded after
         libraries and sources, but before tests.
       </dd>
-      <dt><code>specLibs</code></dt>
+      <dt><code>specHelpers</code></dt>
       <dd>
-        Alias for <code>testLibs</code>
+        Alias for <code>testHelpers</code>
       </dd>
       <dt><code>libs</code></dt>
       <dd>
@@ -371,11 +371,6 @@ config.resolveGroups(function (err, groups) {
         improves the performance, especially if only one or two out of potentially
         tens or hundreds of files changed since the last run.
       </dd>
-      <dt><code>minify</code></dt>
-      <dd>
-        If set to <code>true</code>, Buster will serve this resource minified with
-        Ugliy.JS.
-      </dd>
       <dt><code>combine</code></dt>
       <dd>
         Takes an array of resources to combine into one. Useful to run tests
@@ -386,8 +381,7 @@ config.resolveGroups(function (err, groups) {
     resources: [
         "src/**.js",
         { path: "/mylib.min.js",
-          combine: ["src/base.js", "src/dom.js"],
-          minify: true  }
+          combine: ["src/base.js", "src/dom.js"] }
     ],
     sources: ["/mylib.min.js"],
     tests: ["test/**.js"]

@@ -3,132 +3,188 @@
   <h1><code>buster.captureServer</code></h1>
   <dl>
     <dt>Version</dt>
-    <dd>0.2 <span class="date">(2011-10-04)</span></dd>
+    <dd>0.5 <span class="date">(2012-xx-xx)</span></dd>
     <dt>Module</dt>
-    <dd><code>require("buster-capture-server");</code></dd>
+    <dd><code>var bCapServ = require("buster-capture-server");</code></dd>
   </dl>
 
-  <p>Automates loading of a web pages (sessions) into multiple captured browsers (slaves). The session creator gets access to messaging so data can be transmitted to and from the browsers.</p>
+  <p>The capture server captures browsers as slaves, and offers a completely generic API for carrying out work across those slaves. A workload is known as a "session", and a test run is typically a session. Other uses include for instance synced-across-devices slide shows (for which a POC has been built).</p>
+
+  <p>In general, the server knows nothing specifically of testing. It knows how to accept and serve web pages (in the form of resource sets), capture and command browser slaves, and coordinate every piece using messaging (Bayeux on the HTTP level, or websockets if available).</p>
 
   <div class="section">
-    <h2>Creating the server</h2>
+    <h2>The server</h2>
 
-    <h3 id="create"><code>var server = bCaptureServer.create()</code></h3>
-    <p>Creates a new server instance.</p>
+    <p>The server is the central hub for all work in buster-capture-server. It needs to be manually attached to an existing node HTTP server.</p>
 
-    <h3 id="attach"><code>server.attach(<a href="http://nodejs.org/docs/latest/api/http.html">httpServer</a>)</code></h3>
+    <h3 id="server_create"><code>var server = bCapServ.createServer()</code></h3>
+    <p>Creates a server instance.</p>
+
+    <h3 id="server_attach"><code>server.attach(<a href="http://nodejs.org/docs/latest/api/http.html">httpServer</a>)</code></h3>
     <p>Attaches the buster-capture-server to a Node.js HTTP server.</p>
-    <p>Hooks into the request event of the http server so that the <code>"request"</code> handlers only run for requests that buster-server doesn't handle. Other than that, buster-server leaves the HTTP server untouched.</p>
+    <p>All HTTP requests that buster-capture-server handles is "consumed", and won't trigger any "request" event listeners on the Node.js HTTP server.</p>
+
   </div>
 
   <div class="section">
-    <h2>Listening to events</h2>
-    <p>The server has a global event hub, as well as one event hub per session. The global path is <tt>/messaging</tt>. The paths for the individual sessions is available as <a href="#serialized-session-bayeux"><code>.bayeuxClientPath</code></a> on the individual sessions.</p>
-    <p>Bayeux is a standardized protocol for messaging, but <a href="http://faye.jcoglan.com/node.html">Faye</a> specific features is used so you're expected to use Faye for creating messaging clients.</p>
+    <h2>Server client</h2>
+    <p>To interact with a server, you always use a server client. This has the benefit of making the API for interacting with the server identical whether the server runs in the same process as your own code, or the server is in another process (or even on another computer).</p>
+
+    <h3 id="server_client_create">
+      <code>var serverClient = bCapServ.createServerClient(opts)</code>
+    </h3>
+    <p>Creates a new server client. Options:</p>
+
+    <dl class="properties">
+      <dt>host<span class="required">*</span></dt>
+      <dd>The hostname where the http server is running.</dd>
+
+      <dt>port<span class="required">*</span></dt>
+      <dd>The port the http server listens on</dd>
+    </dl>
+
+    <h3 id="server_client_create_session">
+      <code>var promise = serverClient.createSession(opts)</code>
+    </h3>
+    <p>Creates and queues a new session.</p>
+    <p>The promise resolves with the session object, and rejects with an error object.</p>
+    <p>Options:</p>
+    <dl class="properties">
+      <dt>resourceSet</dt>
+      <dd>The <a href="../resources/#resource-set">resource set</a> containing the full web page of the session. The resource with the path <code>"/"</code> is assumed to be a html page and is loaded into the captured browsers.</dd>
+
+      <dt>cache</dt>
+      <dd>Boolean specifying whether or not caching should be performed. Defaults to <code>false</code>.</dd>
+
+      <dt>joinable</dt>
+      <dd>Boolean specifying whether the session is joinable, meaning whether browsers captured after the session has started will get the session loaded into them. Defaults to <code>true</code>.</dd>
+
+      <dt>staticResourcesPath</dt>
+      <dd>Boolean specifying whether the same path should be used for all sessions. When false, each session will get a new path. The actual value is unspecified, but it might be something like <code>"/sessions/123-long-id-here/resources"</code>. This is useful to force browsers to reload all the resources as the path will be different for each session. When true, each session will be loaded with the same path. This is useful for debugging, buster test uses this so that breakpoints can be set in browser debuggers and apply across test runs. Defaults to <code>false</code></dd>
+    </dl>
+
+    <h3 id="server_client_connect"><code>serverClient.connect()</code></h3>
+    <p>Connects the server client to the server. Needs to be called manually, typically immediately after the server client is created.</p>
+
+    <h3 id="server_client_disconnect"><code>serverClient.disconnect()</code></h3>
+    <p>Disconnecting is not mandatory, it's only provided as a convenience if you want to clean up the connections. You can also just kill the process without disconnecting first, the server will be fine.</p>
   </div>
 
   <div class="section">
-    <h2>Capturing slaves</h2>
-    <p>
-      A captured slave is (typically) a browser that is "captured" by loading an
-      HTML page with a communication channel (event emitter) between the
-      buster-capture-server and the browser. When the browser receives the event
-      for loading a session, a frame gets its <code>src</code> attribute set to
-      the URL that corresponds to the root HTML page for that session.
-    </p>
-    <p>
-      For Buster.JS testing, the root document contains the specified testbed or
-      the default plain testbed, and <code>&lt;script&gt;</code> tags for all the
-      loadable scripts from the config file.
-    </p>
-    <p>
-      Framesets are used so that the session root HTML page spans the full
-      viewport of the captured slave (browser).
-    </p>
+    <h2>Session client</h2>
+    <p>A session client is created for each session you want to interact with. It provides lifecycle events, and user specific pubsub events to send data to and from the slaves.</p>
 
-    <h3 id="capture-path"><code>server.capturePath = path</code></h3>
-    <p>The default value of this property is <code>"/capture"</code>. See <a href="#perform-capture">performing capture</a>.</p>
+    <h3 id="session_client_create">
+      <code>var sessionClient = bCapServ.createSessionClient(opts)</code>
+    </h3>
+    <p>Creates a new session client.</p>
 
-    <h3 id="slave-header"><code>server.header(height, resourceSet)</code></h3>
-    <p>All slaves will have a header of <code>height</code> pixels with the provided resource set loaded into it.</p>
+    <p>Options:</p>
+    <dl class="properties">
+      <dt>session<span class="required">*</span></dt>
+      <dd>The session object to create a client for. This is the same object that is emitted from the server client promise when you create a new session.</dd>
 
-    <h3 id="perform-capture">Performing capture</h3>
-    <p>To capture a browser, perform a HTTP GET request to the <a href="#capturePath"><code>capturePath</code></a> of the server. This will load the slave page and notify when the browser is ready to accept new sessions.</p>
+      <dt>host<span class="required">*</span></dt>
+      <dd>The hostname where the http server is running.</dd>
 
-    <h3 id="event-capture">Event: /capture</h3>
-    <p>Emitted when new slaves are created (a browser has been captured) and the slave is ready to accept sessions.</p>
+      <dt>port<span class="required">*</span></dt>
+      <dd>The port the http server listens on</dd>
+    </dl>
+
+    <h3 id="session_client_connect"><code>sessionClient.connect()</code></h3>
+    <p>Connects the session client. Needs to be called manually for every session client create, typically immediately after the session client is created.</p>
+
+    <h3 id="session_client_disconnect"><code>sessionClient.disconnect()</code></h3>
+    <p>Disconnecting is not mandatory, it's only provided as a convenience if you want to clean up the connections. You can also just kill the process without disconnecting first, the server will be fine.</p>
+
+    <h3 id="session_client_emit"><code>sessionClient.emit(event[, data])</code></h3>
+    <p>Emit an event to all slaves.</p>
+    <p>The event is a string. Examples: <code>"goto"</code>, <code>"slide:next"</code>, <code>"testcase:state:timeout"</code>.</p>
+    <p>The data is optional, and will be JSON serialized in the form of <code>{data: /* &lt;your data here&gt; */}</code>, so it can be an array, and object, a string, or a number.</p>
+    <pre><code>sessionClient.emit("slide:goto", 5);
+sessionClient.emit("slide:next");</code></pre>
+
+    <h3 id="session_client_on"><code>sessionClient.on(event, handler)</code></h3>
+    <p>Listens to events from all slaves.</p>
+    <p>The event string is identical in format to the one in <a href="#session_client_emit"><code>emit</code></a>.</p>
+    <p>The handler is a function, taking one argument which is the data that was emitted.</p>
+    <pre><code>sessionClient.on("test:success", function (testInfo) {
+    reporter.reportSuccess(testInfo);
+});
+sessionClient.on("test:failure", function (testInfo) {
+    reporter.reportFailure(testInfop);
+});</code></pre>
+
+    <h3 id="session_client_end"><code>sessionClient.end()</code></h3>
+    <p>Ends the session.</p>
+
+    <h3 id="session_client_lifecycle">Lifecycle events</h3>
+    <p>Promises are used for lifecycle events. These events only trigger once per session.</p>
+    <p>TODO: We also need events for slave join and leave.</p>
+
+    <dl class="properties">
+      <dt><code>sessionClient.started</code></dt>
+      <dd>The session is now at the top of the session queue and is about to get loaded into the captured browsers.</dd>
+
+      <dt><code>sessionClient.loaded</code></dt>
+      <dd>The session is now fully loaded into all the slaves.</dd>
+
+      <dt><code>sessionClient.ended</code></dt>
+      <dd>The session is about to end.</dd>
+
+      <dt><code>sessionClient.unloaded</code></dt>
+      <dd>The session is now fully unloaded from all slaves and the next session in the queue (if any) will now be loaded.</dd>
+
+      <pre><code>var sessionClient = bCapServ.createSessionClient({
+    host: "0.0.0.0",
+    port: 8080,
+    session: aSession
+});
+sessionClient.connect();
+
+// Emit an event  to slaves when all slaves have loaded the session.
+sessionClient.loaded.then(function () {
+    sessionClient.emit("some:event", 123);
+});</code></pre>
   </div>
 
   <div class="section">
-    <h2>Sessions</h2>
-    <p>Sessions are the units of work in a buster-capture-server</p>
-    <p>
-      When a session is created, it is added to the bottom of the session
-      queue. As soon as there are no other sessions above it in the queue, it is
-      loaded into the captured slaves. When there are no other sessions in the
-      queue, the session loads immediately upon creation.
-    </p>
-    <p>
-      Loading a session into a captured slave basically means setting
-      the <code>src</code> attribute of the session frame in the captured slave to
-      the path to the root HTML document of the session's resource set.
-    </p>
+    <h2>Browser (or slave) environment</h2>
 
-    <h3 id="create-session"><code>var <a href="#serialized-session">session</a> = server.createSession(<a href="#session-payload">payload</a>)</code></h3>
-    <p>Creates a new session.</p>
+    <p>The slave environment for your sessions is a frame in a frameset. APIs are made available so you can send messages to and from the slave and the session client.</p>
 
-    <h3 id="create-session-http">POST /sessions</h3>
-    <p>Creates a new session over HTTP. Responds with <tt>201 Created</tt> if the session will start immediately, or <tt>202 Accepted</tt> if it is queued.</p>
+    <h3 id="slave_env_id"><code>buster.env.id</code></h3>
+    <p>The ID of the current slave.</p>
 
-    <h3 id="destroy-session"><code>server.destroySession(<a href="#serialized-session-id">id</a>)</code></h3>
-    <p>Unqueues a queued session or ends the current session.</p>
+    <h3 id="slave_env_context_path"><code>buster.env.contextPath</code></h3>
+    <p>The context path to where the session resource set resources are available. If you have a resource with the path <code>"/foo/bar.js"</code>, you can dynamically create a script tag for it like so:</p>
+    <pre><code>var scriptTag = document.createElement("script");
+scriptTag.src(buster.env.contextPath + "/foo/bar.js");
+document.body.appendChild(scriptTag);</code></pre>
+    <p>Note that a relative path would also work.</p>
+    <pre><code>var scriptTag = document.createElement("script");
+scriptTag.src("foo/bar.js");
+document.body.appendChild(scriptTag);</code></pre>
 
-    <h3 id="destroy-session-http">DELETE <code>session.<a href="#serialized-session-path">path</a></code></h3>
-    <p>Unqueues a queued session or ends the current session.</p>
+    <h3 id="slave_env_emit"><code>buster.emit(event, [data])</code></h3>
+    <p>Emits the event to session client and all slaves, including itself. Example:</p>
 
-    <h3 id="event-session-created">Event: /session/create (<a href="#serialized-session">session</a>)</h3>
-    <p>Emitted with a session object when a session is created. </p>
+    <pre><code>buster.emit("slide:goto", 1);
+window.addEventListener("keyup", function (e) {
+    if (e.keyCode == 37) buster.emit("slide:prev");
+    if (e.keyCode == 39) buster.emit("slide:next");
+});</code></pre>
 
-    <h3 id="event-session-loaded">Event: /session/start (<a href="#serialized-session">session</a>)</h3>
-    <p>Emitted with a session object when a session has started (became current) in all slaves.</p>
-  </div>
+    <h3 id="slave_env_on"><code>buster.on(event, handler)</code></h3>
+    <p>Listens to the event. Example:</p>
 
-  <div class="section">
-    <h2 id="session-payload">Session payload</h2>
-    <p>The payload passed to <a href="#create-session">createSession</a> or <a href="#create-session-http">POST /sessions</a>.</p>
-
-    <h3 id="session-payload-resource-set"><code>resourceSet</code></h3>
-    <p>A serialized resource set.</p>
-
-    <h3 id="session-payload-joinable"><code>joinable</code></h3>
-    <p>Set to true or false. Defaults to true. When false, a slave that is created while the session is in progress will <em>not</em> get the session loaded into it.</p>
-  </div>
-
-  <div class="section">
-    <h2 id="serialized-session">Session objects</h2>
-    <p>The session object emitted from events and returned from <a href="#create-session"><code>createSession</code></a>.</p>
-
-    <h3 id="serialized-session-id"><code>id</code></h3>
-    <p>The id of the session. Used in the APIs to delete the session, and more.</p>
-
-    <h3 id="serialized-session-path"><code>path</code></h3>
-    <p>The path to the session. Used in the HTTP APis to delete the session, and more.</p>
-
-    <h3 id="serialized-session-bayeux"><code>bayeuxClientPath</code></h3>
-    <p>The path to the bayeux messaging for the session.</p>
-
-    <h3 id="serialized-session-resources-path"><code>resourcesPath</code></h3>
-    <p>The path where the resource set is mounted.</p>
-  </div>
-
-  <div class="section">
-    <h2 id="browser-env">Browser environment</h2>
-    <p>In addition to the resource set itself, some additional internal JavaScript is loaded into the session's web page.</p>
-
-    <h3 id="buster-publish"><code>buster.publish(event, data)</code></h3>
-    <p>Publishes an event on the session event scope.</p>
-
-    <h3 id="buster-subscribe"><code>buster.subscribe(event, handler)</code></h3>
-    <p>Subscribes to an event on the session event scope.</p>
+    <pre><code>buster.on("slide:goto", function (num) {
+    currentSlide = num;
+    loadCurrentSlide();
+});
+buster.on("slide:next", function () {
+    ++currentSlide;
+    loadCurrentSlide();
+});</code></pre>
   </div>
 </div>
