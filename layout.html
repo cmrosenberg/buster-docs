@@ -4,6 +4,9 @@
     <title>Buster</title>
     <link href="/css/app.css" media="screen" rel="stylesheet" type="text/css">
     <link href="/css/doc.css" media="screen" rel="stylesheet" type="text/css">
+    <% if (req.headers["user-agent"] != "BUILD") { %>
+        <link href="/css/debug.css" media="screen" rel="stylesheet" type="text/css">
+    <% } %>
     <meta charset="utf-8">
   </head>
   <body>
