@@ -1,0 +1,104 @@
+<div id="doc-nav"></div>
+<div id="doc-content">
+  <h1><code>preferences</code></h1>
+  <dl>
+    <dt>Version</dt>
+    <dd>0.1.0 <span class="date">(2012-05-06)</span></dd>
+    <dt>Module</dt>
+    <dd><code>require("preferences");</code></dd>
+  </dl>
+  <p>
+    Manage user-provided preferences for your Node programs through a file in
+    the user's home directory, environment variables and default values.
+  </p>
+  <h2>Preference modules</h2>
+  <pre><code>preferences.load("myproject", function (err, prefs) {
+    /* ... */
+});</code></pre>
+  <p>
+    Preferences will use the first available of the following files:
+  </p>
+  <ol>
+    <li>
+      <code>~/.myproject.d/index.js</code> (lets the user organize all related
+      files in one directory)
+    </li>
+    <li>
+      <code>~/.myproject.js</code> (the suffix may be useful for editor syntax
+      highlighting etc)
+    </li>
+    <li><code>~/.myproject</code> (iconic Unix style preference file)</li>
+  </ol>
+  <p>
+    Preferences expects the settings file to be a node module that can be
+    <code>require</code>'d.
+  </p>
+  <h2>Preference property lookup</h2>
+  <pre><code>prefs.get("id", 42);</code></pre>
+  <p>
+    Given one of those modules, Preferences uses the following property lookup:
+  </p>
+  <ol>
+    <li>Does the preference module export <code>id</code>? Use that</li>
+    <li>Is <code>process.env.MYPROJECT_ID</code> set? Use that</li>
+    <li>Otherwise, use the default (<code>42</code> in the above example)</li>
+  </ol>
+  <div class="section">
+    <h2 id="methods">Methods</h2>
+    <h3 id="findFile"><code>findFile(namespace, callback(err, fileName))</code></h3>
+    <p>
+      Finds the filename for the preferred preference module according to the
+      lookup described above. Yields <code>null</code> if none of the files are available.
+      The error object is currently not being used as any error will simply
+      result in a <code>null</code> file name.
+    </p>
+    <h3 id="create"><code>create(namespace[, prefs[, source]]) //=> prefsJar</code></h3>
+    <p>Creates a preference "jar" (see API below).</p>
+    <dl>
+      <dt><code>namespace</code></dt>
+      <dd>
+        A string, typically the name of your project, like "buster". It will be
+        used to find environment variables relevant to your preferences.
+      </dd>
+      <dt><code>prefs</code></dt>
+      <dd>
+        An object with properties. When asking the preference jar for
+        properties, properties on this object will be preferred.
+      </dd>
+      <dt><code>source</code></dt>
+      <dd>
+        A string that reveals which source <code>prefs</code> were loaded from.
+        It's simply exposed as <code>prefsJar.source</code>.
+      </dd>
+    </dl>
+    <h3 id="load"><code>load(namespace, callback(err, prefsJar))</code></h3>
+    <p>
+      Figures out which file to use, loads its contents and creates a preference
+      jar that is passed to the callback. The error object is used
+      when <code>require</code>-ing the preference file fails (i.e. when the
+      file exists but is not loadable).
+    </p>
+  </div>
+  <div class="section">
+    <h2 id="utilities">Supporting utilities</h2>
+    <h3 id="preferenceJar"><code>preferenceJar</code></h3>
+    <h4>Properties</h4>
+    <dl>
+      <dt><code>namespace</code></dt>
+      <dd>
+        The corresponding string passed in as argument to <code>create</code>
+      </dd>
+      <dt><code>source</code></dt>
+      <dd>
+        The corresponding string passed in as argument to <code>create</code>
+      </dd>
+    </dl>
+    <h4><code>get(name[, defaultVal])</code></h4>
+    <p>
+      Returns the named property according to the property lookup described
+      above. Dashes and spaces are converted to underscores when trying
+      environment variables, e.g. <code>get("something-nice")</code> will try
+      the environment variable <code>MYPROJECT_SOMETHING_NICE</code>.
+    </p>
+  </div>
+</div>
