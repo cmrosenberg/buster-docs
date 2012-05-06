@@ -11,12 +11,29 @@
     Manage user-provided preferences for your Node programs through a file in
     the user's home directory, environment variables and default values.
   </p>
+  <pre><code>var preferences = require("preferences");
+
+// Assume ~/.buster contains
+// module.exports = {
+//     reporter: "specification"
+// };
+
+preferences.load("buster", function (err, prefs) {
+    if (err) { throw err; }
+
+    prefs.get("reporter", "dots"); //=> "specification"
+    prefs.get("logLevel", "warn"); //=> "warn"
+    process.env.BUSTER_LOG_LEVEL = "info"
+    prefs.get("logLevel", "warn"); //=> "info"
+});</code></pre>
   <h2>Preference modules</h2>
   <pre><code>preferences.load("myproject", function (err, prefs) {
     /* ... */
 });</code></pre>
   <p>
-    Preferences will use the first available of the following files:
+    Preferences will use the first available of the following files
+    (<code>~/<code> denotes 'home directory', which on Windows means
+        the directory specified by <code>USERPROFILE</code>):
   </p>
   <ol>
     <li>
@@ -99,6 +116,8 @@
       above. Dashes and spaces are converted to underscores when trying
       environment variables, e.g. <code>get("something-nice")</code> will try
       the environment variable <code>MYPROJECT_SOMETHING_NICE</code>.
+      Camel cased properties will map to underscored and upper cased environment
+      variables.
     </p>
   </div>
 </div>
