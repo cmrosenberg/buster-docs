@@ -3,7 +3,7 @@
   <h1><code>preferences</code></h1>
   <dl>
     <dt>Version</dt>
-    <dd>0.1.0 <span class="date">(2012-05-06)</span></dd>
+    <dd>0.2.0 <span class="date">(2012-05-07)</span></dd>
     <dt>Module</dt>
     <dd><code>require("preferences");</code></dd>
   </dl>
@@ -50,6 +50,12 @@ preferences.load("buster", function (err, prefs) {
     Preferences expects the settings file to be a node module that can be
     <code>require</code>'d.
   </p>
+  <p>
+    If you want Preferences to look for other files, or with a different
+    ordering, just set <code>preferences.locations</code> to an array of desired
+    paths. The array should contain full paths, optionally with
+    <code>"{namespace}"</code> which will be replaced with the namespace.
+  </p>
   <h2>Preference property lookup</h2>
   <pre><code>prefs.get("id", 42);</code></pre>
   <p>
@@ -61,6 +67,24 @@ preferences.load("buster", function (err, prefs) {
     <li>Otherwise, use the default (<code>42</code> in the above example)</li>
   </ol>
   <div class="section">
+    <h2 id="properties">Properties</h2>
+    <h3 id="home" data-title="+home+"><code>home</code></h3>
+    <p>
+      String, contains the path to where Preferences thinks the user's home
+      directory is.
+    </p>
+    <h3 id="locations" data-title="+locations+"><code>locations</code></h3>
+    <p>
+      Array of strings. The locations Preferences will attempt to load, in
+      preferred order. Default value is
+    </p>
+    <pre><code>exports.locations = [
+    Path.join(exports.home, ".{namespace}.d", "index.js"),
+    Path.join(exports.home, ".{namespace}.js"),
+    Path.join(exports.home, ".{namespace}")
+];</code></pre>
+  </div>
+  <div class="section">
     <h2 id="methods">Methods</h2>
     <h3 id="findFile"><code>findFile(namespace, callback(err, fileName))</code></h3>
     <p>
@@ -69,6 +93,8 @@ preferences.load("buster", function (err, prefs) {
       The error object is currently not being used as any error will simply
       result in a <code>null</code> file name.
     </p>
+    <h3 id="findFileSync"><code>findFileSync(namespace)</code></h3>
+    <p>Sync <code>findFile</code></p>
     <h3 id="create"><code>create(namespace[, prefs[, source]]) //=> prefsJar</code></h3>
     <p>Creates a preference "jar" (see API below).</p>
     <dl>
@@ -95,6 +121,8 @@ preferences.load("buster", function (err, prefs) {
       when <code>require</code>-ing the preference file fails (i.e. when the
       file exists but is not loadable).
     </p>
+    <h3 id="loadSync"><code>loadSync(namespace)</code></h3>
+    <p>Sync <code>load</code></p>
   </div>
   <div class="section">
     <h2 id="utilities">Supporting utilities</h2>
