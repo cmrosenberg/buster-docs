@@ -1,0 +1,84 @@
+<div id="doc-nav"></div>
+<div id="doc-content">
+  <h1><code>buster-server-cli</code></h1>
+  <dl>
+    <dt>Version</dt>
+    <dd>0.1.0 <span class="date">(2012-05-14)</span>
+    </dd>
+    <dt>Module</dt>
+    <dd><code>require("buster-server-cli");</code></dd>
+    <dt>In browsers</dt>
+    <dd>N/A</dd>
+  </dl>
+  <p>
+    Command-line interface API for running
+    <a href="https://github.com/busterjs/buster-capture-server/">buster-capture-server</a>
+    instances with a simple interface that allows capturing and viewing a list of
+    connected browsers.
+  </p>
+  <p>
+    In Buster, this module is the implementation of the <code>buster server</code>
+    command. It does not define the binary however, as it is intended to be
+    generic enough to be reused outside of Buster.
+  </p>
+  <h2>Possible use cases</h2>
+  <p>
+    The capture server is the central piece in Buster's multiple browser automation
+    capabilities. This module can be used as is to run tests for any framework, as
+    it does not know anything about tests at all. However, if you're shipping a
+    capture server for your own framework, you may want to brand your server a
+    little.
+  </p>
+  <p>
+    The following example shows how to create a custom capture server for the
+    fictional <em>checkit</em> test framework.
+  </p>
+  <h3>The binary</h3>
+  <pre><code>// checkit/bin/checkit-server
+var path = require("path");
+var serverCli = require("buster-server-cli");
+
+serverCli.create(process.stdout, process.stderr, {
+    missionStatement: "Checkit crazy multi-browser test runner server",
+    description: "checkit-server [options]",
+    templateRoot: path.join(__dirname, "..", "views"),
+    documentRoot: path.join(__dirname, "..", "public")
+}).run(process.argv.slice(2));</code></pre>
+  <h3>The index template</h3>
+  <p>
+    You need to define two templates for the server to work correctly. The first
+    one is index.ejs, which is an <a href="http://embeddedjs.com/">ejs</a>
+    template for the index page of the server.
+    <a href="https://github.com/busterjs/buster-server-cli/blob/master/views/index.ejs">Buster's index template</a>
+    renders a list of captured browsers and a link to `/capture`, which is the
+    URL that causes the browser to become a captured slave.
+  </p>
+  <p>
+    The index.ejs template is rendered with one piece of data —
+    <code>slaves</code> — which
+    is an array of slave objects:
+  </p>
+  <dl>
+    <dt><code>slave.browser</code></dt>
+    <dd>A string, i.e. "Firefox"</dd>
+    <dt><code>slave.platform</code></dt>
+    <dd>A string, i.e. "Linux"</dd>
+    <dt><code>slave.version</code></dt>
+    <dd>A string, i.e. "12.0"</dd>
+    <dt><code>slave.os</code></dt>
+    <dd>A string, contains a richer OS/platform description</dd>
+    <dt><code>slave.userAgent</code></dt>
+    <dd>The original user agent</dd>
+  </dl>
+  <h3>The header template</h3>
+  <p>
+    The second template is the `header.ejs` template. It is used in the top frame
+    in the frameset that is displayed in captured slaves. Currently this is just
+    a static template, but future versions will expose an API to communicate with
+    the server here to display progress etc.
+  </p>
+  <p>
+    See <a href="https://github.com/busterjs/buster-server-cli/blob/master/views/header.ejs">Buster's header template</a>
+    for a reference implementation.
+  </p>
+</div>
