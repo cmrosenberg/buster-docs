@@ -146,6 +146,25 @@ config["Browser tests"] = {
     }
 };</code></pre>
 <p><a href="https://github.com/magnars/buster-lint">buster-lint on GitHub</a></p>
+<h3 id="coffee"><a href="https://github.com/jodal/buster-coffee">buster-coffee</a></h3>
+<p>
+  Automatically compile CoffeeScript files before running tests. In its current
+  state, this extension does not work for files that are to be included using
+  <code>require()</code>, and are thus not very useful for Node.js projects.
+</p>
+<h4>Install</h4>
+<p><code>npm install buster-coffee</code></p>
+<h4>Usage</h4>
+<p>Load in your configuration file:</p>
+<pre><code>var config = module.exports;
+
+config["Browser tests"] = {
+    rootPath: "../",
+    sources: ["src/**/*.coffee"],
+    tests: ["test/**/*.coffee"],
+    extensions: [require("buster-coffee")]
+};</code></pre>
+<p><a href="https://github.com/jodal/buster-coffee">buster-coffee on GitHub</a></p>
 <h2 id="building">Building extensions</h2>
 <p>
   A Buster.JS extension is an object that optionally exposes
