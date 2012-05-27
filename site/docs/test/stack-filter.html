@@ -69,11 +69,11 @@
       these libraries in test reports, add entries to this array.
     </p>
     <p>
-      The <a href="/docs/sinon/">buster-sinon-buster</a> module adds the core
+      The <a href="/docs/sinon/">buster-sinon</a> module adds the core
       <a href="http://sinonjs.org">Sinon.JS</a> libraries to the array to avoid
       them getting in the way of finding where in your test and implementation a
       failure originated. (Note that the added entry filters out lines from both
-      Sinon.JS and the sinon-buster adapter).
+      Sinon.JS and the buster-sinon adapter).
     </p>
     <pre><code>buster.stackFilter.filters.push("lib/sinon");</code></pre>
     <p>
