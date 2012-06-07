@@ -116,7 +116,7 @@ assert(null, "This will fail"); // Fails with custom message
 assert(null); // Fails
 assert(34);   // Passes
 </code></pre>
-  <h3 id="assert-same" data-title="+same(expected, actual[, message])+"><code>assert.same(expected, actual[, message])</code></h3>
+  <h3 id="assert-same" data-title="+same(actual, expected[, message])+"><code>assert.same(actual, expected[, message])</code></h3>
   <p>
     Fails if <code>actual</code> <strong>is not</strong> the same object
     (<code>===</code>) as <code>expected</code>. To compare similar
@@ -711,7 +711,7 @@ refute(null, "This will pass");
 refute(null); // Passes
 refute(34);   // Fails
 </code></pre>
-  <h3 id="refute-same" data-title="+same(expected, actual[, message])+"><code>refute.same(expected, actual[, message])</code></h3>
+  <h3 id="refute-same" data-title="+same(actual, expected[, message])+"><code>refute.same(actual, expected[, message])</code></h3>
   <p>
     Fails if <code>actual</code> <strong>is</strong> the same object
     (<code>===</code>) as <code>expected</code>. To compare similar
