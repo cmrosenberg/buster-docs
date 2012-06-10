@@ -1,11 +1,11 @@
 <div id="doc-nav"></div>
 <div id="doc-content">
-  <h1><code>buster.args</code></h1>
+  <h1><code>posix-argv-parser</code></h1>
   <dl>
     <dt>Version</dt>
     <dd>0.1.0 <span class="date">(2011-05-27)</span></dd>
     <dt>Module</dt>
-    <dd><code>require("buster-args");</code></dd>
+    <dd><code>require("posix-argv-parser");</code></dd>
   </dl>
   <p>
     An unobtrusive ambiguity aware parser for command line interfaces
@@ -16,12 +16,12 @@
     as <kbd>-bar</kbd>, which can mean both <kbd>-b -a -r</kbd>
     and <kbd>-b=ar</kbd>.
   </p>
-  <pre><code>var args = Object.create(require("buster-args"));
+  <pre><code>var args = Object.create(require("posix-argv-parser"));
 
 var port = args.<a href="#createOption">createOption</a>("-p", "--port");
 port.<a href="#hasValue">hasValue</a> = true; // So that the parser can read -p2345 as -p=2345
 port.<a href="#defaultValue">defaultValue</a> = 8282;
-port.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
+port.<a href="#addValidator">addValidator</a>(args.validators.<a href="#integer-validator">integer</a>("Custom message. ${1} has to be a number."));
 
 var verbose = args.<a href="#createOption">createOption</a>("-v");
 verbose.<a href="#addValidator">addValidator</a>(function () {
@@ -34,8 +34,8 @@ verbose.<a href="#addValidator">addValidator</a>(function () {
 // Operands are statements without options. I.e. mything --port=1234 path/to/stuff
 var rootPath = args.<a href="#createOperand">createOperand</a>();
 rootPath.<a href="#signature">signature</a> = "Presentation root directory"; // Used in error msgs for this option
-rootPath.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#validator-file">file</a>()); // Will use default error msg
-rootPath.<a href="#addValidator">addValidator</a>(busterArgs.validators.<a href="#required-validator">required</a>());
+rootPath.<a href="#addValidator">addValidator</a>(args.validators.<a href="#validator-file">file</a>()); // Will use default error msg
+rootPath.<a href="#addValidator">addValidator</a>(args.validators.<a href="#required-validator">required</a>());
 
 args.<a href="#handle">handle</a>(process.argv.slice(2), function (errors) {
     if (errors) {
@@ -52,8 +52,8 @@ args.<a href="#handle">handle</a>(process.argv.slice(2), function (errors) {
 </code></pre>
   <div class="section">
     <h2 id="methods">Methods</h2>
-    <h3 id="args"><code>var args = Object.create(require("buster-args"))</code></h3>
-    <p>Creates a new instance of buster.args.</p>
+    <h3 id="args"><code>var args = Object.create(require("posix-argv-parser"))</code></h3>
+    <p>Creates a new instance of posixArgvParser.</p>
     <h3 id="createOption"><code>var opt = <a href="#args">args</a>.createOption("opt1", ["opt2", ...])</code></h3>
     <p>
       Creates a new <a href="#option">option</a>. An option has all the
@@ -92,7 +92,7 @@ opt.hasValue = true;
       The callback is called with one argument, <code>errors</code>, which is
       either undefined, or an array of errors and/or validation messages.
     </p>
-    <pre><code>var args = Object.create(buster.args);
+    <pre><code>var args = Object.create(posixArgvParser);
 args.handle(process.argv.slice(2), function (errors) {
     if (errors) {
         // Print an error msg, i.e. console.log(errors[0])
@@ -107,16 +107,16 @@ args.handle(process.argv.slice(2), function (errors) {
     <p>
       <a href="#createOption">Options</a>
       and <a href="#createOperand">operands</a> are the two types of arguments
-      handled by buster.args, and they share common functionality, listed below
+      handled by posixArgvParser, and they share common functionality, listed below
       this introduction.
     </p>
     <p>
       An <strong>option</strong> is a flag, with or without a
       value. <kbd>-p</kbd>, <kbd>-p
       abc</kbd>, <kbd>-pabc</kbd>, <kbd>-p=abc</kbd>, <kbd>--port abc</kbd>
-      and <kbd>--port=abc</kbd> are all supported by buster.args.
+      and <kbd>--port=abc</kbd> are all supported by posixArgvParser.
     </p>
-    <p><kbd>-pabc</kbd> can mean  both <kbd>-p -a -b -c</kbd> and <kbd>-p=abc</kbd>. buster.args uses the <a href="#hasValue">hasValue</a> to separate the two. With <code>hasValue</code> set to true, <kbd>-pabc</kbd> will be handled as <kbd>-p=abc</kbd>. When false (default), it will be handled as <kbd>-p -a -b -c</kbd>. In that case you also need to have option handlers for <kbd>-a</kbd>, <kbd>-b</kbd> and <kbd>-c</kbd>, or you'll get a validation error such as <code>"unknown option -a"</code> (depending on which option buster.args first encountered that didn't exist).</p>
+    <p><kbd>-pabc</kbd> can mean  both <kbd>-p -a -b -c</kbd> and <kbd>-p=abc</kbd>. posixArgvParser uses the <a href="#hasValue">hasValue</a> to separate the two. With <code>hasValue</code> set to true, <kbd>-pabc</kbd> will be handled as <kbd>-p=abc</kbd>. When false (default), it will be handled as <kbd>-p -a -b -c</kbd>. In that case you also need to have option handlers for <kbd>-a</kbd>, <kbd>-b</kbd> and <kbd>-c</kbd>, or you'll get a validation error such as <code>"unknown option -a"</code> (depending on which option posixArgvParser first encountered that didn't exist).</p>
     <p>
       An <strong>operand</strong> is an option-less value, i.e. <kbd>foo</kbd>
       (with no <kbd>-b</kbd> or <kbd>--myopt</kbd> prefixing it). It's commonly
@@ -128,8 +128,8 @@ args.handle(process.argv.slice(2), function (errors) {
       useful for operands.
     </p>
     <p>
-      Note that buster can handle a mix and match of options and operands in any
-      order, i.e. <kbd>mycommand --port 1234 my/directory</kbd>
+      Note that the parser can handle a mix and match of options and operands in
+      any order, i.e. <kbd>mycommand --port 1234 my/directory</kbd>
       and <kbd>mycommand my/directory --port 1234</kbd> will both work.
     </p>
     <p>
@@ -232,7 +232,7 @@ args.handle(process.argv.slice(2), function (errors) {
       object upon successful validation.
     </p>
     <p>
-      buster.args has a number of built-in validators, and an API for adding
+      posixArgvParser has a number of built-in validators, and an API for adding
       custom validators.
     </p>
     <h2 id="built-in-validators">Built-in validators</h2>
@@ -243,9 +243,9 @@ args.handle(process.argv.slice(2), function (errors) {
       for each validator.
     </p>
     <pre><code>// Uses built-in error message
-buster.args.validators.required();
+posixArgvParser.validators.required();
 // Specify your own error message
-buster.args.validators.required("${1} has to be set");</code></pre>
+posixArgvParser.validators.required("${1} has to be set");</code></pre>
     <h3 id="validator-require"><code>validators.required("err")</code></h3>
     <p>Fails if the option is not set.</p>
     <h4>Custom error message</h4>
@@ -381,11 +381,11 @@ rootDir.signature; // undefined, operands has no default signature
 rootDir.signature = "Root directory";</code></pre>
   <h2>Providing <kbd>--help</kbd></h2>
   <p>
-    It's not in the nature of buster.args to automatically
+    It's not in the nature of posixArgvParser to automatically
     handle <kbd>--help</kbd> for you. It is however very easy to add such an
     option to your program.
   </p>
-  <pre><code>var args = Object.create(buster.args);
+  <pre><code>var args = Object.create(posixArgvParser);
 var options = [];
 
 var port = args.createOption("--port");
@@ -417,7 +417,7 @@ args.handle(process.argv.slice(2), function (errors) {
 });
 </code></pre>
   <p>
-    Note that the <code>helpText</code> property is not built-in buster.args
+    Note that the <code>helpText</code> property is not built-in posixArgvParser
     functionality. It's just an arbitrary property on the option object that you
     can use for the purpose of associating a help text with an option.
   </p>

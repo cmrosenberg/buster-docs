@@ -41,7 +41,7 @@
   <li><a href="#bayeux-emitter">buster-bayeux-emitter</a></li>
   <li><a href="#configuration">buster-configuration</a></li>
   <li><a href="#client">buster-client</a></li>
-  <li><a href="#args">buster-args</a></li>
+  <li><a href="#args">posix-argv-parser</a></li>
   <li><a href="#stdio-logger">buster-stdio-logger</a></li>
   <li><a href="#cli">buster-cli</a></li>
   <li><a href="#test-cli">buster-test-cli</a></li>
@@ -278,7 +278,7 @@
   <li>Status: Unstable, about to be merged into buster-capture-server</li>
   <li><a href="http://github.com/busterjs/buster-client">Source code</a></li>
 </ul>
-<h2 id="args">buster-args</h2>
+<h2 id="args">posix-argv-parser</h2>
 <p>
   General-purpose command line argument parser. Only parses command line
   options, no printing to the console, no --help generation, no flow control.
@@ -287,7 +287,7 @@
 </p>
 <ul>
   <li>Status: Stable, has a few known (API design) issues waiting to be fixed</li>
-  <li><a href="http://github.com/busterjs/buster-args">Source code</a></li>
+  <li><a href="http://github.com/busterjs/posix-argv-parser">Source code</a></li>
 </ul>
 <h2 id="stdio-logger">buster-stdio-logger</h2>
 <p>
@@ -475,7 +475,7 @@
   The <code>buster-test</code> "binary" simply delegates to
   <a href="https://github.com/busterjs/buster-test-cli/blob/master/lib/buster-test-cli/cli/test.js">buster-test-cli/lib/buster-test-cli/cli/test.js</a>,
   which defines the CLI interface for running tests. Command line options are
-  handled by <code>buster-args</code>, and to some
+  handled by <code>posix-argv-parser</code>, and to some
   extend, <code>buster-cli</code>.
 </p>
 <p>
@@ -486,9 +486,9 @@
   loading it with running.
 </p>
 <p>
-  The <code>--browser</code> option is a buster-args shorthand that expands
-  to <code>--environment browser</code>, which is the long form for specifying
-  environment.
+  The <code>--browser</code> option is a posix-argv-parser shorthand that
+  expands to <code>--environment browser</code>, which is the long form for
+  specifying environment.
 </p>
 <h3>Loading configuration</h3>
 <p>

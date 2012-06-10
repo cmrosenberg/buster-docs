@@ -1,23 +1,23 @@
 <div id="doc-nav"></div>
 <div id="doc-content">
-  <h1><code>buster.eventedLogger</code></h1>
+  <h1><code>eventedLogger</code></h1>
   <dl>
     <dt>Version</dt>
     <dd>0.2.0 <span class="date">(2011-03-14)</span>
     </dd>
     <dt>Module</dt>
-    <dd><code>require("buster-evented-logger");</code></dd>
+    <dd><code>require("evented-logger");</code></dd>
     <dt>In browsers</dt>
-    <dd><code>buster.eventedLogger;</code></dd>
+    <dd><code>eventedLogger;</code> / <code>buster.eventedLogger;</code></dd>
   </dl>
   <p>
     A simple evented console logger. In contrast to typical
-    loggers, <strong>buster-evented-logger</strong> does not print directly to
+    loggers, <strong>evented-logger</strong> does not print directly to
     an output stream. Instead, log messages are emitted as events, decoupling
     the visualization/persistence of log messages.
   </p>
   <p>
-    <strong>buster-evented-logger</strong> supports setting a log level to filter
+    <strong>evented-logger</strong> supports setting a log level to filter
     messages, logging arbitrary many arguments with one call, customizable
     formatting of objects and even custom log level hierarchies.
   </p>
@@ -53,7 +53,7 @@
       the logger should have, default logging level and formatting method.
     </p>
     <h4>Typical usage</h4>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 
 logger.on("log", function (msg) {
     console.log("[" + msg.level.toUpperCase() + "] " + msg.message);
@@ -66,7 +66,7 @@ logger.log([], 42, {});
 // [WARN] Watch it!
 // [LOG] [] 42 {}</code></pre>
     <h4>Setting the default level</h4>
-    <pre><code>var logger = buster.eventedLogger.create({ level: "warn" });
+    <pre><code>var logger = eventedLogger.create({ level: "warn" });
 
 logger.on("log", function (msg) {
     console.log("[" + msg.level.toUpperCase() + "] " + msg.message);
@@ -88,7 +88,7 @@ logger.log([], 42, {});
       When you create a logger with customized levels, the default log level will
       be set to the most permissive one, i.e. the last level in the array.
     </p>
-    <pre><code>var logger = buster.eventedLogger.create({
+    <pre><code>var logger = eventedLogger.create({
     levels: ["nuclear", "eerie", "info", "debug"]
 });
 
@@ -100,7 +100,7 @@ logger.nuclear("This is NOT good");</code></pre>
       If you want the logger to have some other default log level than the most
       permissive one, include <a href="#options"><code>level</code></a>:
     </p>
-    <pre><code>var logger = buster.eventedLogger.create({
+    <pre><code>var logger = eventedLogger.create({
     levels: ["nuclear", "eerie", "info", "debug"],
     level: "eerie"
 });
@@ -123,13 +123,13 @@ logger.info("This is NOT good"); // Won't be emitted</code></pre>
       module. There is basically three ways to achieve this:
     </p>
     <h4>Override the original method</h4>
-    <pre><code>buster.eventedLogger.format = buster.format.ascii;</code></pre>
+    <pre><code>eventedLogger.format = buster.format.ascii;</code></pre>
     <h4>Override the method on an instance</h4>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 logger.format = buster.format.ascii;</code></pre>
     <h4>Pass the formatter to <a href="#create"><code>create</code></a>
     </h4>
-    <pre><code>var logger = buster.eventedLogger.create({
+    <pre><code>var logger = eventedLogger.create({
     logger: buster.format.ascii
 });</code></pre>
     <h3 id="error"><code>error(message1[, message2, ...])</code></h3>
@@ -138,7 +138,7 @@ logger.format = buster.format.ascii;</code></pre>
       emitted from the logger unless the log level has been set to a non-existent
       level.
     </p>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 // ...
 
 logger.error("Something went wrong", myObjToDebug);</code></pre>
@@ -153,7 +153,7 @@ logger.error("Something went wrong", myObjToDebug);</code></pre>
       emitted from the logger unless its level is set to <code>"error"</code> or a
       non-existent level.
     </p>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 // ...
 
 logger.warn("Something fishy?", myObjToDebug);</code></pre>
@@ -168,7 +168,7 @@ logger.warn("Something fishy?", myObjToDebug);</code></pre>
       emitted from the logger if its level is set to <code>"log"</code>
       or <code>"debug"</code> (default).
     </p>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 // ...
 
 logger.log("Here's an object", myObjToDebug);</code></pre>
@@ -182,7 +182,7 @@ logger.log("Here's an object", myObjToDebug);</code></pre>
       emitted from the logger if its level is set to <code>"debug"</code>
       (default).
     </p>
-    <pre><code>var logger = buster.eventedLogger.create();
+    <pre><code>var logger = eventedLogger.create();
 // ...
 
 logger.debug("What's going on??", myObjToDebug);</code></pre>
