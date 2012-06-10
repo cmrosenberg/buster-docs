@@ -50,6 +50,7 @@ function renderTemplate(pathname, content) {
         {href: "/", text: "Home"},
         {href: "/docs/", text: "Documentation", matcher: /^\/docs/},
         {href: "/download/", text: "Download", matcher: /^\/download/},
+        {href: "https://github.com/busterjs/buster/issues", text: "Issue tracker"},
         {href: "/community/", text: "Community"}
     ];
 
