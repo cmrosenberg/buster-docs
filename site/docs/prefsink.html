@@ -1,24 +1,24 @@
 <div id="doc-nav"></div>
 <div id="doc-content">
-  <h1><code>preferences</code></h1>
+  <h1><code>prefsink</code></h1>
   <dl>
     <dt>Version</dt>
     <dd>0.2.0 <span class="date">(2012-05-07)</span></dd>
     <dt>Module</dt>
-    <dd><code>require("preferences");</code></dd>
+    <dd><code>require("prefsink");</code></dd>
   </dl>
   <p>
     Manage user-provided preferences for your Node programs through a file in
     the user's home directory, environment variables and default values.
   </p>
-  <pre><code>var preferences = require("preferences");
+  <pre><code>var prefsink = require("prefsink");
 
 // Assume ~/.buster contains
 // module.exports = {
 //     reporter: "specification"
 // };
 
-preferences.load("buster", function (err, prefs) {
+prefsink.load("buster", function (err, prefs) {
     if (err) { throw err; }
 
     prefs.get("reporter", "dots"); //=> "specification"
@@ -27,11 +27,11 @@ preferences.load("buster", function (err, prefs) {
     prefs.get("logLevel", "warn"); //=> "info"
 });</code></pre>
   <h2>Preference modules</h2>
-  <pre><code>preferences.load("myproject", function (err, prefs) {
+  <pre><code>prefsink.load("myproject", function (err, prefs) {
     /* ... */
 });</code></pre>
   <p>
-    Preferences will use the first available of the following files
+    Prefsink will use the first available of the following files
     (<code>~/<code> denotes 'home directory', which on Windows means
         the directory specified by <code>USERPROFILE</code>):
   </p>
@@ -47,19 +47,19 @@ preferences.load("buster", function (err, prefs) {
     <li><code>~/.myproject</code> (iconic Unix style preference file)</li>
   </ol>
   <p>
-    Preferences expects the settings file to be a node module that can be
+    Prefsink expects the settings file to be a node module that can be
     <code>require</code>'d.
   </p>
   <p>
-    If you want Preferences to look for other files, or with a different
-    ordering, just set <code>preferences.locations</code> to an array of desired
+    If you want Prefsink to look for other files, or with a different
+    ordering, just set <code>prefsink.locations</code> to an array of desired
     paths. The array should contain full paths, optionally with
     <code>"{namespace}"</code> which will be replaced with the namespace.
   </p>
   <h2>Preference property lookup</h2>
   <pre><code>prefs.get("id", 42);</code></pre>
   <p>
-    Given one of those modules, Preferences uses the following property lookup:
+    Given one of those modules, Prefsink uses the following property lookup:
   </p>
   <ol>
     <li>Does the preference module export <code>id</code>? Use that</li>
@@ -70,12 +70,12 @@ preferences.load("buster", function (err, prefs) {
     <h2 id="properties">Properties</h2>
     <h3 id="home" data-title="+home+"><code>home</code></h3>
     <p>
-      String, contains the path to where Preferences thinks the user's home
+      String, contains the path to where Prefsink thinks the user's home
       directory is.
     </p>
     <h3 id="locations" data-title="+locations+"><code>locations</code></h3>
     <p>
-      Array of strings. The locations Preferences will attempt to load, in
+      Array of strings. The locations Prefsink will attempt to load, in
       preferred order. Default value is
     </p>
     <pre><code>exports.locations = [
