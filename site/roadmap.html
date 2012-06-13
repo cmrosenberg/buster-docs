@@ -61,16 +61,26 @@
 </ul>
 <h2>Buster.JS 0.7 (AKA Beta 5/RC 1)</h2>
 <p>
-  The final two "big" changes will land. Bug fixes. New documentation site.
+  The final "big" changes will land. Bug fixes. New documentation site.
 </p>
 <h3>Highlights</h3>
 <ul>
   <li>
-    <strong>buster-resources API change</strong>. The proposed change gives
-    resources the ability to have multiple representations, based on the desired
-    content type. This will significantly up the game for extensions that make
-    big changes to resources, such as compile-to languages and other
-    pre-processors.
+    Naming changes. See <a href="http://groups.google.com/group/busterjs-dev/browse_thread/thread/454146b98e69eef9">this thread</a>, and
+    <a href="http://groups.google.com/group/busterjs-dev/browse_thread/thread/8d1a1c15b9c559f4">this
+    thread</a>. Most importantly, some generally useful modules gain fully
+    stand-alone names (i.e. they'll drop the buster- prefix and/or change names
+    altogether).
+  </li>
+  <li>
+    Internal browser modules will use AMD to avoid leaking globals.
+  </li>
+  <li>
+    <strong><del>buster-resources</del> <ins>ramp-resources</ins> API
+    change</strong>. The proposed change gives resources the ability to have
+    multiple representations, based on the desired content type. This will
+    significantly up the game for extensions that make big changes to resources,
+    such as compile-to languages and other pre-processors.
   </li>
   <li>
     <strong><code>buster-test</code> changes</strong>. Currently, every
@@ -90,10 +100,10 @@
     The site is proposed to launch with Buster 0.7.
   </li>
   <li>
-    <strong>buster-assertions 1.0</strong>. There's currently a pending change
-    for <code>assert.exception</code>. Additionally, buster-assertions' equals
-    and match algorithms will be extracted into a separate module (that among
-    others Sinon.JS will use).
+    <strong><del>buster-assertions</del> <ins>tush</ins> 1.0</strong>. There's
+    currently a pending change for <code>assert.exception</code>. Additionally,
+    tush's equals and match algorithms will be extracted into a separate module
+    (that among others Sinon.JS will use).
   </li>
   <li>
     <strong>buster-node</strong>. A package that provides the full Buster.JS
