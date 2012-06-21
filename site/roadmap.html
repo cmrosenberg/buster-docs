@@ -22,43 +22,10 @@
   haven't planned it in more detail than that. If you use Windows and want to
   help, refer to <a href="/docs/windows/">Windows support status</a>.
 </p>
-<h2>Buster.JS 0.6 (AKA Beta 4)</h2>
+<h2><del>Buster.JS 0.6 (AKA Beta 4)</del></h2>
 <p>
-  Beta 4 is expected in early June 2012. It features several rewritten/reworked
-  modules, deprecates some old ones, and should generally vastly improve the
-  stability of browser tests. It will also improve browser support for older
-  browsers.
+  Released June 20th, see <a href="/changelog/0.6.0/">the changelog</a>.
 </p>
-<h3>Highlights</h3>
-<ul>
-  <li>
-    <strong>New <a href="/docs/capture-server/">capture-server</a>.</strong>
-    A more stable implementation, better handling of connection edge-cases,
-    better suited for older browsers.
-  </li>
-  <li>
-    <strong>Revamped <code>buster-server</code> CLI</strong>.
-    Mostly interesting for people looking to reuse Buster.JS' server components
-    for other testing frameworks. The new implementation allows skinning and
-    customization, and separates it from the implementation of other CLIs.
-  </li>
-  <li>
-    <strong>Revamped <code>buster-test</code> CLI</strong>.
-    Huge changes in APIs, focusing on reusability. The CLI is now completely
-    generic, and does not come with any pre-existing knowledge about the
-    Buster.JS testing framework. The specifics are injected at runtime, which
-    means the <code>buster-test</code> "binary"/script. Some minor tweaks in
-    user-facing behavior.
-  </li>
-  <li>
-    Any module that does not have pending changes will be tagged as 1.0.
-  </li>
-</ul>
-<h3>Status</h3>
-<ul>
-  <li>The browser-runner in the <code>buster-test</code> CLI is close to complete</li>
-  <li>Some pending API additions in the capture server's client</li>
-</ul>
 <h2>Buster.JS 0.7 (AKA Beta 5/RC 1)</h2>
 <p>
   The final "big" changes will land. Bug fixes. New documentation site.

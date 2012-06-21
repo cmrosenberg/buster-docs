@@ -1,0 +1,294 @@
+<h1>Buster.JS 0.6 - Beta 4</h1>
+
+<p>
+  Beta 4 packs a lot of changes, increased stability and new features. Tests
+  written for older versions do not need any syntactical updates, while
+  extensions and other "general API consumers" <em>may</em>.
+</p>
+
+<p>
+  Documentation is currently lacking. There will be a documentation sprint prior
+  to 1.0, but probably not before the next beta. For planned progress, refer to
+  <a href="/roadmap.html">the roadmap</a>.
+</p>
+
+<h2>Breaking changes</h2>
+
+<p>
+  This is a list of breaking changes in this release. Since we haven't reached
+  1.0 stable yet, we're taking the freedom to change APIs without making them
+  backwards compatible in the hope of making them better. There are a few more
+  breaking changes planned for the next (last) beta, see
+  <a href="/roadmap/">the roadmap</a>.
+</p>
+
+<h3>Naming changes</h3>
+
+<p>
+  In an effort to improve navigation in the many Buster.JS modules, we have
+  started renaming some of them, as discussed <a href="http://groups.google.com/group/busterjs-dev/browse_thread/thread/454146b98e69eef9">on the mailing list</a>.
+  These naming changes will only affect you if you are depending on either of
+  these modules in your own projects.
+</p>
+
+<ul>
+  <li>buster-resources is now <a href="https://github.com/busterjs/ramp-resources">ramp-resources</a> (the capture server will eventually become "ramp")</li>
+  <li>buster-args is now <a href="https://github.com/busterjs/posix-argv-parser">posix-argv-parser</a></li>
+  <li>buster-stdio-logger is now <a href="https://github.com/busterjs/stream-logger">stream-logger</a></li>
+  <li>sinon-buster is now <a href="https://github.com/busterjs/buster-sinon">buster-sinon</a></li>
+</ul>
+
+<h3>Command line interface <kbd>buster-test</kbd></h3>
+
+<ul>
+  <li>
+    <kbd>--log-all</kbd> is gone. In Beta 3, Buster.JS would silence log
+    messages for passing tests and this option would show all messages. In Beta
+    4, Buster.JS shows all messages by default, and silences those from passing
+    tests with <kbd>--quiet-log</kbd>.
+  </li>
+
+</ul>
+
+<h3>Deprecated modules</h3>
+
+<p>
+  Some modules are no longer needed and will not receive further upgrades.
+</p>
+
+<ul>
+  <li>buster-client</li>
+  <li>buster-bayeux-emitter</li>
+</ul>
+
+<h3>Extension hooks</h3>
+
+<p>
+  Hooks fire in a given order. The <code>beforeRun</code> no longer comes with
+  any arguments. To get a hold of the <code>analyzer</code>
+  and <code>configuration</code> objects that used to be passed to it, implement
+  <code>analyze(analyzer)</code> and <code>configure(configuration)</code>
+  (called in that order) in addition.
+</p>
+
+<h2>New features</h2>
+
+<p>
+  The main theme of this release is a rewritten and vastly more stable capture
+  server. Significant work has also been put into making it easy to use the
+  server and the related command-line interfaces with any test framework (e.g.
+  it should now be possible to use these tools to create a <kbd>qunit-test</kbd>
+  binary that runs QUnit tests over the server).
+</p>
+
+<h3>Command-line interface <kbd>buster-test</kbd></h3>
+
+<ul>
+  <li>
+    <kbd>--full-stacks</kbd> disables the stack filter that's used to hide
+    Buster.JS internals from stack traces.
+  </li>
+  <li>
+    Implementation and API-wise, the <code>buster-test-cli</code> module is now
+    completely test framework-agnostic. The framework sources are injected as
+    an extension in the "binary" script that uses. In other words, the Buster.JS
+    test framework is now just a regular extension to the Buster.JS CLI tools.
+    For an example, see <a href="https://github.com/busterjs/buster/blob/v0.6.0/bin/buster-test">buster-test</a>.
+  </li>
+</ul>
+
+<h3>Command-line interface <kbd>buster-server</kbd></h3>
+
+<p>
+  <a href="https://github.com/busterjs/buster/blob/v0.6.0/bin/buster-server">This CLI</a>
+  is now backed by <a href="https://github.com/busterjs/buster-server-cli">a dedicated module</a>
+  that supports skinning and customization.
+</p>
+
+<ul>
+  <li>
+    <kbd>--full-stacks</kbd> disables the stack filter that's used to hide
+    Buster.JS internals from stack traces.
+  </li>
+  <li>
+    Implementation and API-wise, the <code>buster-test-cli</code> module is now
+    completely test framework-agnostic. The framework sources are injected as
+    an extension in the "binary" script that uses. In other words, the Buster.JS
+    test framework is now just a regular extension to the Buster.JS CLI tools.
+    For an example, see <a href="https://github.com/busterjs/buster/blob/v0.6.0/bin/buster-test">buster-test</a>.
+  </li>
+</ul>
+
+<h3>NPM test</h3>
+
+<p>
+  All modules now have a working <kbd>npm test</kbd>. All modules are also
+  configured with continuous integration on Travis CI, but will need further
+  love to make the setups work nicely on Travis (basically we have some ugly
+  circular dependencies that needs to be done away with).
+</p>
+
+<h3>Analyzer improvements</h3>
+
+<p>
+  The analyzer is the object that is used for quality assurance metrics, such as
+  the lint extension.
+</p>
+
+<ul>
+  <li>
+    Errors can be objects with either a <code>content</code> or a
+    <code>message</code> property for the error message. Support for
+    <code>message</code> is new.
+  </li>
+  <li>
+    In addition to "OK" and "failed", the analyzer can now have an "unclean"
+    state, which means it's passing, but did receive non-fatal warnings or
+    errors.
+  </li>
+</ul>
+
+<h3>Autotest improvements</h3>
+
+<p>
+  The autotest module has seen significant improvements through Magnar Sveen's
+  work on <a href="http://github.com/busterjs/fs-watch-tree">fs-watch-tree</a>.
+  The autotest command-line interface itself also received some usability
+  upgrades. Autotest should now work flawlessly on Linux and OSX (Windows
+  unconfirmed at this point).
+</p>
+
+<ul>
+  <li>
+    Re-run all tests by tapping Ctrl-C. Hit Ctrl-C twice to stop. Currently only
+    works for <code>buster-autotest</code>, not <code>buster autotest</code>.
+  </li>
+  <li>
+    Screen is cleared between each run.
+  </li>
+</ul>
+
+<h3>Ramp resources improvements</h3>
+
+<ul>
+  <li>Don't put duplicate objects in the cache</li>
+  <li>
+    Individual resources have cacheable: true|false. This means extensions can
+    control cacheability (i.e. repeatability for warnings etc) on a very
+    fine-grained level.
+  </li>
+  <li>
+    Resource Etag changes when adding processors. Avoids caching issues: If an
+    extension is added in a configuration file, the cache manifest would not
+    update. With this change, any extension that adds processors will cause
+    the cache manifest for affected resources to update, avoiding any stale
+    cache lookups.
+  </li>
+  <li>Propagate resource content processor exceptions.</li>
+  <li>
+    Root resources can specify where to insert scripts by adding {{scripts}} to
+    the template contents.
+  </li>
+  <li>Improve error message for missing paths.</li>
+  <li>Path normalization now accounts for Windows paths.</li>
+  <li>Only globbing once for appendLoad and prependLoad.</li>
+</ul>
+
+<h3>buster-test improvements (focus rocket!)</h3>
+
+<ul>
+  <li>
+    Focus rocket: Sort of the opposite of a deferred test. Prepend any test name
+    with the focus rocket "=>" and only tests with the rocket will run. See
+    <a href="http://ascii.io/a/548">this short screencast on it</a>.
+  </li>
+  <li>The dots reporter tracks elapsed time.</li>
+  <li>
+    <code>buster.testContext</code> is now an event emitter, and
+    <code>buster.testContext.on("create", function () {});</code> takes over
+    for <code>buster.testCase.onCreate(function () {});</code> and
+    <code>buster.spec.onCreate(function () {});</code>.
+  </li>
+</ul>
+
+<h3><kbd>~/.buster.js</kbd></h3>
+
+<p>
+  The buster.js configuration file you put in your projects has a strict focus
+  on project-related settings. This means that it intentionally does not support
+  personal preferences like <code>--color dim</code>. This is
+  where <code>~/.buster.js</code> (or <code>~/.buster.d/index.js</code> if you
+  prefer) enters. Currently the following settings can be provided:
+</p>
+
+<ul>
+  <li>
+    <code>test.releaseConsole</code>. If <code>true</code>, never capture the
+    console.
+  </li>
+  <li>
+    <code>test.quietLog</code>. If <code>true</code>, never print log messages
+    for passing tests.
+  </li>
+  <li>
+    <code>test.color</code>. One of "dim", "bright" (default) or "none".
+  </li>
+</ul>
+
+<p>
+  To specify preferences, <kbd>~/.buster.js</kbd> (or
+  (<kbd>~/.buster.d/index.js</kbd>) should look like this:
+</p>
+
+<pre><code>module.exports = {
+    "test.color": "dim"
+
+    // More settings as needed
+};</code></pre>
+
+<h3>Partial Windows support</h3>
+
+<p>
+  <a href="/docs/windows/">Windows support</a> work is ongoing. In this version,
+  Node tests with the <code>buster-test</code> command-line interface is
+  working, while the server and browser automation part is still not quite
+  there. If you need Windows support, please consider chipping in.
+</p>
+
+<h3>Argv parsing</h3>
+
+<p>
+  buster-args is now posix-argv-parser and has an overhauled API. Highlights:
+</p>
+<ul>
+  <li>Support for transforms</li>
+  <li>Support for types</li>
+  <li>New, close-to-stateless API</li>
+</ul>
+
+<h3>Various additions</h3>
+
+<ul>
+  <li>
+    <strong>buster-core</strong> Event emitter: it is now safe to remove a
+    listener inside a listener.
+  </li>
+  <li>
+    <strong>buster-core</strong> Event emitter: It is now possible to subscribe
+    to all events with one call, <code>obj.on(function (event, data) {});</code>
+  </li>
+  <li>
+    <strong>buster-core</strong> Extracted tmpFile method from
+    buster-configuration.
+  </li>
+  <li>
+    <strong>buster-format</strong> Bug fix: hasOwnProperty issue on IE9.
+  </li>
+  <li>
+    <strong>buster-lint</strong> Prevent caching of files containing lint.
+  </li>
+  <li>
+    <strong>buster-sinon</strong> callOrder accepts array of spies.
+  </li>
+
+</ul>
