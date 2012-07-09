@@ -1,0 +1,36 @@
+<h1>Buster.JS 0.6.1</h1>
+
+<p>
+  Buster.JS 0.6.1 is a fairly small maintenance release, mostly correcting a
+  bunch of bugs of minor/medium significance.
+</p>
+
+<h2>Breaking changes</h2>
+
+<p>No breaking changes in this release.</p>
+
+<h2>Additions</h2>
+
+<p>
+  Buster.JS 0.6.1 ships with Sinon.JS 1.4.0, a significant update with lots of
+  interesting new features, see
+  <a href="http://sinonjs.org/Changelog.txt">Sinon.JS changelog</a>.
+</p>
+
+<h2>Bug fixes</h2>
+
+<ul>
+  <li>Cyclic objects in buster-format (<a href="https://github.com/busterjs/buster/issues/215">#215</a>)</li>
+  <li>Exit code 1 for wrong arguments (<a href="https://github.com/busterjs/buster/issues/210">#210</a>)</li>
+  <li><code>assert.equals</code> and Prototype.js arrays (<a href="https://github.com/busterjs/buster/issues/206">#206</a>)</li>
+  <li>Focus rocket on test case name (<a href="https://github.com/busterjs/buster/issues/200">#200</a>)</li>
+  <li>Configure <code>this.timeout</code> in <code>setUp</code> and <code>prepare</code> (<a href="https://github.com/busterjs/buster/issues/199">#199</a>)</li>
+  <li>Red status line when there are timeouts (<a href="https://github.com/busterjs/buster/issues/196">#196</a>)</li>
+  <li>Exit code 1 when no tests are run (<a href="https://github.com/busterjs/buster/issues/195">#195</a>)</li>
+  <li><code>assert.match</code> with empty strings now passes (<a href="https://github.com/busterjs/buster/issues/178">#178</a>)</li>
+  <li>Autotest and symlinks (<a href="https://github.com/busterjs/buster/issues/168">#168</a>)</li>
+  <li>"Too much recursion" when combining stubs and cyclical data structures (<a href="https://github.com/busterjs/buster/issues/124">#124</a> and <a href="https://github.com/busterjs/buster/issues/201">#201</a>)</li>
+  <li>Clean up dangling proxy requests when test run completes (<a href="https://github.com/busterjs/buster/issues/117">#117</a>)</li>
+  <li>Acknowledge Sinon mock expectations as assertions (<a href="https://github.com/busterjs/buster/issues/62">#62</a>)</li>
+  <li>Posix argv parser: Unknown short options "with extras" (i.e. <kbd>-node</kdb>) fails with a humanized error message.</li>
+</ul>
