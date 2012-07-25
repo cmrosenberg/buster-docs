@@ -262,6 +262,31 @@ var spec = describe("Bowling kata", function () {
         buster.assert(jQuery.ajax.calledOnce);
     });
 });</code></pre>
+    <h3 id="beforeAll-and-afterAll">Using beforeAll() and afterAll()</h3>
+    <p>Buster.js supports beforeAll() and afterAll() functions much like the ones in  Rspec. For example,
+    if you want to run a setup function once and then make the specs evaluate the result, you can do as follows:</p>
+    <pre><code>
+    function magicDoubler(number){
+    return number*2;
+    }
+
+    var spec = describe("The magic doubler", function (){
+
+      beforeAll(function() {
+        //magicDoubler is called only once.
+        this.result; = magicDoubler(7);
+      });
+
+      it("should yield a defined result", function () {
+         expect(this.result).toBeDefined(); 
+      });
+
+      it("should yield a number divisible by 2", function () {
+         expect(this.result % 2 === 0).toBeTrue(); 
+      });
+    }); </code></pre>
+    <p>Similarly, you can use afterAll() to call a single teardown function that runs after all specs have been executed.  This is useful for cleaning up after a test that alters a model.</p>
+    
     <h3 id="nested-before-after">Nested before and after</h3>
     <p>
       When nesting describes, you can add before and after callbacks to some or
